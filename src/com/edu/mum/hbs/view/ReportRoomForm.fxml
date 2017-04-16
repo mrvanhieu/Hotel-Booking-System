@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="477.0" prefWidth="709.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.edu.mum.hbs.view.ReportRoomFormController">
+	<children>
+		<Label layoutX="26.0" layoutY="20.0" text="Room Statuses Information">
+			<font>
+				<Font name="System Bold" size="18.0" />
+			</font>
+		</Label>
+		<HBox layoutX="16.0" layoutY="50.0" prefHeight="411.0" prefWidth="690.0">
+			<children>
+				<VBox prefHeight="411.0" prefWidth="261.0">
+					<children>
+						<Label fx:id="lblAvailableRooms" text="Available Rooms">
+							<font>
+								<Font name="System Bold" size="12.0" />
+							</font>
+							<padding>
+								<Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+							</padding>
+						</Label>
+
+						<ScrollPane prefHeight="383.0" prefWidth="206.0">
+							<content>
+								<TableView fx:id="availableTable" prefHeight="377.0" prefWidth="251.0">
+									<columns>
+										<TableColumn fx:id="aRoomNoColumn" minWidth="0.0" prefWidth="65.0" text="Room No." />
+                              <TableColumn fx:id="aTypeColumn" minWidth="0.0" prefWidth="65.0" style="-fx-alignment: CENTER;" text="Type" />
+                              <TableColumn fx:id="aClassColumn" minWidth="0.0" prefWidth="60.0" style="-fx-alignment: CENTER;" text="Class" />
+                              <TableColumn fx:id="aPriceColumn" minWidth="0.0" prefWidth="59.0" style="-fx-alignment: CENTER_RIGHT;" text="Price" />
+									</columns>
+								</TableView>
+							</content>
+						</ScrollPane>
+					</children>
+					<padding>
+						<Insets right="8.0" />
+					</padding>
+				</VBox>
+				<VBox layoutX="10.0" layoutY="10.0" prefWidth="213.0">
+					<children>
+						<Label fx:id="lblBookingRooms" text="Booking Rooms">
+							<font>
+								<Font name="System Bold" size="12.0" />
+							</font>
+							<padding>
+								<Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+							</padding>
+						</Label>
+						<ScrollPane prefHeight="377.0" prefWidth="210.0">
+							<content>
+								<TableView fx:id="bookingTable" prefHeight="375.0" prefWidth="203.0">
+									<columns>
+										<TableColumn fx:id="bRoomNoColumn" minWidth="0.0" prefWidth="65.0" text="Room No." />
+										<TableColumn fx:id="bCheckInColumn" prefWidth="68.0" style="-fx-alignment: CENTER;" text="Checkin" />
+                              <TableColumn fx:id="bCheckOutColumn" prefWidth="69.0" style="-fx-alignment: CENTER;" text="Checkout" />
+									</columns>
+								</TableView>
+							</content>
+						</ScrollPane>
+					</children>
+					<padding>
+						<Insets right="8.0" />
+					</padding>
+				</VBox>
+				<VBox layoutX="232.0" layoutY="10.0" prefHeight="411.0" prefWidth="213.0">
+					<children>
+						<Label fx:id="lblCheckedInRooms" text="Checked-in Rooms">
+							<font>
+								<Font name="System Bold" size="12.0" />
+							</font>
+							<padding>
+								<Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+							</padding>
+						</Label>
+						<ScrollPane prefHeight="378.0" prefWidth="220.0">
+							<content>
+								<TableView fx:id="checkedInTable" prefHeight="376.0" prefWidth="203.0">
+									<columns>
+										<TableColumn fx:id="cRoomNoColumn" minWidth="0.0" prefWidth="65.0" text="Room No." />
+										<TableColumn fx:id="cCheckInColumn" prefWidth="68.0" style="-fx-alignment: CENTER;" text="Checkin" />
+                              <TableColumn fx:id="cCheckOutColumn" prefWidth="69.0" style="-fx-alignment: CENTER;" text="Checkout" />
+									</columns>
+								</TableView>
+							</content>
+						</ScrollPane>
+					</children>
+					<padding>
+						<Insets right="8.0" />
+					</padding>
+				</VBox>
+			</children>
+		</HBox>
+	</children>
+</AnchorPane>

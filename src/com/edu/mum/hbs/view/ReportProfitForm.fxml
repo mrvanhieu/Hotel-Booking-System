@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="477.0" prefWidth="709.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.edu.mum.hbs.view.ReportProfitFormController">
+	<children>
+		<Label layoutX="18.0" layoutY="14.0" text="Total Profit Information">
+			<font>
+				<Font name="System Bold" size="18.0" />
+			</font>
+		</Label>
+		<HBox alignment="CENTER_LEFT" layoutX="17.0" layoutY="48.0" prefHeight="38.0" prefWidth="676.0">
+			<children>
+				<Label text="From Date:">
+					<HBox.margin>
+						<Insets left="10.0" />
+					</HBox.margin>
+				</Label>
+				<DatePicker fx:id="fromDate" prefHeight="25.0" prefWidth="110.0">
+					<HBox.margin>
+						<Insets left="10.0" />
+					</HBox.margin>
+				</DatePicker>
+				<Label text="To Date:">
+					<HBox.margin>
+						<Insets left="10.0" />
+					</HBox.margin>
+				</Label>
+				<DatePicker fx:id="toDate" prefWidth="110.0">
+					<HBox.margin>
+						<Insets left="10.0" />
+					</HBox.margin>
+				</DatePicker>
+
+				<Button mnemonicParsing="false" onAction="#lookupInfo" prefWidth="130.0" text="Lookup Information">
+					<HBox.margin>
+						<Insets left="20.0" />
+					</HBox.margin>
+				</Button>
+			</children>
+		</HBox>
+
+		<ScrollPane layoutX="17.0" layoutY="104.0" prefHeight="295.0" prefWidth="665.0">
+			<content>
+				<TableView fx:id="profitTable" prefHeight="293.0" prefWidth="662.0">
+					<columns>
+						<TableColumn fx:id="customerNameColumn" minWidth="0.0" prefWidth="112.0" text="Customer Name" />
+						<TableColumn fx:id="customerPhoneColumn" prefWidth="71.0" style="-fx-alignment: CENTER;" text="Phone" />
+						<TableColumn fx:id="roomNumberColumn" prefWidth="70.0" style="-fx-alignment: CENTER;" text="Room No." />
+						<TableColumn fx:id="checkInDateColumn" prefWidth="72.0" style="-fx-alignment: CENTER;" text="Checkin" />
+						<TableColumn fx:id="checkOutDateColumn" prefWidth="71.0" style="-fx-alignment: CENTER;" text="Checkout" />
+						<TableColumn fx:id="roomAmountColumn" prefWidth="88.0" style="-fx-alignment: CENTER-RIGHT;" text="Room Amount" />
+						<TableColumn fx:id="usedServicesColumn" prefWidth="81.0" style="-fx-alignment: CENTER-RIGHT;" text="Used Services" />
+						<TableColumn fx:id="totalAmountColumn" prefWidth="95.0" style="-fx-alignment: CENTER-RIGHT;" text="Total Amounts" />
+					</columns>
+				</TableView>
+			</content>
+		</ScrollPane>
+		<HBox alignment="CENTER_LEFT" layoutX="18.0" layoutY="404.0" prefHeight="27.0" prefWidth="683.0">
+			<children>
+				<Label fx:id="lblSumInfo" text="From xxx to yyy, the total profit is:">
+					<font>
+						<Font name="System Bold Italic" size="13.0" />
+					</font>
+				</Label>
+				<Label fx:id="lblSum" text="\$...">
+					<font>
+						<Font name="System Bold Italic" size="13.0" />
+					</font>
+					<HBox.margin>
+						<Insets left="5.0" />
+					</HBox.margin>
+				</Label>
+			</children>
+		</HBox>
+
+		<Button alignment="CENTER" defaultButton="true" layoutX="20.0" layoutY="439.0" mnemonicParsing="false" onAction="#resetSearch" prefHeight="26.0" prefWidth="130.0" text="Reset Search" />
+	</children>
+</AnchorPane>

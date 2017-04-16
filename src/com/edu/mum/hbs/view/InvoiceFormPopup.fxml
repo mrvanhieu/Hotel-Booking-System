@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="709.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.edu.mum.hbs.view.InvoiceFormPopupController">
+	<children>
+				<VBox layoutX="21.0" layoutY="14.0" prefHeight="77.0" prefWidth="676.0" spacing="10.0">
+					<children>
+						<Label text="Customer Invoice">
+							<font>
+								<Font name="System Bold" size="18.0" />
+							</font>
+						</Label>
+						<GridPane prefHeight="37.0" prefWidth="676.0">
+							<columnConstraints>
+								<ColumnConstraints hgrow="SOMETIMES" maxWidth="343.0" minWidth="10.0" prefWidth="195.0" />
+								<ColumnConstraints hgrow="SOMETIMES" maxWidth="335.0" minWidth="10.0" prefWidth="304.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="335.0" minWidth="10.0" prefWidth="196.0" />
+							</columnConstraints>
+							<rowConstraints>
+								<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+							</rowConstraints>
+               <children>
+                  <Label text="Customer Information">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+						</GridPane>
+					</children>
+				</VBox>
+      <VBox layoutX="21.0" layoutY="94.0" prefHeight="54.0" prefWidth="676.0">
+         <children>
+            <GridPane prefHeight="25.0" prefWidth="676.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="219.0" minWidth="10.0" prefWidth="103.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="420.0" minWidth="10.0" prefWidth="162.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.0" minWidth="10.0" prefWidth="76.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.0" minWidth="10.0" prefWidth="138.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.0" minWidth="10.0" prefWidth="52.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.0" minWidth="10.0" prefWidth="148.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Customer Name">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TextField fx:id="fullName" disable="true" focusTraversable="false" promptText="..." GridPane.columnIndex="1" />
+                  <TextField fx:id="passport" disable="true" focusTraversable="false" layoutX="103.0" layoutY="11.0" promptText="..." GridPane.columnIndex="3" />
+                  <TextField fx:id="phoneNo" disable="true" focusTraversable="false" layoutX="364.0" layoutY="11.0" promptText="..." GridPane.columnIndex="5" />
+                  <Label text="Passport/ID" GridPane.columnIndex="2">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Phone" GridPane.columnIndex="4">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </Label>
+               </children>
+            </GridPane>
+         </children>
+      </VBox>
+      <VBox layoutX="20.0" layoutY="140.0" prefHeight="125.0" prefWidth="678.0">
+         <children>
+            <Label text="Room">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+            <GridPane alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="654.0" vgap="10.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="219.0" minWidth="10.0" prefWidth="110.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="420.0" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.0" minWidth="10.0" prefWidth="110.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.0" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.0" minWidth="10.0" prefWidth="110.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.0" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Number" GridPane.halignment="RIGHT">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TextField fx:id="roomNumber" disable="true" focusTraversable="false" promptText="..." GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <Label text="Type" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TextField fx:id="roomType" disable="true" focusTraversable="false" layoutX="103.0" layoutY="11.0" promptText="..." GridPane.columnIndex="3">
+                     <GridPane.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <Label text="Class" GridPane.columnIndex="4" GridPane.halignment="RIGHT">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TextField fx:id="roomClass" disable="true" focusTraversable="false" layoutX="364.0" layoutY="11.0" promptText="..." GridPane.columnIndex="5">
+                     <GridPane.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <Label layoutX="20.0" layoutY="8.0" text="Price" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TextField fx:id="roomPrice" disable="true" focusTraversable="false" layoutX="91.0" layoutY="10.0" promptText="..." GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <Label layoutX="248.0" layoutY="8.0" text="Checkin Date" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TextField fx:id="checkInDate" disable="true" focusTraversable="false" layoutX="91.0" layoutY="35.0" promptText="..." GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <Label layoutX="468.0" layoutY="8.0" text="Checkout Date" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TextField fx:id="checkOutDate" disable="true" focusTraversable="false" layoutX="317.0" layoutY="35.0" promptText="..." GridPane.columnIndex="5" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </GridPane.margin>
+                  </TextField>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </GridPane>
+            <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="678.0">
+               <children>
+                  <Label text="Amount:" textFill="#3604ff" underline="true">
+                     <padding>
+                        <Insets left="36.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblRoomAmount" layoutX="10.0" layoutY="19.0" text="\$...">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="7.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="16.0" layoutY="281.0" prefHeight="231.0" prefWidth="678.0">
+         <children>
+      		<Label text="Using Services">
+      			<font>
+      				<Font name="System Bold" size="14.0" />
+      			</font>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets left="3.0" />
+               </VBox.margin>
+      		</Label>
+      
+      		<ScrollPane prefHeight="159.0" prefWidth="678.0">
+      			<content>
+      				<TableView fx:id="roomServiceTable" prefHeight="157.0" prefWidth="676.0">
+      					<columns>
+      						<TableColumn fx:id="roomNumberColumn" prefWidth="100.0" text="Room No." />
+      						<TableColumn fx:id="serviceDescColumn" prefWidth="210.0" text="Service" />
+      						<TableColumn fx:id="serviceDateColumn" prefWidth="108.0" text="Date" />
+      						<TableColumn fx:id="servicePriceColumn" prefWidth="79.0" text="Price" />
+                        <TableColumn fx:id="quantityColumn" prefWidth="54.0" text="Quantity" />
+                        <TableColumn fx:id="serviceAmountColumn" prefWidth="124.0" text="Amount" />
+      					</columns>
+      				</TableView>
+      			</content>
+      		</ScrollPane>
+            <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="678.0">
+               <children>
+                  <Label text="Amount:" textFill="#3604ff" underline="true">
+                     <padding>
+                        <Insets left="36.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblServiceAmount" layoutX="10.0" layoutY="19.0" text="\$...">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER_LEFT" layoutY="499.0" prefHeight="34.0" prefWidth="678.0">
+         <children>
+            <Label text="Total Amount:" textFill="#3604ff" underline="true">
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblTotalAmount" layoutX="10.0" layoutY="19.0" text="\$...">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </HBox>
+
+		<Button alignment="CENTER" defaultButton="true" layoutX="17.0" layoutY="542.0" mnemonicParsing="false" onAction="#printInvoice" prefHeight="26.0" prefWidth="110.0" text="Print" />
+	</children>
+</AnchorPane>

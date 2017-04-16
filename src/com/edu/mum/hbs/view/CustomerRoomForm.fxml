@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="477.0" prefWidth="709.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.edu.mum.hbs.view.CustomerRoomFormController">
+	<children>
+		<StackPane layoutX="10.0" layoutY="7.0" prefHeight="147.0" prefWidth="696.0">
+			<children>
+				<VBox prefHeight="109.0" prefWidth="676.0" spacing="10.0">
+					<children>
+						<Label text="Customer Information">
+							<font>
+								<Font name="System Bold" size="18.0" />
+							</font>
+						</Label>
+						<GridPane prefHeight="86.0" prefWidth="676.0">
+							<columnConstraints>
+								<ColumnConstraints hgrow="SOMETIMES" maxWidth="343.0" minWidth="10.0" prefWidth="343.0" />
+								<ColumnConstraints hgrow="SOMETIMES" maxWidth="335.0" minWidth="10.0" prefWidth="196.0" />
+							</columnConstraints>
+							<rowConstraints>
+								<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+								<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+								<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+							</rowConstraints>
+							<children>
+								<TextField fx:id="fullName" focusTraversable="false" promptText="Full Name">
+									<GridPane.margin>
+										<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+									</GridPane.margin>
+								</TextField>
+								<TextField fx:id="passport" promptText="ID/Passport" GridPane.rowIndex="1">
+									<GridPane.margin>
+										<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+									</GridPane.margin>
+								</TextField>
+								<TextField fx:id="address" promptText="Address" GridPane.columnIndex="1" GridPane.rowIndex="1">
+									<GridPane.margin>
+										<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+									</GridPane.margin>
+								</TextField>
+								<TextField fx:id="phoneNo" layoutX="92.0" layoutY="104.0" promptText="Phone Number" GridPane.rowIndex="2">
+									<GridPane.margin>
+										<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+									</GridPane.margin>
+								</TextField>
+								<DatePicker fx:id="dob" prefHeight="25.0" prefWidth="322.0" promptText="Day of birth" GridPane.columnIndex="1">
+									<GridPane.margin>
+										<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+									</GridPane.margin>
+								</DatePicker>
+							</children>
+						</GridPane>
+					</children>
+					<StackPane.margin>
+						<Insets />
+					</StackPane.margin>
+				</VBox>
+			</children>
+			<padding>
+				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+			</padding>
+		</StackPane>
+		<Label layoutX="17.0" layoutY="151.0" text="Select room">
+			<font>
+				<Font name="System Bold" size="18.0" />
+			</font>
+		</Label>
+		<HBox alignment="CENTER_LEFT" layoutX="26.0" layoutY="178.0" prefHeight="34.0" prefWidth="665.0">
+			<children>
+				<Label text="Room Type:" />
+				<ChoiceBox fx:id="roomType" prefHeight="25.0" prefWidth="100.0">
+					<HBox.margin>
+						<Insets left="22.0" />
+					</HBox.margin>
+				</ChoiceBox>
+				<Label text="Room Class:">
+					<HBox.margin>
+						<Insets left="20.0" />
+					</HBox.margin>
+				</Label>
+				<ChoiceBox fx:id="roomClass" prefWidth="100.0">
+					<HBox.margin>
+						<Insets left="9.0" />
+					</HBox.margin>
+				</ChoiceBox>
+				<Label text="Room No.:">
+					<HBox.margin>
+						<Insets left="10.0" />
+					</HBox.margin>
+				</Label>
+				<ChoiceBox fx:id="roomNumber" prefWidth="100.0">
+					<HBox.margin>
+						<Insets left="5.0" />
+					</HBox.margin>
+				</ChoiceBox>
+				<Label fx:id="lblRoomInfo" prefHeight="17.0" prefWidth="103.0" text="Room price...">
+					<HBox.margin>
+						<Insets left="10.0" />
+					</HBox.margin>
+				</Label>
+			</children>
+		</HBox>
+
+		<Button layoutX="26.0" layoutY="258.0" mnemonicParsing="false" onAction="#addRoom" prefWidth="130.0" text="Add Room" />
+      <HBox alignment="CENTER_LEFT" layoutX="18.0" layoutY="217.0" prefHeight="27.0" prefWidth="676.0">
+         <children>
+            <Label text="Checkin Date:">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <DatePicker fx:id="checkInDate" prefHeight="25.0" prefWidth="100.0">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </DatePicker>
+            <Label text="Checkout Date:">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <DatePicker fx:id="checkOutDate" prefWidth="100.0">
+               <HBox.margin>
+                  <Insets left="3.0" />
+               </HBox.margin>
+            </DatePicker>
+         </children>
+      </HBox>
+
+		<ScrollPane layoutX="26.0" layoutY="289.0" prefHeight="147.0" prefWidth="665.0">
+			<content>
+				<TableView fx:id="roomTable" prefHeight="145.0" prefWidth="662.0">
+					<columns>
+						<TableColumn fx:id="roomNumberColumn" prefWidth="100.0" text="Room No." />
+						<TableColumn fx:id="roomTypeColumn" minWidth="0.0" prefWidth="151.0" text="Room Type" />
+						<TableColumn fx:id="roomClassColumn" prefWidth="110.0" text="Room Class" />
+						<TableColumn fx:id="priceColumn" prefWidth="100.0" text="Price" />
+                  <TableColumn fx:id="checkInDateColumn" prefWidth="100.0" text="Checkin" />
+                  <TableColumn fx:id="checkOutDateColumn" prefWidth="100.0" text="Checkout" />
+					</columns>
+				</TableView>
+			</content>
+		</ScrollPane>
+
+		<Button alignment="CENTER" defaultButton="true" layoutX="28.0" layoutY="443.0" mnemonicParsing="false" onAction="#addCustomerRoom" prefHeight="26.0" prefWidth="130.0" text="Booking Room" />
+      <Button layoutX="178.0" layoutY="443.0" mnemonicParsing="false" onAction="#addCustomerAndChecking" prefHeight="25.0" prefWidth="130.0" text="Booking &amp; Checking" />
+	</children>
+</AnchorPane>
