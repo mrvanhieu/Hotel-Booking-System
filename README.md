@@ -1,2 +1,2 @@
-# Hotel-Booking-System Project Information
+# Hotel-Booking-System
 
