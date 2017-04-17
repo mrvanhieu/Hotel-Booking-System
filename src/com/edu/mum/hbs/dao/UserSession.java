@@ -2,6 +2,8 @@ package com.edu.mum.hbs.dao;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+@XmlRootElement
 public class UserSession {
 
     private int memberId;

@@ -2,6 +2,8 @@ package com.edu.mum.hbs.view;
 
 import com.edu.mum.hbs.dao.LoginDao;
 import com.edu.mum.hbs.dao.UserSession;
+import com.edu.mum.hbs.restapi.RestAdapter;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -30,8 +32,8 @@ public class Login extends ControllerBase {
         if (uname.isEmpty() && pass.isEmpty()) {
             showMessage("Username and password both required", alertMessage);
         } else {
-            LoginDao loginDao = new LoginDao();
-            UserSession session = loginDao.validateLogin(uname, pass);
+        	RestAdapter adapter = new RestAdapter();
+            UserSession session = adapter.authenticate(uname, pass);
             if (session == null) {
                 showMessage("Invalid Username/Password", alertMessage);
             } else {

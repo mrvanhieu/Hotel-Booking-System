@@ -5,6 +5,14 @@ import java.math.RoundingMode;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+
+import org.apache.http.client.config.RequestConfig;
+import org.glassfish.jersey.apache.connector.ApacheClientProperties;
+import org.glassfish.jersey.apache.connector.ApacheConnectorProvider;
+import org.glassfish.jersey.client.ClientConfig;
+
 public class GeneralUtil {
 
     private static final double NA = -999.99;
@@ -49,6 +57,22 @@ public class GeneralUtil {
         bigDecimal = bigDecimal.setScale(decimalPoint, RoundingMode.HALF_EVEN);
         return bigDecimal.doubleValue();
     }
+    
+    /**
+	 * Gets the configured client for Rest API
+	 *
+	 * @return the configured client
+	 */
+	public static Client getConfiguredClient() {
+		ClientConfig clientConfig = new ClientConfig(); // jersey specific
+		clientConfig.connectorProvider(new ApacheConnectorProvider()); // jersey specific
+		RequestConfig reqConfig = RequestConfig.custom() // apache HttpClient
+															// specific
+				.setConnectTimeout(7000).setSocketTimeout(7000).setConnectionRequestTimeout(7000).build();
+		clientConfig.property(ApacheClientProperties.REQUEST_CONFIG, reqConfig); // jersey
+																					// specific
+		return ClientBuilder.newClient(clientConfig);
+	}
 
 }
 

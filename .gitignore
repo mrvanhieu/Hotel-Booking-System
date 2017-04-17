@@ -23,3 +23,4 @@ HotelBookingSystem.iml
 
 # Temporary ignore #
 src/resource
+/target/
