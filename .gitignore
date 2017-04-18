@@ -19,7 +19,7 @@ hs_err_pid*
 bin/
 Hotel.sqlite-journal
 HotelBookingSystem.iml
-
+Hotel.sqlite
 
 # Temporary ignore #
 Hotel.sqlite
