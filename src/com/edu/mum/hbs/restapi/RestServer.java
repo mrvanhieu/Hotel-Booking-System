@@ -29,6 +29,7 @@ public class RestServer {
 
 			final ResourceConfig resourceConfig = new ResourceConfig();
 			resourceConfig.register(RestQueryImpl.class);
+			resourceConfig.register(RestUpdateImpl.class);
 
 			HttpServer server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URL), resourceConfig, false);
 			Runtime.getRuntime().addShutdownHook(new Thread(() -> {
