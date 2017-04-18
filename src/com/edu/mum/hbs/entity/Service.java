@@ -16,7 +16,7 @@ public class Service {
 	public double getServicePrice() {
 		return servicePrice;
 	}
-	public void setServicePrice(String servicePrice) {
+	public void setServicePriceByString(String servicePrice) {
 		this.servicePrice = Double.parseDouble(servicePrice);
 	}
 	public void setServicePrice(double servicePrice) {

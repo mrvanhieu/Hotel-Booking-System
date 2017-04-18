@@ -1,29 +1,42 @@
 package com.edu.mum.hbs.restapi;
 
+import java.util.List;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
 import com.edu.mum.hbs.dao.UserSession;
+import com.edu.mum.hbs.entity.Service;
 import com.edu.mum.hbs.restapi.bean.LoginBean;
 import com.edu.mum.hbs.util.Constants;
 import com.edu.mum.hbs.util.GeneralUtil;
+import com.google.gson.Gson;
 
 public class RestAdapter {
 
 	/**  end point for read queries. */
 	private WebTarget query;
+	public final static Gson gson = new Gson();
+	private static RestAdapter adapter = new RestAdapter();
 
 	/**  end point to supply updates. */
-	private WebTarget collect;
+	private WebTarget update;
 
 	public RestAdapter() {
 		Client client = GeneralUtil.getConfiguredClient();
 		query = client.target(Constants.BASE_URL + "/query");
-		collect = client.target(Constants.BASE_URL + "/collect");
+		update = client.target(Constants.BASE_URL + "/update");
 	}
 
+	public static RestAdapter getInstance() {
+		if (adapter == null) {
+			adapter = new RestAdapter();
+		}
+		return adapter;
+	}
 	/**
 	 * Ping collect.
 	 */
@@ -38,6 +51,23 @@ public class RestAdapter {
 
 	}
 
+	public List<Service> loadServices(){
+		WebTarget path = query.path("/loadServices");
+		List<Service> services = path.request().get().readEntity(new GenericType<List<Service>>(){});
+		return services;
+	}
+	
+	public List<String> loadServicesDesc(){
+		WebTarget path = query.path("/loadServicesDesc");
+		List<String> servicesDesc = path.request().get().readEntity(new GenericType<List<String>>(){});
+		return servicesDesc;
+	}
+	
+	public void updateService (Service service){
+		WebTarget path = update.path("/updateService");
+		Response response = path.request().post(Entity.json(service));
+	}
+	
 	/**
 	 * The main method.
 	 *

@@ -8,6 +8,9 @@ import java.util.ResourceBundle;
 import com.edu.mum.hbs.dao.DaoFactory;
 import com.edu.mum.hbs.dao.ServiceDao;
 import com.edu.mum.hbs.entity.Service;
+import com.edu.mum.hbs.restapi.RestAdapter;
+import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.Adapter;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -25,14 +28,15 @@ public class ServiceFormController extends ControllerBase {
 	@FXML	private TableColumn<Service, String> serviceDescColumn;
 	@FXML	private TableColumn<Service, String> servicePriceColumn;
 	
+	RestAdapter adapter = new RestAdapter();
 	private ServiceDao sdao = (ServiceDao) DaoFactory.getDaoFactory(Service.TABLE_NAME);
 
 	private List<Service> services = new ArrayList<Service>();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
-		List<Service> listServices = sdao.loadServices();
+		RestAdapter adapter = new RestAdapter();
+		List<Service> listServices = adapter.loadServices();
 		if (listServices != null){
 	
 			serviceDescColumn.setCellValueFactory(new PropertyValueFactory<Service, String>("serviceDesc"));
@@ -61,7 +65,7 @@ public class ServiceFormController extends ControllerBase {
 		Service service = new Service();
 		
 		service.setServiceDesc(serviceDesc.getText());
-		service.setServicePrice(servicePrice.getText());
+		service.setServicePriceByString(servicePrice.getText());
 		sdao.addService(service);
 
 		//Add newest added service to the list
@@ -85,7 +89,7 @@ public class ServiceFormController extends ControllerBase {
 		Service service = new Service();
 		
 		service.setServiceDesc(serviceDesc.getText());
-		service.setServicePrice(servicePrice.getText());
+		service.setServicePriceByString(servicePrice.getText());
 		
 		Service serviceExistence = sdao.getService(service.getServiceDesc());
 		if (serviceExistence == null){
@@ -93,7 +97,7 @@ public class ServiceFormController extends ControllerBase {
 			services.add(service);
 		}
 		else {
-			sdao.update(service);
+			adapter.updateService(service);
 			int serviceSelectedInList = serviceTable.getSelectionModel().getSelectedIndex();
 			//Replace the newest room info to the list
 			services.set(serviceSelectedInList, service);
