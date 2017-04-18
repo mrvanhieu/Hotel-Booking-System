@@ -24,7 +24,8 @@ public class Login extends ControllerBase {
 
     @FXML
     private Text alertMessage;
-
+    RestAdapter adapter = RestAdapter.getInstance();
+    
     @FXML
     public void doLogin() throws Exception {
         String uname = username.getText();
@@ -32,7 +33,6 @@ public class Login extends ControllerBase {
         if (uname.isEmpty() && pass.isEmpty()) {
             showMessage("Username and password both required", alertMessage);
         } else {
-        	RestAdapter adapter = new RestAdapter();
             UserSession session = adapter.authenticate(uname, pass);
             if (session == null) {
                 showMessage("Invalid Username/Password", alertMessage);
