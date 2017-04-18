@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Map;
 
 public class SqliteUtil {
+	// singleton instance
+	private static final SqliteUtil instance = new SqliteUtil();
 	private Connection conn;
 	public static final int EQUALS = 0;
 	public static final int LESS = 1;
@@ -29,8 +31,12 @@ public class SqliteUtil {
 	public static final int GREATER_EQUALS = 7;
 	public static final int LESS_EQUALS = 8;
 
-	public SqliteUtil() {
+	private SqliteUtil() {
 		this.conn = this.connector();
+	}
+
+	public static SqliteUtil getInstance(){
+		return instance;
 	}
 
 	public Connection connector() {

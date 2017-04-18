@@ -22,5 +22,6 @@ HotelBookingSystem.iml
 Hotel.sqlite
 
 # Temporary ignore #
+Hotel.sqlite
 src/resource
 /target/
