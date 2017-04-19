@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.edu.mum.hbs.dao.DaoFactory;
+import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.InvoiceRecordDao;
 import com.edu.mum.hbs.entity.InvoiceRecord;
 import com.edu.mum.hbs.entity.Profit;
@@ -61,7 +61,7 @@ public class ReportProfitFormController extends ControllerBase{
 		
 		String szFromDate = fromDate.getValue().toString();
 		String szToDate = toDate.getValue().toString();
-		InvoiceRecordDao irDao = (InvoiceRecordDao) DaoFactory.getDaoFactory(InvoiceRecord.TABLE_NAME);
+		InvoiceRecordDao irDao = (InvoiceRecordDao) DaoFactoryImpl.getFactory().createDao(InvoiceRecord.TABLE_NAME);
 		profits = irDao.getAllProfitRecordsFromToDate(szFromDate, szToDate);
 
         reloadTableView(profitTable, profits);

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.edu.mum.hbs.dao.DaoFactory;
+import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.RoomDao;
 import com.edu.mum.hbs.dao.RoomServiceDao;
 import com.edu.mum.hbs.dao.ServiceDao;
@@ -38,12 +38,12 @@ public class RoomServiceFormController extends ControllerBase {
 	@FXML	private TableColumn<RoomService, String> serviceDateColumn;
 	
 	//For populate information into 02 ChoiceBox
-	private ServiceDao sdao = (ServiceDao) DaoFactory.getDaoFactory(Service.TABLE_NAME);
+	private ServiceDao sdao = (ServiceDao) DaoFactoryImpl.getFactory().createDao(Service.TABLE_NAME);
 	private RestAdapter adapter = new RestAdapter();
-	private RoomDao rdao = (RoomDao) DaoFactory.getDaoFactory(Room.TABLE_NAME);
+	private RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
 
 	//For adding/updating and removing data in DB
-	RoomServiceDao rsdao = (RoomServiceDao) DaoFactory.getDaoFactory(RoomService.TABLE_NAME);
+	RoomServiceDao rsdao = (RoomServiceDao) DaoFactoryImpl.getFactory().createDao(RoomService.TABLE_NAME);
 	private List<RoomService> roomServices = new ArrayList<RoomService>();
 
 	@Override

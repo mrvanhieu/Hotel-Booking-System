@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.edu.mum.hbs.dao.CustomerAndRoomDao;
-import com.edu.mum.hbs.dao.DaoFactory;
+import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.RoomDao;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
 import com.edu.mum.hbs.entity.Room;
@@ -39,7 +39,7 @@ public class ReportRoomFormController extends ControllerBase {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		RoomDao rDao = (RoomDao) DaoFactory.getDaoFactory(Room.TABLE_NAME);
+		RoomDao rDao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
 		List<Room> availableRooms = rDao.getAvailableRooms();
 		
 		if (availableRooms != null){
@@ -52,7 +52,7 @@ public class ReportRoomFormController extends ControllerBase {
 			lblAvailableRooms.setText("Available Rooms (" + availableRooms.size() + ")");
 		}
 
-		CustomerAndRoomDao crDao = (CustomerAndRoomDao) DaoFactory.getDaoFactory(CustomerAndRoom.TABLE_NAME);
+		CustomerAndRoomDao crDao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
 
 		List<CustomerAndRoom> customerRoomBooking = crDao.getAllCustomerRoom(CustomerAndRoom.BOOKING_STATUS);
 		if (customerRoomBooking != null){

@@ -2,7 +2,7 @@ package com.edu.mum.hbs.entity;
 
 import java.time.LocalDate;
 
-import com.edu.mum.hbs.dao.DaoFactory;
+import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.ServiceDao;
 
 public class RoomService {
@@ -52,7 +52,7 @@ public class RoomService {
 	}
 
 	public double getServicePrice(){
-		ServiceDao serviceDao = (ServiceDao) DaoFactory.getDaoFactory(Service.TABLE_NAME);
+		ServiceDao serviceDao = (ServiceDao) DaoFactoryImpl.getFactory().createDao(Service.TABLE_NAME);
 		Service service = serviceDao.getService(this.serviceDesc);
 		return service.getServicePrice();
 	}

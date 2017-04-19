@@ -2,7 +2,7 @@ package com.edu.mum.hbs.entity;
 
 import java.time.LocalDate;
 
-import com.edu.mum.hbs.dao.DaoFactory;
+import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.CustomerDao;
 
 public class Profit {
@@ -13,7 +13,7 @@ public class Profit {
 	public Profit(InvoiceRecord invoice) {
 		this.invoice = invoice;
 
-		CustomerDao cDao = (CustomerDao) DaoFactory.getDaoFactory(Customer.TABLE_NAME);
+		CustomerDao cDao = (CustomerDao) DaoFactoryImpl.getFactory().createDao(Customer.TABLE_NAME);
 		
 		Customer customer = cDao.getCustomer(invoice.getPassportOrId());
 		

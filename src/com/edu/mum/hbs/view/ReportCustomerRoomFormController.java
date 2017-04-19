@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.edu.mum.hbs.dao.DaoFactory;
+import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.CustomerAndRoomDao;
 import com.edu.mum.hbs.entity.CustRoomDetails;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
@@ -44,7 +44,7 @@ public class ReportCustomerRoomFormController extends ControllerBase{
 			showAlert(AlertType.INFORMATION, "Enter Dates", null, "You have to fill From Date and To Date to continue.");
 			return;
 		}
-		CustomerAndRoomDao crDao = (CustomerAndRoomDao) DaoFactory.getDaoFactory(CustomerAndRoom.TABLE_NAME);
+		CustomerAndRoomDao crDao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
 		
 		String szFromDate = fromDate.getValue().toString();
 		String szToDate = toDate.getValue().toString();

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.edu.mum.hbs.dao.DaoFactory;
+import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.dao.RoomDao;
 import javafx.beans.value.ChangeListener;
@@ -29,7 +29,7 @@ public class RoomFormController extends ControllerBase {
 	@FXML	private TableColumn<Room, String> roomTypeColumn;
 	@FXML	private TableColumn<Room, String> roomClassColumn;
 	
-	private RoomDao rdao = (RoomDao) DaoFactory.getDaoFactory(Room.TABLE_NAME);
+	private RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
 
 	private List<Room> rooms = new ArrayList<Room>();
 	
