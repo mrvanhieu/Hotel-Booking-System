@@ -66,7 +66,7 @@ public class ServiceFormController extends ControllerBase {
 		
 		service.setServiceDesc(serviceDesc.getText());
 		service.setServicePriceByString(servicePrice.getText());
-		sdao.addService(service);
+		adapter.addService(service);
 
 		//Add newest added service to the list
 		services.add(service);
@@ -91,9 +91,9 @@ public class ServiceFormController extends ControllerBase {
 		service.setServiceDesc(serviceDesc.getText());
 		service.setServicePriceByString(servicePrice.getText());
 		
-		Service serviceExistence = sdao.getService(service.getServiceDesc());
+		Service serviceExistence = adapter.getService(service.getServiceDesc());
 		if (serviceExistence == null){
-			sdao.addService(service);
+			adapter.addService(service);
 			services.add(service);
 		}
 		else {
@@ -120,7 +120,7 @@ public class ServiceFormController extends ControllerBase {
 			return;
 		}
 
-		sdao.delete(service);
+		adapter.deleteService(service);
 		services.remove(service);
 		//Clear form for entering new service
 		TextField[] serviceFields = new TextField[] { serviceDesc, servicePrice };

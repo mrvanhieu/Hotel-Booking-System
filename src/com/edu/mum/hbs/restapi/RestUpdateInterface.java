@@ -8,4 +8,12 @@ public interface RestUpdateInterface {
 	@POST
 	@Path("/updateService")
 	Response updateService(String datapointJson);
+	
+	@POST
+	@Path("/addService")
+	Response addService(String datapointJson);
+	
+	@POST
+	@Path("/deleteService")
+	Response deleteService(String datapointJson);
 }

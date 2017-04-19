@@ -37,6 +37,7 @@ public class RestAdapter {
 		}
 		return adapter;
 	}
+	
 	/**
 	 * Ping collect.
 	 */
@@ -57,6 +58,12 @@ public class RestAdapter {
 		return services;
 	}
 	
+	public Service getService(String serviceId){
+		WebTarget path = query.path("/getService/" + serviceId);
+		Service service = path.request().get().readEntity(new GenericType<Service>(){});
+		return service;
+	}
+	
 	public List<String> loadServicesDesc(){
 		WebTarget path = query.path("/loadServicesDesc");
 		List<String> servicesDesc = path.request().get().readEntity(new GenericType<List<String>>(){});
@@ -66,6 +73,18 @@ public class RestAdapter {
 	public void updateService (Service service){
 		WebTarget path = update.path("/updateService");
 		Response response = path.request().post(Entity.json(service));
+	}
+	
+	public void addService (Service service){
+		WebTarget path = update.path("/addService");
+		Response response = path.request().post(Entity.json(service));
+	}
+	
+	public boolean deleteService (Service service){
+		WebTarget path = update.path("/deleteService");
+		Response response = path.request().post(Entity.json(service));
+		if (response.getStatus() == Response.Status.OK.getStatusCode()) return true;
+		return false; 
 	}
 	
 	/**
