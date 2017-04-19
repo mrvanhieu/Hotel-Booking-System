@@ -7,3 +7,4 @@ public abstract class DaoAbstract {
 	//protected SqliteUtil db = new SqliteUtil();
 	protected SqliteUtil db = SqliteUtil.getInstance();
 }
+

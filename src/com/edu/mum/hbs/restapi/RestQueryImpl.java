@@ -3,7 +3,7 @@ package com.edu.mum.hbs.restapi;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-import com.edu.mum.hbs.dao.DaoFactory;
+import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.LoginDao;
 import com.edu.mum.hbs.dao.ServiceDao;
 import com.edu.mum.hbs.dao.UserSession;
@@ -16,7 +16,7 @@ public class RestQueryImpl implements RestQueryInterface {
 	/** shared gson json to object factory */
 	public final static Gson gson = new Gson();
 	LoginDao loginDao = new LoginDao();
-	ServiceDao serviceDao = (ServiceDao) DaoFactory.getDaoFactory(Service.TABLE_NAME);
+	ServiceDao serviceDao = (ServiceDao) DaoFactoryImpl.getFactory().createDao(Service.TABLE_NAME);
 
 	@Override
 	public UserSession validateLogin(String input) {
