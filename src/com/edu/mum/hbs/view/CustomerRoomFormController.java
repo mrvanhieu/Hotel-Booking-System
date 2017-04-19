@@ -14,6 +14,11 @@ import com.edu.mum.hbs.dao.CustomerDao;
 import com.edu.mum.hbs.dao.RoomDao;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
 import com.edu.mum.hbs.entity.RoomDate;
+import com.edu.mum.hbs.notification.EmailNotificationObserver;
+import com.edu.mum.hbs.notification.LoggingNotificationObserver;
+import com.edu.mum.hbs.notification.NotificationObserver;
+import com.edu.mum.hbs.notification.NotificationSubject;
+import com.edu.mum.hbs.util.Constants;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -28,7 +33,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CustomerRoomFormController extends ControllerBase{
+public class CustomerRoomFormController extends ControllerBase implements NotificationSubject{
 	@FXML	private TextField fullName;
 	@FXML	private DatePicker dob;
 	@FXML	private TextField passport;
@@ -49,7 +54,7 @@ public class CustomerRoomFormController extends ControllerBase{
 	@FXML	private TableColumn<RoomDate, String> checkInDateColumn;
 	@FXML	private TableColumn<RoomDate, String> checkOutDateColumn;
 
-
+	private List<NotificationObserver> observers = new ArrayList<>();
 	private static String STATUS = "Booking";
 	private CustomerDao cdao = (CustomerDao) DaoFactory.getDaoFactory(Customer.TABLE_NAME);
 	private RoomDao rdao = (RoomDao) DaoFactory.getDaoFactory(Room.TABLE_NAME);
@@ -61,7 +66,7 @@ public class CustomerRoomFormController extends ControllerBase{
 	private HashSet<String> stringRoomClass = new HashSet<>();
 	// for clearing form field
 	@SuppressWarnings("unchecked")
-	
+
 //http://www.java2s.com/Tutorials/Java/JavaFX/0450__JavaFX_ChoiceBox.htm
 //Example JavaFX ChoiceBox control backed by Database IDs
 //  https://gist.github.com/jewelsea/1422104	
@@ -170,19 +175,23 @@ public class CustomerRoomFormController extends ControllerBase{
 				if ((int)newValue <0) { 
 					return;
 				}
-				for (Room room : availableRooms){
-					if (room.getRoomClass().equals(roomClass.getItems().get((int) newValue))){
-						//stringRoomClass.add(room.getRoomClass());
-						stringRoomNumbers.add(room.getRoomNumber());
-					}
-				}
-				populateData2ChoiceBox(roomNumber, stringRoomNumbers);
+		for (Room room : availableRooms){
+			if (room.getRoomClass().equals(roomClass.getItems().get((int) newValue))){
+				//stringRoomClass.add(room.getRoomClass());
+				stringRoomNumbers.add(room.getRoomNumber());
 			}
-			
-		});
+		}
+		populateData2ChoiceBox(roomNumber, stringRoomNumbers);
 	}
 
-	private boolean checkNonEmptyCustomer(){
+});
+
+		//Register the Observers
+		register(new EmailNotificationObserver());
+		register(new LoggingNotificationObserver());
+		}
+
+private boolean checkNonEmptyCustomer(){
 		if (fullName.getText().isEmpty() || passport.getText().isEmpty()){
 			return false;
 		}
@@ -207,6 +216,11 @@ public class CustomerRoomFormController extends ControllerBase{
 		//Clear form for entering new Customer & Rooms
 		Object[] customerFields = new Object[] { fullName, passport, address, phoneNo, roomTable, dob, checkInDate, checkOutDate };
 		clearFormFields(customerFields);
+
+		// Notify Observers
+		if(getTotalPrice() >= Constants.MAX_ROOM_PRICE) {
+			notifyObservers(customer, rooms);
+		}
 	}
 
 	public void addCustomerAndChecking(){
@@ -215,4 +229,32 @@ public class CustomerRoomFormController extends ControllerBase{
 		STATUS = "Booking";
 	}
 
+	private double getTotalPrice(){
+		double total =0;
+		for(RoomDate room : rooms){
+			total += room.getRoomPrice();
+		}
+
+		return total;
+	}
+	@Override
+	public void register(NotificationObserver observer) {
+		if(observer != null && !observers.contains(observer)){
+			observers.add(observer);
+		}
+	}
+
+	@Override
+	public void unregister(NotificationObserver observer) {
+		if(observer != null && observers.contains(observer)){
+			observers.remove(observer);
+		}
+	}
+
+	@Override
+	public void notifyObservers(Customer customer, List<RoomDate> rooms) {
+		for(NotificationObserver observer : observers){
+			observer.update(customer, rooms);
+		}
+	}
 }
