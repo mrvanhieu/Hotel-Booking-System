@@ -35,10 +35,16 @@ public class RestQueryImpl implements RestQueryInterface {
 	public Response loadServices() {
 		return Response.status(Response.Status.OK).entity(serviceDao.loadServices()).build();
 	}
+	
 
 	@Override
 	public Response loadServicesDesc() {
 		return Response.status(Response.Status.OK).entity(serviceDao.loadServicesDesc()).build();
+	}
+
+	@Override
+	public Response getService(String serviceId) {
+		return Response.status(Response.Status.OK).entity(serviceDao.getService(serviceId)).build();
 	}
 
 }
