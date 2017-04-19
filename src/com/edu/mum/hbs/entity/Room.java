@@ -1,6 +1,6 @@
 package com.edu.mum.hbs.entity;
 
-public class Room {
+public class Room implements Prototype{
 	public static final String TABLE_NAME = "Room";
 	protected String roomNumber;
 	protected String roomType;
@@ -37,5 +37,15 @@ public class Room {
 	public void setRoomClass(String roomClass) {
 		this.roomClass = roomClass;
 	}
-	
+
+	@Override
+	public Prototype doClone() {
+		Room room = new Room();
+		room.setRoomClass(roomClass);
+		room.setRoomNumber(roomNumber);
+		room.setRoomPrice(roomPrice);
+		room.setRoomType(roomType);
+
+		return room;
+	}
 }
