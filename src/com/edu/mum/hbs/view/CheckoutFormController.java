@@ -1,6 +1,7 @@
 package com.edu.mum.hbs.view;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import com.edu.mum.hbs.dao.CustomerDao;
 import com.edu.mum.hbs.dao.RoomServiceDao;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
 import com.edu.mum.hbs.entity.InvoiceRecord;
+import com.edu.mum.hbs.entity.InvoiceRecordBuilder;
 import com.edu.mum.hbs.entity.RoomDate;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -121,15 +123,23 @@ public class CheckoutFormController extends ControllerBase{
 			RoomDate clonedRoomDate = (RoomDate)roomDate.doClone();
 			RoomServiceDao rsDao = (RoomServiceDao) DaoFactoryImpl.getFactory().createDao(RoomService.TABLE_NAME);
 			
-			InvoiceRecord invoiceRecord = new InvoiceRecord();
-			invoiceRecord.setPassportOrId(passport.getText());
-			invoiceRecord.setRoomNumber(clonedRoomDate.getRoomNumber());
-			invoiceRecord.setCheckInDate(clonedRoomDate.getCheckInDate());
-			invoiceRecord.setCheckOutDate(clonedRoomDate.getCheckOutDate());
-			int days = Period.between(invoiceRecord.getCheckInDate(),invoiceRecord.getCheckOutDate()).getDays();
-			invoiceRecord.setRoomAmount(clonedRoomDate.getRoomPrice()*days);
-			invoiceRecord.setServiceAmount(rsDao.getTotalUsingService(clonedRoomDate.getRoomNumber()));
-			invoiceRecord.setTotalAmount(invoiceRecord.getRoomAmount() + invoiceRecord.getServiceAmount());
+			InvoiceRecordBuilder invoiceRecordBuilder = new InvoiceRecordBuilder();
+			invoiceRecordBuilder.buildPassportOrId(passport.getText());
+			invoiceRecordBuilder.buildRoomNumber(clonedRoomDate.getRoomNumber());
+			LocalDate checkInDate = clonedRoomDate.getCheckInDate();
+			LocalDate checkOutDate =  clonedRoomDate.getCheckOutDate();
+			int days = Period.between(checkInDate,checkOutDate).getDays();
+			double roomAmount = clonedRoomDate.getRoomPrice()*days;
+			double serviceAmount = rsDao.getTotalUsingService(clonedRoomDate.getRoomNumber());
+			
+			invoiceRecordBuilder.buildCheckInDate(checkInDate);
+			invoiceRecordBuilder.buildCheckOutDate(checkOutDate);
+			invoiceRecordBuilder.buildRoomAmount(roomAmount);
+			invoiceRecordBuilder.buildServiceAmount(serviceAmount);
+			invoiceRecordBuilder.buildTotalAmount(roomAmount + serviceAmount);
+			InvoiceRecord invoiceRecord = invoiceRecordBuilder.getInvoiceRecord();
+			
+			
 			InvoiceRecordDao irDao = (InvoiceRecordDao) DaoFactoryImpl.getFactory().createDao(InvoiceRecord.TABLE_NAME);
 			List<RoomService> roomServices = rsDao.getAllRoomService(clonedRoomDate.getRoomNumber());
 			rsDao.delete(clonedRoomDate.getRoomNumber());
