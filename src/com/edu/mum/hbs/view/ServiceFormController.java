@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import com.edu.mum.hbs.dao.DaoFactory;
 import com.edu.mum.hbs.dao.ServiceDao;
 import com.edu.mum.hbs.entity.Service;
+import com.edu.mum.hbs.restapi.IRestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapter;
 import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.Adapter;
 
@@ -28,14 +29,11 @@ public class ServiceFormController extends ControllerBase {
 	@FXML	private TableColumn<Service, String> serviceDescColumn;
 	@FXML	private TableColumn<Service, String> servicePriceColumn;
 	
-	RestAdapter adapter = new RestAdapter();
-	private ServiceDao sdao = (ServiceDao) DaoFactory.getDaoFactory(Service.TABLE_NAME);
-
+	private IRestAdapter adapter = RestAdapter.getInstance();
 	private List<Service> services = new ArrayList<Service>();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		RestAdapter adapter = new RestAdapter();
 		List<Service> listServices = adapter.loadServices();
 		if (listServices != null){
 	

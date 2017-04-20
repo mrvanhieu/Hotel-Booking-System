@@ -1,13 +1,12 @@
 package com.edu.mum.hbs.view;
 
-import com.edu.mum.hbs.dao.LoginDao;
 import com.edu.mum.hbs.dao.UserSession;
+import com.edu.mum.hbs.restapi.IRestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapter;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -24,7 +23,7 @@ public class Login extends ControllerBase {
 
     @FXML
     private Text alertMessage;
-    RestAdapter adapter = RestAdapter.getInstance();
+    IRestAdapter adapter = RestAdapter.getInstance();
     
     @FXML
     public void doLogin() throws Exception {

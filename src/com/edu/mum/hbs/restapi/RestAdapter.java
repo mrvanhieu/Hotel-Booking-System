@@ -15,7 +15,7 @@ import com.edu.mum.hbs.util.Constants;
 import com.edu.mum.hbs.util.GeneralUtil;
 import com.google.gson.Gson;
 
-public class RestAdapter {
+public class RestAdapter implements IRestAdapter{
 
 	/**  end point for read queries. */
 	private WebTarget query;
@@ -25,13 +25,13 @@ public class RestAdapter {
 	/**  end point to supply updates. */
 	private WebTarget update;
 
-	public RestAdapter() {
+	private RestAdapter() {
 		Client client = GeneralUtil.getConfiguredClient();
 		query = client.target(Constants.BASE_URL + "/query");
 		update = client.target(Constants.BASE_URL + "/update");
 	}
 
-	public static RestAdapter getInstance() {
+	public static IRestAdapter getInstance() {
 		if (adapter == null) {
 			adapter = new RestAdapter();
 		}
@@ -41,6 +41,7 @@ public class RestAdapter {
 	/**
 	 * Ping collect.
 	 */
+	@Override
 	public UserSession authenticate(String userName, String password) {
 		WebTarget path = query.path("/validateLogin");
 		LoginBean bean = new LoginBean();
@@ -52,34 +53,40 @@ public class RestAdapter {
 
 	}
 
+	@Override
 	public List<Service> loadServices(){
 		WebTarget path = query.path("/loadServices");
 		List<Service> services = path.request().get().readEntity(new GenericType<List<Service>>(){});
 		return services;
 	}
 	
+	@Override
 	public Service getService(String serviceId){
 		WebTarget path = query.path("/getService/" + serviceId);
 		Service service = path.request().get().readEntity(new GenericType<Service>(){});
 		return service;
 	}
 	
+	@Override
 	public List<String> loadServicesDesc(){
 		WebTarget path = query.path("/loadServicesDesc");
 		List<String> servicesDesc = path.request().get().readEntity(new GenericType<List<String>>(){});
 		return servicesDesc;
 	}
 	
+	@Override
 	public void updateService (Service service){
 		WebTarget path = update.path("/updateService");
 		Response response = path.request().post(Entity.json(service));
 	}
 	
+	@Override
 	public void addService (Service service){
 		WebTarget path = update.path("/addService");
 		Response response = path.request().post(Entity.json(service));
 	}
 	
+	@Override
 	public boolean deleteService (Service service){
 		WebTarget path = update.path("/deleteService");
 		Response response = path.request().post(Entity.json(service));

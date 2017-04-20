@@ -13,6 +13,7 @@ import com.edu.mum.hbs.dao.ServiceDao;
 import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.entity.RoomService;
 import com.edu.mum.hbs.entity.Service;
+import com.edu.mum.hbs.restapi.IRestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapter;
 
 import javafx.beans.value.ChangeListener;
@@ -38,9 +39,7 @@ public class RoomServiceFormController extends ControllerBase {
 	@FXML	private TableColumn<RoomService, String> serviceDateColumn;
 	
 	//For populate information into 02 ChoiceBox
-	private ServiceDao sdao = (ServiceDao) DaoFactory.getDaoFactory(Service.TABLE_NAME);
-	private RestAdapter adapter = new RestAdapter();
-	private RoomDao rdao = (RoomDao) DaoFactory.getDaoFactory(Room.TABLE_NAME);
+	private IRestAdapter adapter = RestAdapter.getInstance();
 
 	//For adding/updating and removing data in DB
 	RoomServiceDao rsdao = (RoomServiceDao) DaoFactory.getDaoFactory(RoomService.TABLE_NAME);
