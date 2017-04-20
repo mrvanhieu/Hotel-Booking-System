@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.edu.mum.hbs.dao.CustomerAndRoomDao;
-import com.edu.mum.hbs.dao.DaoFactory;
+import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.InvoiceRecordDao;
 import com.edu.mum.hbs.dao.RoomDao;
 import com.edu.mum.hbs.entity.Customer;
@@ -45,9 +45,9 @@ public class CheckoutFormController extends ControllerBase{
 	@FXML	private TableColumn<RoomDate, String> checkOutDateColumn;
 
 
-	private CustomerDao cdao = (CustomerDao) DaoFactory.getDaoFactory(Customer.TABLE_NAME);
-	private CustomerAndRoomDao crdao = (CustomerAndRoomDao) DaoFactory.getDaoFactory(CustomerAndRoom.TABLE_NAME);
-	private RoomDao rdao = (RoomDao) DaoFactory.getDaoFactory(Room.TABLE_NAME);
+	private CustomerDao cdao = (CustomerDao) DaoFactoryImpl.getFactory().createDao(Customer.TABLE_NAME);
+	private CustomerAndRoomDao crdao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
+	private RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
 
 	private List<RoomDate> checkedRooms = new ArrayList<RoomDate>();
 		
@@ -112,30 +112,30 @@ public class CheckoutFormController extends ControllerBase{
 			return;
 		}
 		RoomDate roomDate = checkedTable.getSelectionModel().getSelectedItem();
-
 		if (roomDate == null) {
 			showAlert(AlertType.INFORMATION, "Enter Values", null, "Please select one row to continue.");
 			return;
 		}
 		Optional<ButtonType> result = showAlert(AlertType.CONFIRMATION,"Check Out Confirmation","Are you sure?","");
 		if (result.get() == ButtonType.OK){
-			RoomServiceDao rsDao = (RoomServiceDao) DaoFactory.getDaoFactory(RoomService.TABLE_NAME);
+			RoomDate clonedRoomDate = (RoomDate)roomDate.doClone();
+			RoomServiceDao rsDao = (RoomServiceDao) DaoFactoryImpl.getFactory().createDao(RoomService.TABLE_NAME);
 			
 			InvoiceRecord invoiceRecord = new InvoiceRecord();
 			invoiceRecord.setPassportOrId(passport.getText());
-			invoiceRecord.setRoomNumber(roomDate.getRoomNumber());
-			invoiceRecord.setCheckInDate(roomDate.getCheckInDate());
-			invoiceRecord.setCheckOutDate(roomDate.getCheckOutDate());
+			invoiceRecord.setRoomNumber(clonedRoomDate.getRoomNumber());
+			invoiceRecord.setCheckInDate(clonedRoomDate.getCheckInDate());
+			invoiceRecord.setCheckOutDate(clonedRoomDate.getCheckOutDate());
 			int days = Period.between(invoiceRecord.getCheckInDate(),invoiceRecord.getCheckOutDate()).getDays();
-			invoiceRecord.setRoomAmount(roomDate.getRoomPrice()*days);
-			invoiceRecord.setServiceAmount(rsDao.getTotalUsingService(roomDate.getRoomNumber()));
+			invoiceRecord.setRoomAmount(clonedRoomDate.getRoomPrice()*days);
+			invoiceRecord.setServiceAmount(rsDao.getTotalUsingService(clonedRoomDate.getRoomNumber()));
 			invoiceRecord.setTotalAmount(invoiceRecord.getRoomAmount() + invoiceRecord.getServiceAmount());
-			InvoiceRecordDao irDao = (InvoiceRecordDao) DaoFactory.getDaoFactory(InvoiceRecord.TABLE_NAME);
-			List<RoomService> roomServices = rsDao.getAllRoomService(roomDate.getRoomNumber());
-			rsDao.delete(roomDate.getRoomNumber());
+			InvoiceRecordDao irDao = (InvoiceRecordDao) DaoFactoryImpl.getFactory().createDao(InvoiceRecord.TABLE_NAME);
+			List<RoomService> roomServices = rsDao.getAllRoomService(clonedRoomDate.getRoomNumber());
+			rsDao.delete(clonedRoomDate.getRoomNumber());
 			irDao.addInvoice(invoiceRecord);
-			crdao.delete(passport.getText(),roomDate.getRoomNumber());
-			checkedRooms.remove(roomDate);
+			crdao.delete(passport.getText(),clonedRoomDate.getRoomNumber());
+			checkedRooms.remove(clonedRoomDate);
 			reloadTableView(checkedTable, checkedRooms);
 			showInvoiceData(invoiceRecord,roomServices);
 		} else {
