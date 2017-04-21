@@ -133,7 +133,6 @@ public class RestAdapter implements IRestAdapter{
 	@Override
 	public List<CustomerAndRoom> getAllCustomerRoomByStatus(String roomStatus){
 		WebTarget path = query.path("/getAllCustomerRoomByStatus/" + roomStatus);
-		path.request().get().readEntity(new GenericType<List<CustomerAndRoom>>(){});
 		List<CustomerAndRoom>  customerAndRooms = path.request().get().
 				readEntity(new GenericType<List<CustomerAndRoom>>(){});
 		return customerAndRooms;
@@ -142,7 +141,6 @@ public class RestAdapter implements IRestAdapter{
 	@Override
 	public List<CustomerAndRoom> getCustomerAndRoom(String passportOrId, String status){
 		WebTarget path = query.path("/getCustomerAndRoom/"+ passportOrId + "/" + status);
-		path.request().get().readEntity(new GenericType<List<CustomerAndRoom>>(){});
 		List<CustomerAndRoom>  customerAndRooms = path.request().get().
 				readEntity(new GenericType<List<CustomerAndRoom>>(){});
 		return customerAndRooms;
@@ -151,7 +149,6 @@ public class RestAdapter implements IRestAdapter{
 	@Override
 	public List<String> getAllRoomNumbers(){
 		WebTarget path = query.path("/getAllRoomNumbers");
-		path.request().get().readEntity(new GenericType<List<String>>(){});
 		List<String>  customerAndRooms = path.request().get().
 				readEntity(new GenericType<List<String>>(){});
 		return customerAndRooms;
@@ -160,7 +157,6 @@ public class RestAdapter implements IRestAdapter{
 	@Override
 	public List<CustomerAndRoom> getAllCustomerRoom(){
 		WebTarget path = query.path("/getAllCustomerRoom");
-		path.request().get().readEntity(new GenericType<List<CustomerAndRoom>>(){});
 		List<CustomerAndRoom>  customerAndRooms = path.request().get().
 				readEntity(new GenericType<List<CustomerAndRoom>>(){});
 		return customerAndRooms;
@@ -169,7 +165,6 @@ public class RestAdapter implements IRestAdapter{
 	@Override
 	public List<CustRoomDetails> getCustomerRoomFullFromToDate(String fromDate, String toDate){
 		WebTarget path = query.path("/getCustomerRoomFullFromToDate/"+ fromDate + "/" + toDate);
-		path.request().get().readEntity(new GenericType<List<CustRoomDetails>>(){});
 		List<CustRoomDetails>  customerAndRooms = path.request().get().
 				readEntity(new GenericType<List<CustRoomDetails>>(){});
 		return customerAndRooms;
