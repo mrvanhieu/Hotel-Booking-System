@@ -145,7 +145,6 @@ public class CheckoutFormController extends ControllerBase{
 			InvoiceRecord invoiceRecord = invoiceRecordBuilder.getInvoiceRecord();
 			
 			
-			InvoiceRecordDao irDao = (InvoiceRecordDao) DaoFactoryImpl.getFactory().createDao(InvoiceRecord.TABLE_NAME);
 			List<RoomService> roomServices = rsDao.getAllRoomService(clonedRoomDate.getRoomNumber());
 			rsDao.delete(clonedRoomDate.getRoomNumber());
 			adapter.addInvoice(invoiceRecord);

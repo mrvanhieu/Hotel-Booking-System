@@ -4,6 +4,7 @@ import static java.lang.String.format;
 
 import java.io.IOException;
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,6 +15,10 @@ import org.glassfish.grizzly.http.server.HttpServerProbe;
 import org.glassfish.grizzly.http.server.Request;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 
 public class RestServer {
 	public static final String BASE_URL = "http://localhost:9090/";
@@ -30,7 +35,12 @@ public class RestServer {
 			final ResourceConfig resourceConfig = new ResourceConfig();
 			resourceConfig.register(RestQueryImpl.class);
 			resourceConfig.register(RestUpdateImpl.class);
-
+			
+			ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+            JacksonJaxbJsonProvider provider = new JacksonJaxbJsonProvider();
+            provider.setMapper(objectMapper);
+            resourceConfig.register(provider);
 			HttpServer server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URL), resourceConfig, false);
 			Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 				server.shutdownNow();

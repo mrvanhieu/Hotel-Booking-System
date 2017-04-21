@@ -2,10 +2,10 @@ package com.edu.mum.hbs.entity;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.edu.mum.hbs.restapi.util.LocalDateWithStringsDeserializer;
+import com.edu.mum.hbs.restapi.util.LocalDateWithStringsSerializable;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 public class InvoiceRecord {
@@ -19,14 +19,12 @@ public class InvoiceRecord {
 	public static final String TOTAL_AMOUNT = "total_amount";
 	private String passportOrId;
 	private String roomNumber;
-	@JsonSerialize(using = LocalDateSerializer.class)
-	@JsonDeserialize(using = LocalDateDeserializer.class)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	@JsonSerialize(using = LocalDateWithStringsSerializable.class)
+	@JsonDeserialize(using = LocalDateWithStringsDeserializer.class)
 	private LocalDate checkInDate;
 	
-	@JsonSerialize(using = LocalDateSerializer.class)
-	@JsonDeserialize(using = LocalDateDeserializer.class)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	@JsonSerialize(using = LocalDateWithStringsSerializable.class)
+	@JsonDeserialize(using = LocalDateWithStringsDeserializer.class)
 	private LocalDate checkOutDate;
 	private double roomAmount;
 	private double serviceAmount;

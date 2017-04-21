@@ -68,7 +68,7 @@ public class GeneralUtil {
 		clientConfig.connectorProvider(new ApacheConnectorProvider()); // jersey specific
 		RequestConfig reqConfig = RequestConfig.custom() // apache HttpClient
 															// specific
-				.setConnectTimeout(7000).setSocketTimeout(7000).setConnectionRequestTimeout(7000).build();
+				.setConnectTimeout(3000).setSocketTimeout(3000).setConnectionRequestTimeout(3000).build();
 		clientConfig.property(ApacheClientProperties.REQUEST_CONFIG, reqConfig); // jersey
 																					// specific
 		return ClientBuilder.newClient(clientConfig);
