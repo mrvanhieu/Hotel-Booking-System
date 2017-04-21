@@ -2,10 +2,10 @@ package com.edu.mum.hbs.entity;
 
 import java.time.LocalDate;
 
-import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.CustomerDao;
+import com.edu.mum.hbs.dao.DaoFactoryImpl;
 
-public class Revenue {
+public class Revenue implements Item {
 	private String fullName;
 	private String phoneNo;
 	private InvoiceRecord invoice;
@@ -63,5 +63,11 @@ public class Revenue {
 
 	public String getTotalAmountDollar() {
 		return invoice.getTotalAmountDollar();
+	}
+
+	@Override
+	public void accept(Visitor visitor) {
+		// TODO Auto-generated method stub
+		visitor.visit(this);
 	}
 }
