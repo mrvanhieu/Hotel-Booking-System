@@ -40,7 +40,7 @@ public class InvoiceRecordDao extends DaoAbstract {
 				InvoiceRecord invoiceRecord = new InvoiceRecord();
 				invoiceRecord.setPassportOrId((String) ob.get(InvoiceRecord.PASSPORT_OR_ID));
 				invoiceRecord.setRoomNumber((String) ob.get(InvoiceRecord.ROOM_NUMBER));
-				invoiceRecord.setCheckInDate((String) ob.get(InvoiceRecord.CHECK_IN_DATE));
+				invoiceRecord.setCheckInDateByString((String) ob.get(InvoiceRecord.CHECK_IN_DATE));
 				invoiceRecord.setCheckOutDate((String) ob.get(InvoiceRecord.CHECK_OUT_DATE));
 				invoiceRecord.setRoomAmount((Double) ob.get(InvoiceRecord.ROOM_AMOUNT));
 				invoiceRecord.setServiceAmount((Double) ob.get(InvoiceRecord.SERVICE_AMOUNT));
@@ -64,7 +64,7 @@ public class InvoiceRecordDao extends DaoAbstract {
 				InvoiceRecord invoiceRecord = new InvoiceRecord();
 				invoiceRecord.setPassportOrId((String) ob.get(InvoiceRecord.PASSPORT_OR_ID));
 				invoiceRecord.setRoomNumber((String) ob.get(InvoiceRecord.ROOM_NUMBER));
-				invoiceRecord.setCheckInDate((String) ob.get(InvoiceRecord.CHECK_IN_DATE));
+				invoiceRecord.setCheckInDateByString((String) ob.get(InvoiceRecord.CHECK_IN_DATE));
 				invoiceRecord.setCheckOutDate((String) ob.get(InvoiceRecord.CHECK_OUT_DATE));
 				invoiceRecord.setRoomAmount((Double) ob.get(InvoiceRecord.ROOM_AMOUNT));
 				invoiceRecord.setServiceAmount((Double) ob.get(InvoiceRecord.SERVICE_AMOUNT));
