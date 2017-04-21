@@ -2,13 +2,19 @@ package com.edu.mum.hbs.view;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.InvoiceRecordDao;
+import com.edu.mum.hbs.dao.RoomDao;
 import com.edu.mum.hbs.entity.InvoiceRecord;
+import com.edu.mum.hbs.entity.OccupancyVisitor;
+import com.edu.mum.hbs.entity.ProfitVisitor;
 import com.edu.mum.hbs.entity.Revenue;
+import com.edu.mum.hbs.entity.Room;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
@@ -28,6 +34,8 @@ public class ReportRevenueFormController extends ControllerBase {
 	private Label lblSumInfo;
 	@FXML
 	private Label lblSum;
+	@FXML	private Label lblOccupancyInfo;
+	@FXML	private Label lblOccupancyRate;
 
 	@FXML
 	private TableView<Revenue> revenueTable;
@@ -76,17 +84,24 @@ public class ReportRevenueFormController extends ControllerBase {
 		String szToDate = toDate.getValue().toString();
 		InvoiceRecordDao irDao = (InvoiceRecordDao) DaoFactoryImpl.getFactory().createDao(InvoiceRecord.TABLE_NAME);
 		revenues = irDao.getAllRevenueRecordsFromToDate(szFromDate, szToDate);
-
+		RoomDao rooms = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
+		Period period = Period.between(fromDate.getValue(), toDate.getValue());
 		reloadTableView(revenueTable, revenues);
 
+        ProfitVisitor profitCalc = new ProfitVisitor();
+        OccupancyVisitor occupancy = new OccupancyVisitor();
+        
 		double dRevenue = 0.0;
 		if (revenues.size() > 0) {
 			for (Revenue revenue : revenues) {
-				dRevenue += revenue.getTotalAmount();
+				revenue.accept(profitCalc);
+				revenue.accept(occupancy);
 			}
 		}
 		lblSumInfo.setText("From " + szFromDate + " to " + szToDate + ", the total revenue is:");
-		lblSum.setText("$" + dRevenue);
+		lblSum.setText("$" + profitCalc.getTotalProfit());
+        lblOccupancyInfo.setText("From " + szFromDate + " to " + szToDate + ", the occupancy rate is: ");
+        lblOccupancyRate.setText(occupancy.getOccupancyDays()*100/(rooms.getAllRooms().size()*period.getDays()) + "%");
 	}
 
 	public void resetSearch() {
