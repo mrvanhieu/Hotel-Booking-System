@@ -47,7 +47,7 @@ public class CheckoutFormController extends ControllerBase{
 	@FXML	private TableColumn<RoomDate, String> checkInDateColumn;
 	@FXML	private TableColumn<RoomDate, String> checkOutDateColumn;
 
-	private RestAdapter adapter = new RestAdapter();
+	private RestAdapter adapter = (RestAdapter) RestAdapter.getInstance();
 	private CustomerDao cdao = (CustomerDao) DaoFactoryImpl.getFactory().createDao(Customer.TABLE_NAME);
 	private CustomerAndRoomDao crdao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
 	private RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);

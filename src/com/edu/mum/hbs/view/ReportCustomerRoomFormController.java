@@ -10,6 +10,7 @@ import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.CustomerAndRoomDao;
 import com.edu.mum.hbs.entity.CustRoomDetails;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
+import com.edu.mum.hbs.restapi.IRestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
@@ -31,7 +32,7 @@ public class ReportCustomerRoomFormController extends ControllerBase{
 	@FXML	private TableColumn<CustRoomDetails, String> checkOutDateColumn;
 	@FXML	private TableColumn<CustRoomDetails, String> roomStatusColumn;
 
-	private static RestAdapter adapter = new RestAdapter();
+	private static RestAdapter adapter = (RestAdapter) RestAdapter.getInstance();
 	private List<CustRoomDetails> custRoomDetails = new ArrayList<CustRoomDetails>();
 
 	@Override

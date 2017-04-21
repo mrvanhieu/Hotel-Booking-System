@@ -12,7 +12,7 @@ import com.edu.mum.hbs.util.SqliteUtil.FilterCondition;
 
 public class RoomDao extends DaoAbstract {
 	//private SqliteUtil db = new SqliteUtil();
-	private RestAdapter adapter = new RestAdapter();
+	private RestAdapter adapter = (RestAdapter) RestAdapter.getInstance();
 	private static final String TABLE_NAME = "Room";
 	
 	RoomDao(){}

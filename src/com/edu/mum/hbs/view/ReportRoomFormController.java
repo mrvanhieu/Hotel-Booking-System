@@ -37,7 +37,7 @@ public class ReportRoomFormController extends ControllerBase {
 	@FXML	private TableColumn<CustomerAndRoom, String> cCheckInColumn;
 	@FXML	private TableColumn<CustomerAndRoom, String> cCheckOutColumn;
 
-	private RestAdapter adapter = new RestAdapter();
+	private RestAdapter adapter = (RestAdapter) RestAdapter.getInstance();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
