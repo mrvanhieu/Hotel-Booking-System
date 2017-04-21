@@ -9,6 +9,7 @@ public class LoginDao extends DaoAbstract {
     
     public UserSession validateLogin(String username, String password) {
         // check with database whether user is logged in or not
+    	this.setQuery("select * from user where username = ? and password = ?");
         SqliteUtil.FilterCondition condition = new SqliteUtil.FilterCondition(SqliteUtil.LogicalOperator.AND);
         condition.addCondition("username", SqliteUtil.EQUALS, username);
         condition.addCondition("password", SqliteUtil.EQUALS, password);
