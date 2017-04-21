@@ -1,5 +1,6 @@
 package com.edu.mum.hbs.restapi;
 
+import javax.print.attribute.standard.Media;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -47,4 +48,34 @@ public interface RestQueryInterface {
     @Produces(MediaType.APPLICATION_JSON)
 	Response getCustomerFromPassportOrPhone(@PathParam("customerIdorPhone") String customerIdorPhone);
 	
+
+	// CustomerAndRoom Services Start
+	@GET
+	@Path("/getAllCustomerRoomByStatus/{roomStatus}")
+	@Produces(MediaType.APPLICATION_JSON)
+	Response getAllCustomerRoomByStatus(@PathParam(("roomStatus")) String roomStatus);
+
+	@GET
+	@Path("/getCustomerAndRoom/{passportOrId}/{status}")
+	@Produces(MediaType.APPLICATION_JSON)
+	Response getCustomerAndRoom(@PathParam(("passportOrId")) String passportOrId, @PathParam(("status")) String status);
+
+	@GET
+	@Path("/getAllRoomNumbers")
+	@Produces(MediaType.APPLICATION_JSON)
+	Response getAllRoomNumbers();
+
+
+	@GET
+	@Path("/getAllCustomerRoom")
+	@Produces(MediaType.APPLICATION_JSON)
+	Response getAllCustomerRoom();
+
+	@GET
+	@Path("/getCustomerRoomFullFromToDate/{fromDate}/{toDate}")
+	@Produces(MediaType.APPLICATION_JSON)
+	Response getCustomerRoomFullFromToDate(@PathParam(("fromDate")) String fromDate, @PathParam(("toDate")) String toDate);
+
+
+	// CustomerAndRoom Services End
 }

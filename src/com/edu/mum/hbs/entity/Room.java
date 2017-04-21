@@ -16,13 +16,13 @@ public class Room implements Prototype{
 	public double getRoomPrice() {
 		return roomPrice;
 	}
-	public String getRoomPriceDollar() {
-		return "$" + roomPrice;
-	}
+//	public String getRoomPriceDollar() {
+//		return "$" + roomPrice;
+//	}
 	public void setRoomPrice(double price) {
 		this.roomPrice = price;
 	}
-	public void setRoomPrice(String price) {
+	public void setRoomPriceByString(String price) {
 		this.roomPrice = Double.parseDouble(price);
 	}
 	public String getRoomType() {

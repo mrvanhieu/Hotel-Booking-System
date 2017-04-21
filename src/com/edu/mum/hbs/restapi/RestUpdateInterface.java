@@ -18,6 +18,7 @@ public interface RestUpdateInterface {
 	@POST
 	@Path("/deleteService")
 	Response deleteService(String datapointJson);
+
 	
 	//Customer rest api
 	@POST
@@ -28,4 +29,16 @@ public interface RestUpdateInterface {
 	@POST
 	@Path("/addInvoice")
 	Response addInvoice(String datapointJson);
+
+
+	// CustomerAndRoom Services Begin
+	@POST
+	@Path("/updateCustomerAndRooms")
+	Response updateCustomerAndRooms(String datapointJson);
+
+	@POST
+	@Path("/deleteCustomerAndRooms")
+	Response deleteCustomerAndRooms(String datapointJson);
+	// CustomerAndRoom Services End
+
 }

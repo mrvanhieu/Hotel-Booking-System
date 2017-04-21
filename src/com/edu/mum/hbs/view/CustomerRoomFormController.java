@@ -82,7 +82,7 @@ public class CustomerRoomFormController extends ControllerBase implements Notifi
 			return;
 		}
 		Room room = new Room();
-		room.setRoomPrice(lblRoomInfo.getText());
+		room.setRoomPriceByString(lblRoomInfo.getText());
 		room.setRoomNumber(roomNumber.getValue());
 		room.setRoomType(roomType.getValue());
 		room.setRoomClass(roomClass.getValue());

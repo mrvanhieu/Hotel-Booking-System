@@ -15,125 +15,166 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="549.0" prefWidth="924.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.edu.mum.hbs.view.MainController">
+<AnchorPane prefHeight="549.0" prefWidth="924.0"
+	xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="com.edu.mum.hbs.view.MainController">
 	<children>
-		<AnchorPane prefHeight="549.0" prefWidth="800.0" style="-fx-background-color: #FF7F00;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<AnchorPane prefHeight="549.0" prefWidth="800.0"
+			style="-fx-background-color: #FF7F00;" AnchorPane.bottomAnchor="0.0"
+			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+			AnchorPane.topAnchor="0.0">
 
 			<children>
-				<Text fill="WHITE" layoutX="14.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Booking System">
+				<Text fill="WHITE" layoutX="14.0" layoutY="34.0" strokeType="OUTSIDE"
+					strokeWidth="0.0" text="Hotel Booking System">
 					<font>
 						<Font name="Arial Black" size="29.0" />
 					</font>
 				</Text>
-				<SplitPane dividerPositions="0.21149674620390455" layoutX="131.0" layoutY="49.0" prefHeight="406.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+				<SplitPane dividerPositions="0.21149674620390455" layoutX="131.0"
+					layoutY="49.0" prefHeight="406.0" prefWidth="800.0"
+					AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+					AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
 					<items>
-						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="498.0" prefWidth="170.0" style="-fx-background-color: #FF9A04;">
+						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="498.0"
+							prefWidth="170.0" style="-fx-background-color: #FF9A04;">
 							<children>
-                        <GridPane prefHeight="336.0" prefWidth="192.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-      								<Hyperlink fx:id="bookingAndChecking" onAction="#goToCustomerRoomForm" text="CUSTOMER ROOMS" textFill="WHITE" GridPane.rowIndex="1">
-      									<font>
-      										<Font name="System Bold" size="13.0" />
-      									</font>
-      								</Hyperlink>
-      								<Hyperlink onAction="#goToRoomServiceForm" text="ROOM &amp; SERVICES" textFill="WHITE" GridPane.rowIndex="2">
-      									<font>
-      										<Font name="System Bold" size="13.0" />
-      									</font>
-      								</Hyperlink>
-      								<Hyperlink onAction="#goToCheckInForm" text="CHECK IN" textFill="WHITE" GridPane.rowIndex="3">
-      									<font>
-      										<Font name="System Bold" size="13.0" />
-      									</font>
-      								</Hyperlink>
-      								<Hyperlink onAction="#goToCheckOutForm" text="CHECK OUT" textFill="WHITE" GridPane.rowIndex="4">
-      									<font>
-      										<Font name="System Bold" size="13.0" />
-      									</font>
-      								</Hyperlink>
-                              <Hyperlink layoutX="10.0" layoutY="48.0" onAction="#goToServiceForm" text="SERVICE INFORMATION" textFill="WHITE" GridPane.rowIndex="7">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Hyperlink>
-      								<Hyperlink onAction="#goToRoomManagement" text="ROOM INFORMATION" textFill="WHITE" GridPane.rowIndex="6">
-      									<font>
-      										<Font name="System Bold" size="13.0" />
-      									</font>
-      								</Hyperlink>
-                              <Line endX="200.0" fill="#c6961bc2" layoutX="11.0" layoutY="123.0" stroke="#fcfafa" GridPane.rowIndex="8" />
-                              <Label text="REPORT" textFill="WHITE" GridPane.rowIndex="9">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets left="6.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <Hyperlink onAction="#goToReportRoomForm" text="Rooms Information" textFill="WHITE" GridPane.rowIndex="10">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="20.0" />
-                                 </padding>
-                              </Hyperlink>
-      								<Hyperlink onAction="#goToReportCustomerRoomForm" text="Customer Rooms Info." textFill="WHITE" GridPane.rowIndex="11">
-      									<font>
-      										<Font name="System Bold" size="13.0" />
-      									</font>
-                                 <padding>
-                                    <Insets left="20.0" />
-                                 </padding>
-      								</Hyperlink>
-                              <Hyperlink onAction="#goToReportProfitForm" text="Profit" textFill="WHITE" GridPane.rowIndex="12">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="20.0" />
-                                 </padding>
-                              </Hyperlink>
-      								<Line endX="200.0" fill="#c6961bc2" stroke="#fcfafa" GridPane.rowIndex="5" />
-                           </children>
-                        </GridPane>
-                        <VBox layoutY="305.0" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0" />
-                           </children>
-                        </VBox>
+								<GridPane prefHeight="336.0" prefWidth="192.0">
+									<columnConstraints>
+										<ColumnConstraints hgrow="SOMETIMES"
+											minWidth="10.0" prefWidth="100.0" />
+									</columnConstraints>
+									<rowConstraints>
+										<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+										<RowConstraints minHeight="10.0" prefHeight="30.0"
+											vgrow="SOMETIMES" />
+										<RowConstraints minHeight="10.0" prefHeight="30.0"
+											vgrow="SOMETIMES" />
+										<RowConstraints minHeight="10.0" prefHeight="30.0"
+											vgrow="SOMETIMES" />
+										<RowConstraints minHeight="10.0" prefHeight="30.0"
+											vgrow="SOMETIMES" />
+										<RowConstraints minHeight="10.0" prefHeight="30.0"
+											vgrow="SOMETIMES" />
+										<RowConstraints minHeight="10.0" prefHeight="30.0"
+											vgrow="SOMETIMES" />
+										<RowConstraints minHeight="10.0" prefHeight="30.0"
+											vgrow="SOMETIMES" />
+										<RowConstraints minHeight="10.0" prefHeight="30.0"
+											vgrow="SOMETIMES" />
+										<RowConstraints minHeight="10.0" prefHeight="30.0"
+											vgrow="SOMETIMES" />
+										<RowConstraints minHeight="10.0" prefHeight="30.0"
+											vgrow="SOMETIMES" />
+										<RowConstraints minHeight="10.0" prefHeight="30.0"
+											vgrow="SOMETIMES" />
+										<RowConstraints minHeight="10.0" prefHeight="30.0"
+											vgrow="SOMETIMES" />
+										<RowConstraints minHeight="10.0" prefHeight="30.0"
+											vgrow="SOMETIMES" />
+									</rowConstraints>
+									<children>
+										<Hyperlink fx:id="bookingAndChecking" onAction="#goToCustomerRoomForm"
+											text="CUSTOMER ROOMS" textFill="WHITE" GridPane.rowIndex="1">
+											<font>
+												<Font name="System Bold" size="13.0" />
+											</font>
+										</Hyperlink>
+										<Hyperlink onAction="#goToRoomServiceForm" text="ROOM &amp; SERVICES"
+											textFill="WHITE" GridPane.rowIndex="2">
+											<font>
+												<Font name="System Bold" size="13.0" />
+											</font>
+										</Hyperlink>
+										<Hyperlink onAction="#goToCheckInForm" text="CHECK IN"
+											textFill="WHITE" GridPane.rowIndex="3">
+											<font>
+												<Font name="System Bold" size="13.0" />
+											</font>
+										</Hyperlink>
+										<Hyperlink onAction="#goToCheckOutForm" text="CHECK OUT"
+											textFill="WHITE" GridPane.rowIndex="4">
+											<font>
+												<Font name="System Bold" size="13.0" />
+											</font>
+										</Hyperlink>
+										<Hyperlink layoutX="10.0" layoutY="48.0" onAction="#goToServiceForm"
+											text="SERVICE INFORMATION" textFill="WHITE"
+											GridPane.rowIndex="7">
+											<font>
+												<Font name="System Bold" size="13.0" />
+											</font>
+										</Hyperlink>
+										<Hyperlink onAction="#goToRoomManagement" text="ROOM INFORMATION"
+											textFill="WHITE" GridPane.rowIndex="6">
+											<font>
+												<Font name="System Bold" size="13.0" />
+											</font>
+										</Hyperlink>
+										<Line endX="200.0" fill="#c6961bc2" layoutX="11.0"
+											layoutY="123.0" stroke="#fcfafa" GridPane.rowIndex="8" />
+										<Label text="REPORT" textFill="WHITE" GridPane.rowIndex="9">
+											<font>
+												<Font name="System Bold" size="13.0" />
+											</font>
+											<GridPane.margin>
+												<Insets left="6.0" />
+											</GridPane.margin>
+										</Label>
+										<Hyperlink onAction="#goToReportRoomForm" text="Rooms Information"
+											textFill="WHITE" GridPane.rowIndex="10">
+											<font>
+												<Font name="System Bold" size="13.0" />
+											</font>
+											<padding>
+												<Insets left="20.0" />
+											</padding>
+										</Hyperlink>
+										<Hyperlink onAction="#goToReportCustomerRoomForm"
+											text="Customer Rooms Info." textFill="WHITE"
+											GridPane.rowIndex="11">
+											<font>
+												<Font name="System Bold" size="13.0" />
+											</font>
+											<padding>
+												<Insets left="20.0" />
+											</padding>
+										</Hyperlink>
+										<Hyperlink onAction="#goToReportRevenueForm" text="Revenue"
+											textFill="WHITE" GridPane.rowIndex="12">
+											<font>
+												<Font name="System Bold" size="13.0" />
+											</font>
+											<padding>
+												<Insets left="20.0" />
+											</padding>
+										</Hyperlink>
+										<Line endX="200.0" fill="#c6961bc2" stroke="#fcfafa"
+											GridPane.rowIndex="5" />
+									</children>
+								</GridPane>
+								<VBox layoutY="305.0" prefHeight="200.0" prefWidth="100.0">
+									<children>
+										<VBox prefHeight="200.0" prefWidth="100.0" />
+									</children>
+								</VBox>
 							</children>
 						</AnchorPane>
-						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0"
+							prefWidth="100.0">
 							<children>
-                        <ScrollPane prefHeight="498.0" prefWidth="726.0" vbarPolicy="ALWAYS">
-                          <content>
-                            <AnchorPane>
-                                 <children>
-            								<StackPane fx:id="libraryHolder" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                 </children>
-                              </AnchorPane>
-                          </content>
-                        </ScrollPane>
+								<ScrollPane prefHeight="498.0" prefWidth="726.0"
+									vbarPolicy="ALWAYS">
+									<content>
+										<AnchorPane>
+											<children>
+												<StackPane fx:id="libraryHolder" style="-fx-background-color: #fff;"
+													AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+													AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+											</children>
+										</AnchorPane>
+									</content>
+								</ScrollPane>
 							</children>
 						</AnchorPane>
 					</items>

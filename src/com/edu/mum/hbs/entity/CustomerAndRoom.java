@@ -1,5 +1,11 @@
 package com.edu.mum.hbs.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -16,11 +22,12 @@ public class CustomerAndRoom {
 	private String roomNumber;
 	private String passportOrId;
 	private String status;
-	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate checkInDate;
-	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+
 	private LocalDate checkOutDate;
 	
 	public CustomerAndRoom(){}
@@ -65,7 +72,7 @@ public class CustomerAndRoom {
 	public void setCheckInDate(LocalDate checkInDate) {
 		this.checkInDate = checkInDate;
 	}
-	public void setCheckInDate(String checkinDate){
+	public void setCheckInDateByString(String checkinDate){
 		this.checkInDate = LocalDate.parse(checkinDate);
 	}
 	public LocalDate getCheckOutDate() {
@@ -74,7 +81,7 @@ public class CustomerAndRoom {
 	public void setCheckOutDate(LocalDate checkOutDate) {
 		this.checkOutDate = checkOutDate;
 	}
-	public void setCheckOutDate(String checkOutDate){
+	public void setCheckOutDateByString(String checkOutDate){
 		this.checkOutDate = LocalDate.parse(checkOutDate);
 	}
 	

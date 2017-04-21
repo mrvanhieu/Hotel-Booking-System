@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.edu.mum.hbs.entity.Room;
+import com.edu.mum.hbs.restapi.RestAdapter;
 import com.edu.mum.hbs.util.SqliteUtil;
 import com.edu.mum.hbs.util.SqliteUtil.FilterCondition;
 
 public class RoomDao extends DaoAbstract {
 	//private SqliteUtil db = new SqliteUtil();
+	private RestAdapter adapter = (RestAdapter) RestAdapter.getInstance();
 	private static final String TABLE_NAME = "Room";
 	
 	RoomDao(){}
@@ -53,7 +55,8 @@ public class RoomDao extends DaoAbstract {
 	
 	public List<Room> getAvailableRooms() {
 		CustomerAndRoomDao cusRoomDao = new CustomerAndRoomDao();
-		List<String> roomNumbers = cusRoomDao.getAllRoomNumbers();
+		//List<String> roomNumbers = cusRoomDao.getAllRoomNumbers();
+		List<String> roomNumbers = adapter.getAllRoomNumbers();
 		String value = "";
 		for (String str : roomNumbers) {
 			value +=str + ",";
