@@ -66,6 +66,7 @@ public class RestUpdateImpl implements RestUpdateInterface {
 	public Response deleteCustomerAndRooms(String datapointJson) {
 		CustomerAndRoomBean customerAndRoomBean = gson.fromJson(datapointJson, CustomerAndRoomBean.class);
 		customerAndRoomDao.delete(customerAndRoomBean.getPassport(), customerAndRoomBean.getRoomNumber());
+		return Response.status(Response.Status.OK).build();
   }
 		
 

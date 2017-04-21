@@ -130,6 +130,7 @@ public class RestAdapter implements IRestAdapter{
 	}
 
 	// CustomerAndRoom Services Start
+	@Override
 	public List<CustomerAndRoom> getAllCustomerRoomByStatus(String roomStatus){
 		WebTarget path = query.path("/getAllCustomerRoomByStatus/" + roomStatus);
 		path.request().get().readEntity(new GenericType<List<CustomerAndRoom>>(){});
@@ -138,6 +139,7 @@ public class RestAdapter implements IRestAdapter{
 		return customerAndRooms;
 	}
 
+	@Override
 	public List<CustomerAndRoom> getCustomerAndRoom(String passportOrId, String status){
 		WebTarget path = query.path("/getCustomerAndRoom/"+ passportOrId + "/" + status);
 		path.request().get().readEntity(new GenericType<List<CustomerAndRoom>>(){});
@@ -146,6 +148,7 @@ public class RestAdapter implements IRestAdapter{
 		return customerAndRooms;
 	}
 
+	@Override
 	public List<String> getAllRoomNumbers(){
 		WebTarget path = query.path("/getAllRoomNumbers");
 		path.request().get().readEntity(new GenericType<List<String>>(){});
@@ -154,6 +157,7 @@ public class RestAdapter implements IRestAdapter{
 		return customerAndRooms;
 	}
 
+	@Override
 	public List<CustomerAndRoom> getAllCustomerRoom(){
 		WebTarget path = query.path("/getAllCustomerRoom");
 		path.request().get().readEntity(new GenericType<List<CustomerAndRoom>>(){});
@@ -162,6 +166,7 @@ public class RestAdapter implements IRestAdapter{
 		return customerAndRooms;
 	}
 
+	@Override
 	public List<CustRoomDetails> getCustomerRoomFullFromToDate(String fromDate, String toDate){
 		WebTarget path = query.path("/getCustomerRoomFullFromToDate/"+ fromDate + "/" + toDate);
 		path.request().get().readEntity(new GenericType<List<CustRoomDetails>>(){});
@@ -170,6 +175,7 @@ public class RestAdapter implements IRestAdapter{
 		return customerAndRooms;
 	}
 
+	@Override
 	public void updateCustomerAndRooms (String roomNumber, String status){
 		WebTarget path = update.path("/updateCustomerAndRooms");
 		CustomerAndRoomBean bean = new CustomerAndRoomBean();
@@ -179,6 +185,7 @@ public class RestAdapter implements IRestAdapter{
 		System.out.print("ping: " + response.getStatusInfo().getReasonPhrase() + "\n");
 	}
 
+	@Override
 	public void deleteCustomerAndRooms (String passport, String roomNumber){
 		WebTarget path = update.path("/deleteCustomerAndRooms");
 		CustomerAndRoomBean bean = new CustomerAndRoomBean();
