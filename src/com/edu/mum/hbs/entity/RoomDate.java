@@ -41,7 +41,7 @@ public class RoomDate extends Room implements Prototype {
 	@Override
 	public Prototype doClone() {
 		Room cloneRoom = (Room) this.room.doClone();
-		RoomDate cloneRoomDate=new RoomDate(room, checkInDate, checkOutDate);
+		RoomDate cloneRoomDate=new RoomDate(cloneRoom, checkInDate, checkOutDate);
 		return cloneRoomDate;
 	}
 }

@@ -1,20 +1,24 @@
 package com.edu.mum.hbs.restapi;
 
+import java.time.LocalDate;
+
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-import com.edu.mum.hbs.dao.CustomerDao;
 import com.edu.mum.hbs.dao.CustomerAndRoomDao;
+import com.edu.mum.hbs.dao.CustomerDao;
 import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.InvoiceRecordDao;
 import com.edu.mum.hbs.dao.ServiceDao;
 import com.edu.mum.hbs.entity.Customer;
-import com.edu.mum.hbs.entity.InvoiceRecord;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
+import com.edu.mum.hbs.entity.InvoiceRecord;
 import com.edu.mum.hbs.entity.Service;
 import com.edu.mum.hbs.restapi.bean.CustomerAndRoomBean;
-import com.edu.mum.hbs.restapi.bean.LoginBean;
+import com.edu.mum.hbs.restapi.util.LocalDateAdapter;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 
 @Path("/update")
 public class RestUpdateImpl implements RestUpdateInterface {
@@ -51,7 +55,17 @@ public class RestUpdateImpl implements RestUpdateInterface {
 
 	@Override
 	public Response addInvoice(String datapointJson) {
-		invoiceDao.addInvoice(gson.fromJson(datapointJson, InvoiceRecord.class));
+		try {
+			Gson gson1 = new GsonBuilder()
+				     .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+				     .create();
+			InvoiceRecord record = gson1.fromJson(datapointJson, InvoiceRecord.class);
+			invoiceDao.addInvoice(record);
+		} catch (JsonSyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println(datapointJson);
+		}
     return Response.status(Response.Status.OK).build();
 	}
   
