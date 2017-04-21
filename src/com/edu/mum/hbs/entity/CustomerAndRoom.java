@@ -2,6 +2,8 @@ package com.edu.mum.hbs.entity;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class CustomerAndRoom {
 	public static final String ROOM_NUMBER = "room_number";
 	public static final String PASSPORT_OR_ID = "passport_id";
@@ -14,7 +16,11 @@ public class CustomerAndRoom {
 	private String roomNumber;
 	private String passportOrId;
 	private String status;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate checkInDate;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate checkOutDate;
 	
 	public CustomerAndRoom(){}

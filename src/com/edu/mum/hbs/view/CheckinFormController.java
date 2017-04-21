@@ -12,6 +12,9 @@ import com.edu.mum.hbs.dao.RoomDao;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
 import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.entity.RoomDate;
+import com.edu.mum.hbs.restapi.IRestAdapter;
+import com.edu.mum.hbs.restapi.RestAdapter;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
@@ -31,8 +34,7 @@ public class CheckinFormController extends ControllerBase{
 	@FXML	private TableColumn<RoomDate, String> checkInDateColumn;
 	@FXML	private TableColumn<RoomDate, String> checkOutDateColumn;
 
-
-	private CustomerDao cdao = (CustomerDao)DaoFactory.getDaoFactory(Customer.TABLE_NAME);
+	IRestAdapter adapter = RestAdapter.getInstance();
 	private CustomerAndRoomDao crdao = (CustomerAndRoomDao) DaoFactory.getDaoFactory(CustomerAndRoom.TABLE_NAME);
 	private RoomDao rdao = (RoomDao) DaoFactory.getDaoFactory(Room.TABLE_NAME);
 
@@ -45,7 +47,7 @@ public class CheckinFormController extends ControllerBase{
 			return;
 		}
 		
-		Customer customer = cdao.getCustomerFromPassportOrPhone(szSearch);
+		Customer customer = adapter.getCustomerFromPassportOrPhone(szSearch);
 		
 		if (customer == null) {
 			//Show error msg

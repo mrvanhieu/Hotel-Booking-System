@@ -13,6 +13,8 @@ import com.edu.mum.hbs.dao.RoomDao;
 import com.edu.mum.hbs.entity.Customer;
 import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.entity.RoomService;
+import com.edu.mum.hbs.restapi.IRestAdapter;
+import com.edu.mum.hbs.restapi.RestAdapter;
 import com.edu.mum.hbs.dao.CustomerDao;
 import com.edu.mum.hbs.dao.RoomServiceDao;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
@@ -45,7 +47,7 @@ public class CheckoutFormController extends ControllerBase{
 	@FXML	private TableColumn<RoomDate, String> checkOutDateColumn;
 
 
-	private CustomerDao cdao = (CustomerDao) DaoFactory.getDaoFactory(Customer.TABLE_NAME);
+	IRestAdapter adapter = RestAdapter.getInstance();
 	private CustomerAndRoomDao crdao = (CustomerAndRoomDao) DaoFactory.getDaoFactory(CustomerAndRoom.TABLE_NAME);
 	private RoomDao rdao = (RoomDao) DaoFactory.getDaoFactory(Room.TABLE_NAME);
 
@@ -58,7 +60,7 @@ public class CheckoutFormController extends ControllerBase{
 			return;
 		}
 		
-		Customer customer = cdao.getCustomerFromPassportOrPhone(szSearch);
+		Customer customer = adapter.getCustomerFromPassportOrPhone(szSearch);
 		
 		if (customer == null) {
 			//Show error msg
@@ -130,10 +132,9 @@ public class CheckoutFormController extends ControllerBase{
 			invoiceRecord.setRoomAmount(roomDate.getRoomPrice()*days);
 			invoiceRecord.setServiceAmount(rsDao.getTotalUsingService(roomDate.getRoomNumber()));
 			invoiceRecord.setTotalAmount(invoiceRecord.getRoomAmount() + invoiceRecord.getServiceAmount());
-			InvoiceRecordDao irDao = (InvoiceRecordDao) DaoFactory.getDaoFactory(InvoiceRecord.TABLE_NAME);
 			List<RoomService> roomServices = rsDao.getAllRoomService(roomDate.getRoomNumber());
 			rsDao.delete(roomDate.getRoomNumber());
-			irDao.addInvoice(invoiceRecord);
+			adapter.addInvoice(invoiceRecord);
 			crdao.delete(passport.getText(),roomDate.getRoomNumber());
 			checkedRooms.remove(roomDate);
 			reloadTableView(checkedTable, checkedRooms);
