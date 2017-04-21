@@ -2,7 +2,7 @@ package com.edu.mum.hbs.entity;
 
 import java.time.LocalDate;
 
-public class RoomDate extends Room {
+public class RoomDate extends Room implements Prototype {
 	private LocalDate checkInDate;
 	private LocalDate checkOutDate;
 	private Room room;
@@ -36,5 +36,12 @@ public class RoomDate extends Room {
 
 	public Room getRoom(){
 		return this.room;
+	}
+
+	@Override
+	public Prototype doClone() {
+		Room cloneRoom = (Room) this.room.doClone();
+		RoomDate cloneRoomDate=new RoomDate(room, checkInDate, checkOutDate);
+		return cloneRoomDate;
 	}
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.edu.mum.hbs.dao.CustomerDao;
-import com.edu.mum.hbs.dao.DaoFactory;
+import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.RoomDao;
 import com.edu.mum.hbs.entity.Customer;
 import com.edu.mum.hbs.entity.InvoiceRecord;
@@ -71,7 +71,7 @@ public class InvoiceFormPopupController extends ControllerBase {
 		fullName.setText(customer.getFullName());
 		phoneNo.setText(customer.getPhoneNo());
 
-		RoomDao rdao = (RoomDao) DaoFactory.getDaoFactory(Room.TABLE_NAME);
+		RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
 		Room room = rdao.getRoom(invoiceRecord.getRoomNumber());
 		roomType.setText(room.getRoomType());
 		roomClass.setText(room.getRoomClass());

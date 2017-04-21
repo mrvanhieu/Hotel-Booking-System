@@ -7,7 +7,7 @@ import java.util.Optional;
 import com.edu.mum.hbs.entity.Customer;
 import com.edu.mum.hbs.dao.CustomerAndRoomDao;
 import com.edu.mum.hbs.dao.CustomerDao;
-import com.edu.mum.hbs.dao.DaoFactory;
+import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.RoomDao;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
 import com.edu.mum.hbs.entity.Room;
@@ -34,10 +34,10 @@ public class CheckinFormController extends ControllerBase{
 	@FXML	private TableColumn<RoomDate, String> checkInDateColumn;
 	@FXML	private TableColumn<RoomDate, String> checkOutDateColumn;
 
+	private CustomerDao cdao = (CustomerDao)DaoFactoryImpl.getFactory().createDao(Customer.TABLE_NAME);
+	private CustomerAndRoomDao crdao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
+	private RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
 	IRestAdapter adapter = RestAdapter.getInstance();
-	private CustomerAndRoomDao crdao = (CustomerAndRoomDao) DaoFactory.getDaoFactory(CustomerAndRoom.TABLE_NAME);
-	private RoomDao rdao = (RoomDao) DaoFactory.getDaoFactory(Room.TABLE_NAME);
-
 	private List<RoomDate> bookingRooms = new ArrayList<RoomDate>();
 		
 	@FXML	public void searchCustomer() {

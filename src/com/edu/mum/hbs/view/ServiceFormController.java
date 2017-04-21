@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.edu.mum.hbs.dao.DaoFactory;
+import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.ServiceDao;
 import com.edu.mum.hbs.entity.Service;
 import com.edu.mum.hbs.restapi.IRestAdapter;

@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.edu.mum.hbs.dao.DaoFactory;
+import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.entity.Customer;
 import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.dao.CustomerAndRoomDao;
@@ -59,7 +59,7 @@ public class CustomerRoomFormController extends ControllerBase implements Notifi
 	private List<NotificationObserver> observers = new ArrayList<>();
 	private static String STATUS = "Booking";
 	private IRestAdapter adapter = RestAdapter.getInstance();
-	private RoomDao rdao = (RoomDao) DaoFactory.getDaoFactory(Room.TABLE_NAME);
+	private RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
 
 	private List<RoomDate> rooms = new ArrayList<RoomDate>();
 	private List<Room> availableRooms = new ArrayList<Room>();
@@ -213,7 +213,7 @@ private boolean checkNonEmptyCustomer(){
 		customer.setAddress(address.getText());
 		adapter.addCustomer(customer);
 
-		CustomerAndRoomDao customerAndRoomDao = (CustomerAndRoomDao) DaoFactory.getDaoFactory(CustomerAndRoom.TABLE_NAME);
+		CustomerAndRoomDao customerAndRoomDao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
 		customerAndRoomDao.addCustomerAndRooms(customer.getPassportOrId(), rooms, STATUS);
 		//Clear form for entering new Customer & Rooms
 		Object[] customerFields = new Object[] { fullName, passport, address, phoneNo, roomTable, dob, checkInDate, checkOutDate };
