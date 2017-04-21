@@ -8,6 +8,8 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class CustomerAndRoom {
 	public static final String ROOM_NUMBER = "room_number";
 	public static final String PASSPORT_OR_ID = "passport_id";
@@ -25,6 +27,7 @@ public class CustomerAndRoom {
 	private LocalDate checkInDate;
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
+
 	private LocalDate checkOutDate;
 	
 	public CustomerAndRoom(){}

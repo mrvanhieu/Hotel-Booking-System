@@ -11,6 +11,9 @@ import com.edu.mum.hbs.entity.Customer;
 import com.edu.mum.hbs.entity.InvoiceRecord;
 import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.entity.RoomService;
+import com.edu.mum.hbs.restapi.IRestAdapter;
+import com.edu.mum.hbs.restapi.RestAdapter;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -43,6 +46,7 @@ public class InvoiceFormPopupController extends ControllerBase {
 		super.initialize(location, resources);
 	}
 	
+	IRestAdapter adapter = RestAdapter.getInstance();
 	public void viewData(InvoiceRecord invoiceRecord, List<RoomService> roomServices) {
 
 		roomNumberColumn.setCellValueFactory(new PropertyValueFactory<RoomService, String>("roomNumber"));
@@ -63,8 +67,7 @@ public class InvoiceFormPopupController extends ControllerBase {
 		lblServiceAmount.setText("$" + invoiceRecord.getServiceAmount());
 		lblTotalAmount.setText("$" + invoiceRecord.getTotalAmount());
 
-		CustomerDao cdao = (CustomerDao) DaoFactoryImpl.getFactory().createDao(Customer.TABLE_NAME);
-		Customer customer = cdao.getCustomer(invoiceRecord.getPassportOrId());
+		Customer customer = adapter.getCustomer(invoiceRecord.getPassportOrId());
 		fullName.setText(customer.getFullName());
 		phoneNo.setText(customer.getPhoneNo());
 

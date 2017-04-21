@@ -12,6 +12,7 @@ import com.edu.mum.hbs.dao.RoomDao;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
 import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.entity.RoomDate;
+import com.edu.mum.hbs.restapi.IRestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapter;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -32,11 +33,12 @@ public class CheckinFormController extends ControllerBase{
 	@FXML	private TableColumn<RoomDate, String> checkInDateColumn;
 	@FXML	private TableColumn<RoomDate, String> checkOutDateColumn;
 
+
 	private RestAdapter adapter = (RestAdapter) RestAdapter.getInstance();
 	private CustomerDao cdao = (CustomerDao)DaoFactoryImpl.getFactory().createDao(Customer.TABLE_NAME);
 	private CustomerAndRoomDao crdao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
 	private RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
-
+	IRestAdapter adapter = RestAdapter.getInstance();
 	private List<RoomDate> bookingRooms = new ArrayList<RoomDate>();
 		
 	@FXML	public void searchCustomer() {
@@ -46,7 +48,7 @@ public class CheckinFormController extends ControllerBase{
 			return;
 		}
 		
-		Customer customer = cdao.getCustomerFromPassportOrPhone(szSearch);
+		Customer customer = adapter.getCustomerFromPassportOrPhone(szSearch);
 		
 		if (customer == null) {
 			//Show error msg

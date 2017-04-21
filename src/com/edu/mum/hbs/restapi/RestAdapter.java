@@ -9,6 +9,8 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
 import com.edu.mum.hbs.dao.UserSession;
+import com.edu.mum.hbs.entity.Customer;
+import com.edu.mum.hbs.entity.InvoiceRecord;
 import com.edu.mum.hbs.entity.CustRoomDetails;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
 import com.edu.mum.hbs.entity.Service;
@@ -88,6 +90,36 @@ public class RestAdapter implements IRestAdapter{
 		WebTarget path = update.path("/addService");
 		Response response = path.request().post(Entity.json(service));
 	}
+	
+	//Invoice 
+	@Override
+	public void addInvoice(InvoiceRecord invoice) {
+		WebTarget path = update.path("/addInvoice");
+		Response response = path.request().post(Entity.json(invoice));
+		System.out.println("Test:" + response.getStatusInfo().getReasonPhrase());
+	}
+	
+	//Customer 
+	@Override
+	public void addCustomer(Customer customer) {
+		WebTarget path = update.path("/addCustomer");
+		Response response = path.request().post(Entity.json(customer));
+	}
+	
+	@Override
+	public Customer getCustomer(String customerId){
+		WebTarget path = query.path("/getCustomer/" + customerId);
+		Customer customer = path.request().get().readEntity(new GenericType<Customer>(){});
+		return customer;
+	}
+	
+	@Override
+	public Customer getCustomerFromPassportOrPhone(String customerIdorPhone) {
+		WebTarget path = query.path("/getCustomerFromPassportOrPhone/" + customerIdorPhone);
+		Customer customer = path.request().get().readEntity(new GenericType<Customer>(){});
+		return customer;
+	}
+
 	
 	@Override
 	public boolean deleteService (Service service){
@@ -174,4 +206,5 @@ public class RestAdapter implements IRestAdapter{
 		}
 		System.exit(0);
 	}
+
 }

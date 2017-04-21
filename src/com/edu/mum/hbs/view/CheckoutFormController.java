@@ -14,6 +14,8 @@ import com.edu.mum.hbs.dao.RoomDao;
 import com.edu.mum.hbs.entity.Customer;
 import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.entity.RoomService;
+import com.edu.mum.hbs.restapi.IRestAdapter;
+import com.edu.mum.hbs.restapi.RestAdapter;
 import com.edu.mum.hbs.dao.CustomerDao;
 import com.edu.mum.hbs.dao.RoomServiceDao;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
@@ -47,7 +49,8 @@ public class CheckoutFormController extends ControllerBase{
 	@FXML	private TableColumn<RoomDate, String> checkInDateColumn;
 	@FXML	private TableColumn<RoomDate, String> checkOutDateColumn;
 
-	private RestAdapter adapter = (RestAdapter) RestAdapter.getInstance();
+	IRestAdapter adapter = RestAdapter.getInstance();
+
 	private CustomerDao cdao = (CustomerDao) DaoFactoryImpl.getFactory().createDao(Customer.TABLE_NAME);
 	private CustomerAndRoomDao crdao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
 	private RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
@@ -61,7 +64,7 @@ public class CheckoutFormController extends ControllerBase{
 			return;
 		}
 		
-		Customer customer = cdao.getCustomerFromPassportOrPhone(szSearch);
+		Customer customer = adapter.getCustomerFromPassportOrPhone(szSearch);
 		
 		if (customer == null) {
 			//Show error msg
@@ -145,7 +148,7 @@ public class CheckoutFormController extends ControllerBase{
 			InvoiceRecordDao irDao = (InvoiceRecordDao) DaoFactoryImpl.getFactory().createDao(InvoiceRecord.TABLE_NAME);
 			List<RoomService> roomServices = rsDao.getAllRoomService(clonedRoomDate.getRoomNumber());
 			rsDao.delete(clonedRoomDate.getRoomNumber());
-			irDao.addInvoice(invoiceRecord);
+			adapter.addInvoice(invoiceRecord);
 			//crdao.delete(passport.getText(),clonedRoomDate.getRoomNumber());
 			adapter.deleteCustomerAndRooms(passport.getText(),clonedRoomDate.getRoomNumber());
 			checkedRooms.remove(clonedRoomDate);

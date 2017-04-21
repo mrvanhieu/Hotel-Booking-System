@@ -2,6 +2,12 @@ package com.edu.mum.hbs.entity;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
 public class InvoiceRecord {
 	public static final String TABLE_NAME = "InvoiceRecord";
 	public static final String PASSPORT_OR_ID = "passport_id";
@@ -13,7 +19,14 @@ public class InvoiceRecord {
 	public static final String TOTAL_AMOUNT = "total_amount";
 	private String passportOrId;
 	private String roomNumber;
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate checkInDate;
+	
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate checkOutDate;
 	private double roomAmount;
 	private double serviceAmount;
@@ -43,7 +56,7 @@ public class InvoiceRecord {
 		this.checkInDate = checkInDate;
 	}
 
-	public void setCheckInDate(String checkInDate) {
+	public void setCheckInDateByString(String checkInDate) {
 		this.checkInDate = LocalDate.parse(checkInDate);
 	}
 	

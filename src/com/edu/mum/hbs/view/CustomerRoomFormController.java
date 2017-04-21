@@ -18,6 +18,8 @@ import com.edu.mum.hbs.notification.EmailNotificationObserver;
 import com.edu.mum.hbs.notification.LoggingNotificationObserver;
 import com.edu.mum.hbs.notification.NotificationObserver;
 import com.edu.mum.hbs.notification.NotificationSubject;
+import com.edu.mum.hbs.restapi.IRestAdapter;
+import com.edu.mum.hbs.restapi.RestAdapter;
 import com.edu.mum.hbs.util.Constants;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -56,7 +58,7 @@ public class CustomerRoomFormController extends ControllerBase implements Notifi
 
 	private List<NotificationObserver> observers = new ArrayList<>();
 	private static String STATUS = "Booking";
-	private CustomerDao cdao = (CustomerDao) DaoFactoryImpl.getFactory().createDao(Customer.TABLE_NAME);
+	private IRestAdapter adapter = RestAdapter.getInstance();
 	private RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
 
 	private List<RoomDate> rooms = new ArrayList<RoomDate>();
@@ -209,7 +211,7 @@ private boolean checkNonEmptyCustomer(){
 		customer.setPassportOrId(passport.getText());
 		customer.setPhoneNo(phoneNo.getText());
 		customer.setAddress(address.getText());
-		cdao.addCustomer(customer);
+		adapter.addCustomer(customer);
 
 		CustomerAndRoomDao customerAndRoomDao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
 		customerAndRoomDao.addCustomerAndRooms(customer.getPassportOrId(), rooms, STATUS);
