@@ -12,6 +12,7 @@ import com.edu.mum.hbs.dao.RoomDao;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
 import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.entity.RoomDate;
+import com.edu.mum.hbs.restapi.RestAdapter;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
@@ -31,7 +32,7 @@ public class CheckinFormController extends ControllerBase{
 	@FXML	private TableColumn<RoomDate, String> checkInDateColumn;
 	@FXML	private TableColumn<RoomDate, String> checkOutDateColumn;
 
-
+	private RestAdapter adapter = new RestAdapter();
 	private CustomerDao cdao = (CustomerDao)DaoFactoryImpl.getFactory().createDao(Customer.TABLE_NAME);
 	private CustomerAndRoomDao crdao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
 	private RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
@@ -72,7 +73,8 @@ public class CheckinFormController extends ControllerBase{
 		phoneNo.setText(customer.getPhoneNo());
 		
 		//1. getCustomerAndRoom
-		List<CustomerAndRoom> customerAndRooms = crdao.getCustomerAndRoom(customer.getPassportOrId(), CustomerAndRoom.BOOKING_STATUS);
+		//List<CustomerAndRoom> customerAndRooms = crdao.getCustomerAndRoom(customer.getPassportOrId(), CustomerAndRoom.BOOKING_STATUS);
+		List<CustomerAndRoom> customerAndRooms = adapter.getCustomerAndRoom(customer.getPassportOrId(), CustomerAndRoom.BOOKING_STATUS);
 		List<RoomDate> roomDates = new ArrayList<>();
 		for (CustomerAndRoom cr : customerAndRooms){
 			Room r = rdao.getRoom(cr.getRoomNumber());
@@ -102,7 +104,8 @@ public class CheckinFormController extends ControllerBase{
 		if (roomDate == null) return;
 		Optional<ButtonType> result = showAlert(AlertType.CONFIRMATION,"Check In Confirmation","Are you sure?","");
 		if (result.get() == ButtonType.OK){
-			crdao.update(roomDate.getRoomNumber(), CustomerAndRoom.CHECKED_STATUS);
+			//crdao.update(roomDate.getRoomNumber(), CustomerAndRoom.CHECKED_STATUS);
+			adapter.updateCustomerAndRooms(roomDate.getRoomNumber(), CustomerAndRoom.CHECKED_STATUS);
 			bookingRooms.remove(roomDate);
 			reloadTableView(bookingTable, bookingRooms);
 		} else {
@@ -120,7 +123,8 @@ public class CheckinFormController extends ControllerBase{
 		if (roomDate == null) return;
 		Optional<ButtonType> result = showAlert(AlertType.CONFIRMATION,"Cancel Booking Confirmation","Are you sure?","");
 		if (result.get() == ButtonType.OK){
-			crdao.delete(passport.getText(),roomDate.getRoomNumber());
+			//crdao.delete(passport.getText(),roomDate.getRoomNumber());
+			adapter.deleteCustomerAndRooms(passport.getText(),roomDate.getRoomNumber());
 			bookingRooms.remove(roomDate);
 			reloadTableView(bookingTable, bookingRooms);
 		} else {

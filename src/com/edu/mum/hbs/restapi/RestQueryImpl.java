@@ -3,10 +3,8 @@ package com.edu.mum.hbs.restapi;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-import com.edu.mum.hbs.dao.DaoFactoryImpl;
-import com.edu.mum.hbs.dao.LoginDao;
-import com.edu.mum.hbs.dao.ServiceDao;
-import com.edu.mum.hbs.dao.UserSession;
+import com.edu.mum.hbs.dao.*;
+import com.edu.mum.hbs.entity.CustomerAndRoom;
 import com.edu.mum.hbs.entity.Service;
 import com.edu.mum.hbs.restapi.bean.LoginBean;
 import com.google.gson.Gson;
@@ -17,6 +15,7 @@ public class RestQueryImpl implements RestQueryInterface {
 	public final static Gson gson = new Gson();
 	LoginDao loginDao = new LoginDao();
 	ServiceDao serviceDao = (ServiceDao) DaoFactoryImpl.getFactory().createDao(Service.TABLE_NAME);
+	CustomerAndRoomDao customerAndRoomDao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
 
 	@Override
 	public UserSession validateLogin(String input) {
@@ -35,7 +34,7 @@ public class RestQueryImpl implements RestQueryInterface {
 	public Response loadServices() {
 		return Response.status(Response.Status.OK).entity(serviceDao.loadServices()).build();
 	}
-	
+
 
 	@Override
 	public Response loadServicesDesc() {
@@ -47,4 +46,36 @@ public class RestQueryImpl implements RestQueryInterface {
 		return Response.status(Response.Status.OK).entity(serviceDao.getService(serviceId)).build();
 	}
 
+    // CustomerAndRoom Services Start
+	@Override
+	public Response getAllCustomerRoomByStatus(String roomStatus) {
+		return Response.status(Response.Status.OK)
+                .entity((customerAndRoomDao.getAllCustomerRoom(roomStatus))).build();
+	}
+
+    @Override
+    public Response getCustomerAndRoom(String passportOrId, String status) {
+        return Response.status(Response.Status.OK)
+                .entity((customerAndRoomDao.getCustomerAndRoom(passportOrId, status))).build();
+    }
+
+    @Override
+    public Response getAllRoomNumbers() {
+        return Response.status(Response.Status.OK)
+                .entity((customerAndRoomDao.getAllRoomNumbers())).build();
+    }
+
+    @Override
+    public Response getAllCustomerRoom() {
+        return Response.status(Response.Status.OK)
+                .entity((customerAndRoomDao.getAllCustomerRoom())).build();
+    }
+
+    @Override
+    public Response getCustomerRoomFullFromToDate(String fromDate, String toDate) {
+        return Response.status(Response.Status.OK)
+                .entity((customerAndRoomDao.getCustomerRoomFullFromToDate(fromDate, toDate))).build();
+    }
+
+    // CustomerAndRoom Services End
 }

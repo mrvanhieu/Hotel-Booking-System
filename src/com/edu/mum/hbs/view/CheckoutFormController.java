@@ -20,6 +20,7 @@ import com.edu.mum.hbs.entity.CustomerAndRoom;
 import com.edu.mum.hbs.entity.InvoiceRecord;
 import com.edu.mum.hbs.entity.InvoiceRecordBuilder;
 import com.edu.mum.hbs.entity.RoomDate;
+import com.edu.mum.hbs.restapi.RestAdapter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -46,7 +47,7 @@ public class CheckoutFormController extends ControllerBase{
 	@FXML	private TableColumn<RoomDate, String> checkInDateColumn;
 	@FXML	private TableColumn<RoomDate, String> checkOutDateColumn;
 
-
+	private RestAdapter adapter = new RestAdapter();
 	private CustomerDao cdao = (CustomerDao) DaoFactoryImpl.getFactory().createDao(Customer.TABLE_NAME);
 	private CustomerAndRoomDao crdao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
 	private RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
@@ -87,7 +88,8 @@ public class CheckoutFormController extends ControllerBase{
 		phoneNo.setText(customer.getPhoneNo());
 		
 		//1. getCustomerAndRoom
-		List<CustomerAndRoom> customerAndRooms = crdao.getCustomerAndRoom(customer.getPassportOrId(), CustomerAndRoom.CHECKED_STATUS);
+//		List<CustomerAndRoom> customerAndRooms = crdao.getCustomerAndRoom(customer.getPassportOrId(), CustomerAndRoom.CHECKED_STATUS);
+		List<CustomerAndRoom> customerAndRooms = adapter.getCustomerAndRoom(customer.getPassportOrId(), CustomerAndRoom.CHECKED_STATUS);
 		List<RoomDate> roomDates = new ArrayList<>();
 		for (CustomerAndRoom cr : customerAndRooms){
 			Room r = rdao.getRoom(cr.getRoomNumber());
@@ -144,7 +146,8 @@ public class CheckoutFormController extends ControllerBase{
 			List<RoomService> roomServices = rsDao.getAllRoomService(clonedRoomDate.getRoomNumber());
 			rsDao.delete(clonedRoomDate.getRoomNumber());
 			irDao.addInvoice(invoiceRecord);
-			crdao.delete(passport.getText(),clonedRoomDate.getRoomNumber());
+			//crdao.delete(passport.getText(),clonedRoomDate.getRoomNumber());
+			adapter.deleteCustomerAndRooms(passport.getText(),clonedRoomDate.getRoomNumber());
 			checkedRooms.remove(clonedRoomDate);
 			reloadTableView(checkedTable, checkedRooms);
 			showInvoiceData(invoiceRecord,roomServices);

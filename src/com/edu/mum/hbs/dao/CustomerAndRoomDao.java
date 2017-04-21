@@ -37,8 +37,8 @@ public class CustomerAndRoomDao extends DaoAbstract {
 				
 				CustRoomDetails cr = new CustRoomDetails(customer, room);
 				cr.setStatus((String) ob.get(CustomerAndRoom.STATUS));
-				cr.setCheckInDate((String) ob.get(CustomerAndRoom.CHECK_IN_DATE));
-				cr.setCheckOutDate((String) ob.get(CustomerAndRoom.CHECK_OUT_DATE));
+				cr.setCheckInDateByString((String) ob.get(CustomerAndRoom.CHECK_IN_DATE));
+				cr.setCheckOutDateByString((String) ob.get(CustomerAndRoom.CHECK_OUT_DATE));
 				
 				customerAndRooms.add(cr);
 			}
@@ -81,8 +81,8 @@ public class CustomerAndRoomDao extends DaoAbstract {
 			cr.setPassportOrId((String) ob.get(CustomerAndRoom.PASSPORT_OR_ID));
 			cr.setRoomNumber((String) ob.get(CustomerAndRoom.ROOM_NUMBER));
 			cr.setStatus((String) ob.get(CustomerAndRoom.STATUS));
-			cr.setCheckInDate((String) ob.get(CustomerAndRoom.CHECK_IN_DATE));
-			cr.setCheckOutDate((String) ob.get(CustomerAndRoom.CHECK_OUT_DATE));
+			cr.setCheckInDateByString((String) ob.get(CustomerAndRoom.CHECK_IN_DATE));
+			cr.setCheckOutDateByString((String) ob.get(CustomerAndRoom.CHECK_OUT_DATE));
 			customerAndRooms.add(cr);
 		}
 	}

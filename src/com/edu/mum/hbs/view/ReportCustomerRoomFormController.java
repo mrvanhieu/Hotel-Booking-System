@@ -10,6 +10,7 @@ import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.CustomerAndRoomDao;
 import com.edu.mum.hbs.entity.CustRoomDetails;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
+import com.edu.mum.hbs.restapi.RestAdapter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
@@ -30,6 +31,7 @@ public class ReportCustomerRoomFormController extends ControllerBase{
 	@FXML	private TableColumn<CustRoomDetails, String> checkOutDateColumn;
 	@FXML	private TableColumn<CustRoomDetails, String> roomStatusColumn;
 
+	private static RestAdapter adapter = new RestAdapter();
 	private List<CustRoomDetails> custRoomDetails = new ArrayList<CustRoomDetails>();
 
 	@Override
@@ -49,7 +51,8 @@ public class ReportCustomerRoomFormController extends ControllerBase{
 		String szFromDate = fromDate.getValue().toString();
 		String szToDate = toDate.getValue().toString();
 		
-		custRoomDetails = crDao.getCustomerRoomFullFromToDate(szFromDate, szToDate);
+//		custRoomDetails = crDao.getCustomerRoomFullFromToDate(szFromDate, szToDate);
+		custRoomDetails = adapter.getCustomerRoomFullFromToDate(szFromDate, szToDate);
 
 		customerNameColumn.setCellValueFactory(new PropertyValueFactory<CustRoomDetails, String>("fullName"));
 		customerIDColumn.setCellValueFactory(new PropertyValueFactory<CustRoomDetails, String>("passportOrId"));

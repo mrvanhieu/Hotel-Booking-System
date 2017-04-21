@@ -64,7 +64,7 @@ public class RoomFormController extends ControllerBase {
         }
 		Room room = new Room();
 		
-		room.setRoomPrice(roomPrice.getText());
+		room.setRoomPriceByString(roomPrice.getText());
 		room.setRoomNumber(roomNumber.getText());
 		room.setRoomType(roomType.getText());
 		room.setRoomClass(roomClass.getText());
@@ -89,7 +89,7 @@ public class RoomFormController extends ControllerBase {
         if (roomSelected == null) return;
 		Room room = new Room();
 		
-		room.setRoomPrice(roomPrice.getText());
+		room.setRoomPriceByString(roomPrice.getText());
 		room.setRoomNumber(roomNumber.getText());
 		room.setRoomType(roomType.getText());
 		room.setRoomClass(roomClass.getText());

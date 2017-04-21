@@ -9,6 +9,7 @@ import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.RoomDao;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
 import com.edu.mum.hbs.entity.Room;
+import com.edu.mum.hbs.restapi.RestAdapter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -35,7 +36,9 @@ public class ReportRoomFormController extends ControllerBase {
 	@FXML	private TableColumn<CustomerAndRoom, String> cRoomNoColumn;
 	@FXML	private TableColumn<CustomerAndRoom, String> cCheckInColumn;
 	@FXML	private TableColumn<CustomerAndRoom, String> cCheckOutColumn;
-	
+
+	private RestAdapter adapter = new RestAdapter();
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -54,7 +57,8 @@ public class ReportRoomFormController extends ControllerBase {
 
 		CustomerAndRoomDao crDao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
 
-		List<CustomerAndRoom> customerRoomBooking = crDao.getAllCustomerRoom(CustomerAndRoom.BOOKING_STATUS);
+//		List<CustomerAndRoom> customerRoomBooking = crDao.getAllCustomerRoom(CustomerAndRoom.BOOKING_STATUS);
+		List<CustomerAndRoom> customerRoomBooking = adapter.getAllCustomerRoomByStatus(CustomerAndRoom.BOOKING_STATUS);
 		if (customerRoomBooking != null){
 			bRoomNoColumn.setCellValueFactory(new PropertyValueFactory<CustomerAndRoom, String>("roomNumber"));
 			bCheckInColumn.setCellValueFactory(new PropertyValueFactory<CustomerAndRoom, String>("checkInDate"));
@@ -64,7 +68,8 @@ public class ReportRoomFormController extends ControllerBase {
 			lblBookingRooms.setText("Booking Rooms (" + customerRoomBooking.size() + ")");
 		}
 		
-		List<CustomerAndRoom> customerRoomChecked = crDao.getAllCustomerRoom(CustomerAndRoom.CHECKED_STATUS);
+		//List<CustomerAndRoom> customerRoomChecked = crDao.getAllCustomerRoom(CustomerAndRoom.CHECKED_STATUS);
+		List<CustomerAndRoom> customerRoomChecked = adapter.getAllCustomerRoomByStatus(CustomerAndRoom.CHECKED_STATUS);
 		if (customerRoomChecked != null){
 			cRoomNoColumn.setCellValueFactory(new PropertyValueFactory<CustomerAndRoom, String>("roomNumber"));
 			cCheckInColumn.setCellValueFactory(new PropertyValueFactory<CustomerAndRoom, String>("checkInDate"));
