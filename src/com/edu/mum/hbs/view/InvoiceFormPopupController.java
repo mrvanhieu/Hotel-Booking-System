@@ -72,7 +72,8 @@ public class InvoiceFormPopupController extends ControllerBase {
 		phoneNo.setText(customer.getPhoneNo());
 
 		RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
-		Room room = rdao.getRoom(invoiceRecord.getRoomNumber());
+//		Room room = rdao.getRoom(invoiceRecord.getRoomNumber());
+		Room room =adapter.getRoom(invoiceRecord.getRoomNumber());
 		roomType.setText(room.getRoomType());
 		roomClass.setText(room.getRoomClass());
 		roomPrice.setText(String.valueOf(room.getRoomPrice()));

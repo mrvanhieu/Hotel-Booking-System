@@ -11,6 +11,7 @@ import com.edu.mum.hbs.dao.UserSession;
 import com.edu.mum.hbs.entity.Customer;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
 import com.edu.mum.hbs.dao.*;
+import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.entity.Service;
 import com.edu.mum.hbs.restapi.bean.LoginBean;
 import com.google.gson.Gson;
@@ -23,6 +24,7 @@ public class RestQueryImpl implements RestQueryInterface {
 	CustomerDao customerDao = (CustomerDao) DaoFactoryImpl.getFactory().createDao(Customer.TABLE_NAME);
 	ServiceDao serviceDao = (ServiceDao) DaoFactoryImpl.getFactory().createDao(Service.TABLE_NAME);
 	CustomerAndRoomDao customerAndRoomDao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
+	RoomDao roomDao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
 	
 	@Override
 	public UserSession validateLogin(String input) {
@@ -94,5 +96,25 @@ public class RestQueryImpl implements RestQueryInterface {
                 .entity((customerAndRoomDao.getCustomerRoomFullFromToDate(fromDate, toDate))).build();
     }
 
-    // CustomerAndRoom Services End
+	// CustomerAndRoom Services End
+
+	// RoomDao Services Start
+	@Override
+	public Response getRoom(String roomNumber) {
+		return Response.status(Response.Status.OK)
+				.entity((roomDao.getRoom(roomNumber))).build();
+
+	}
+
+	@Override
+	public Response getAllRooms() {
+		return Response.status(Response.Status.OK).entity(roomDao.getAllRooms()).build();
+	}
+
+	@Override
+	public Response getAvailableRooms() {
+		return Response.status(Response.Status.OK).entity(roomDao.getAvailableRooms()).build();
+	}
+
+	// RoomDao Services End
 }

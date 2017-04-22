@@ -122,7 +122,8 @@ public class CustomerRoomFormController extends ControllerBase implements Notifi
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		availableRooms = rdao.getAvailableRooms();
+//		availableRooms = rdao.getAvailableRooms();
+		availableRooms = adapter.getAvailableRooms();
 		for (Room room : availableRooms){
 			//stringRoomNumbers.add(room.getRoomNumber());
 			stringRoomTypes.add(room.getRoomType());
