@@ -9,13 +9,7 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
 import com.edu.mum.hbs.dao.UserSession;
-import com.edu.mum.hbs.entity.Customer;
-import com.edu.mum.hbs.entity.InvoiceRecord;
-import com.edu.mum.hbs.entity.Revenue;
-import com.edu.mum.hbs.entity.RoomService;
-import com.edu.mum.hbs.entity.CustRoomDetails;
-import com.edu.mum.hbs.entity.CustomerAndRoom;
-import com.edu.mum.hbs.entity.Service;
+import com.edu.mum.hbs.entity.*;
 import com.edu.mum.hbs.restapi.bean.CustomerAndRoomBean;
 import com.edu.mum.hbs.restapi.bean.LoginBean;
 import com.edu.mum.hbs.util.Constants;
@@ -197,7 +191,6 @@ public class RestAdapter implements IRestAdapter{
 		response.close();
 		System.out.print("ping: " + response.getStatusInfo().getReasonPhrase() + "\n");
 	}
-
 	// CustomerAndRoom Services End
 	
 	//InvoiceRecords
@@ -208,6 +201,54 @@ public class RestAdapter implements IRestAdapter{
 				readEntity(new GenericType<List<InvoiceRecord>>(){});
 		return invoiceRecords;
 	}
+
+	// RoomDao Services Start
+	@Override
+	public Room getRoom(String roomNumber){
+		WebTarget path = query.path("/getRoom/" + roomNumber);
+		Room room = path.request().get().readEntity(new GenericType<Room>(){});
+		return room;
+	}
+
+	@Override
+	public List<Room> getAllRooms() {
+		WebTarget path = query.path("/getAllRooms");
+		List<Room> rooms = path.request().get().readEntity(new GenericType<List<Room>>(){});
+		return rooms;
+	}
+
+	@Override
+	public List<Room> getAvailableRooms() {
+		WebTarget path = query.path("/getAvailableRooms");
+		List<Room> rooms = path.request().get().readEntity(new GenericType<List<Room>>(){});
+		return rooms;
+	}
+
+	@Override
+	public void addRoom(Room room) {
+		WebTarget path = update.path("/addRoom");
+		Response response = path.request().post(Entity.json(room));
+		response.close();
+	}
+
+	@Override
+	public boolean deleteRoom(Room room) {
+		boolean status = false;
+		WebTarget path = update.path("/deleteRoom");
+		Response response = path.request().post(Entity.json(room));
+		if (response.getStatus() == Response.Status.OK.getStatusCode()) return true;
+		response.close();
+		return status;
+	}
+
+	@Override
+	public void updateRoom(Room room) {
+		WebTarget path = update.path("/updateRoom");
+		Response response = path.request().post(Entity.json(room));
+		response.close();
+	}
+
+	// RoomDao Services End
 
 	@Override
 	public List<Revenue> getAllRevenueRecordsFromToDate(String fromDate, String toDate){
@@ -288,7 +329,7 @@ public class RestAdapter implements IRestAdapter{
 		response.close();
 		return false; 
 	}
-	
+
 	/**
 	 * The main method.
 	 *

@@ -75,6 +75,26 @@ public interface RestQueryInterface {
 	@GET
 	@Path("/getCustomerRoomFullFromToDate/{fromDate}/{toDate}")
 	@Produces(MediaType.APPLICATION_JSON)
+	Response getCustomerRoomFullFromToDate(@PathParam(("fromDate")) String fromDate, @PathParam(("toDate")) String toDate);
+	// CustomerAndRoom Services End
+
+	// RoomDao Services Start
+	@GET
+	@Path("/getRoom/{roomNumber}")
+	@Produces(MediaType.APPLICATION_JSON)
+	Response getRoom(@PathParam(("roomNumber"))String roomNumber);
+
+	@GET
+	@Path("/getAllRooms")
+	@Produces(MediaType.APPLICATION_JSON)
+	Response getAllRooms();
+
+	@GET
+	@Path("/getAvailableRooms")
+	@Produces(MediaType.APPLICATION_JSON)
+	Response getAvailableRooms();
+
+	// RoomDao Services Start
 	Response getCustomerRoomFullFromToDate(@PathParam(("fromDate")) String fromDate,
 			@PathParam(("toDate")) String toDate);
 
