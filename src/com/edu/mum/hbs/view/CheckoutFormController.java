@@ -162,7 +162,7 @@ public class CheckoutFormController extends ControllerBase{
 			adapter.addInvoice(invoiceRecord);
 			//crdao.delete(passport.getText(),clonedRoomDate.getRoomNumber());
 			adapter.deleteCustomerAndRooms(passport.getText(),clonedRoomDate.getRoomNumber());
-			checkedRooms.remove(clonedRoomDate);
+			checkedRooms.remove(roomDate);
 			reloadTableView(checkedTable, checkedRooms);
 			showInvoiceData(invoiceRecord,roomServices);
 		} else {
