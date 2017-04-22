@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.edu.mum.hbs.common.RoomClass;
 import com.edu.mum.hbs.dao.CustomerAndRoomDao;
 import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.InvoiceRecordDao;
@@ -14,6 +15,9 @@ import com.edu.mum.hbs.dao.RoomDao;
 import com.edu.mum.hbs.entity.Customer;
 import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.entity.RoomService;
+import com.edu.mum.hbs.entity.StandardStrategy;
+import com.edu.mum.hbs.entity.StrategyContext;
+import com.edu.mum.hbs.entity.VIPStrategy;
 import com.edu.mum.hbs.restapi.IRestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapter;
 import com.edu.mum.hbs.dao.CustomerDao;
@@ -135,19 +139,26 @@ public class CheckoutFormController extends ControllerBase{
 			LocalDate checkOutDate =  clonedRoomDate.getCheckOutDate();
 			int days = Period.between(checkInDate,checkOutDate).getDays();
 			double roomAmount = clonedRoomDate.getRoomPrice()*days;
-			Double serviceAmount = adapter.getTotalUsingService(clonedRoomDate.getRoomNumber());
-			serviceAmount =  serviceAmount == null ? 0: serviceAmount;
-			
+
+			// double serviceAmount = rsDao.getTotalUsingService(clonedRoomDate.getRoomNumber());
+			List<RoomService> roomServices = adapter.getAllRoomService(clonedRoomDate.getRoomNumber());
+			double serviceAmount = 0.0;
+			String roomClass = clonedRoomDate.getRoomClass();
+			StrategyContext strategyContext;
+			if (roomClass.equalsIgnoreCase("VIP")) {
+				strategyContext = new StrategyContext(new VIPStrategy());
+			} else {
+				strategyContext = new StrategyContext(new StandardStrategy());
+			}
+			serviceAmount = strategyContext.getRoomServiceAmount(roomServices);
 			invoiceRecordBuilder.buildCheckInDate(checkInDate);
 			invoiceRecordBuilder.buildCheckOutDate(checkOutDate);
 			invoiceRecordBuilder.buildRoomAmount(roomAmount);
 			invoiceRecordBuilder.buildServiceAmount(serviceAmount);
 			invoiceRecordBuilder.buildTotalAmount(roomAmount + serviceAmount);
 			InvoiceRecord invoiceRecord = invoiceRecordBuilder.getInvoiceRecord();
-			
-			
-			List<RoomService> roomServices = adapter.getAllRoomServicesByRoomNumber(clonedRoomDate.getRoomNumber());
-			adapter.deleteRoomServiceByString(clonedRoomDate.getRoomNumber());
+				
+      adapter.deleteRoomServiceByString(clonedRoomDate.getRoomNumber());
 			adapter.addInvoice(invoiceRecord);
 			//crdao.delete(passport.getText(),clonedRoomDate.getRoomNumber());
 			adapter.deleteCustomerAndRooms(passport.getText(),clonedRoomDate.getRoomNumber());
