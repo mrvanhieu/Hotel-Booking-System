@@ -20,10 +20,6 @@ public class RestUpdateImpl implements RestUpdateInterface {
 	InvoiceRecordDao invoiceDao = (InvoiceRecordDao) DaoFactoryImpl.getFactory().createDao(InvoiceRecord.TABLE_NAME);
 	CustomerAndRoomDao customerAndRoomDao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
 	RoomDao roomDao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
-	public final static Gson gson = new Gson();
-	CustomerAndRoomDao customerAndRoomDao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory()
-			.createDao(CustomerAndRoom.TABLE_NAME);
-	
 	private static final RoomServiceDao roomServiceDao = (RoomServiceDao) DaoFactoryImpl.getFactory()
 			.createDao(RoomService.TABLE_NAME);
 	private final static Gson gson = new Gson();
@@ -103,9 +99,7 @@ public class RestUpdateImpl implements RestUpdateInterface {
 		roomDao.update(gson.fromJson(datapointJson, Room.class));
 		return Response.status(Response.Status.OK).build();
 	}
-
 	// RoomDao Services End
-	}
 
 	// Room Servie
 	@Override

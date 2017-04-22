@@ -93,11 +93,6 @@ public interface RestQueryInterface {
 	@Path("/getAvailableRooms")
 	@Produces(MediaType.APPLICATION_JSON)
 	Response getAvailableRooms();
-
-	// RoomDao Services Start
-	Response getCustomerRoomFullFromToDate(@PathParam(("fromDate")) String fromDate,
-			@PathParam(("toDate")) String toDate);
-
 	// CustomerAndRoom Services End
 
 	// Invoice
