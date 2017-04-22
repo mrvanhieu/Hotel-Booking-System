@@ -71,39 +71,43 @@ public class RestAdapter implements IRestAdapter{
 		Service service = path.request().get().readEntity(new GenericType<Service>(){});
 		return service;
 	}
-	
+
 	@Override
 	public List<String> loadServicesDesc(){
 		WebTarget path = query.path("/loadServicesDesc");
 		List<String> servicesDesc = path.request().get().readEntity(new GenericType<List<String>>(){});
 		return servicesDesc;
 	}
-	
+
 	@Override
 	public void updateService (Service service){
 		WebTarget path = update.path("/updateService");
 		Response response = path.request().post(Entity.json(service));
+		response.close();
 	}
-	
+
 	@Override
 	public void addService (Service service){
 		WebTarget path = update.path("/addService");
 		Response response = path.request().post(Entity.json(service));
+		response.close();
 	}
-	
-	//Invoice 
+
+	//Invoice
 	@Override
 	public void addInvoice(InvoiceRecord invoice) {
 		WebTarget path = update.path("/addInvoice");
 		Response response = path.request().post(Entity.json(invoice));
+		response.close();
 		System.out.println("Test:" + response.getStatusInfo().getReasonPhrase());
 	}
-	
+
 	//Customer 
 	@Override
 	public void addCustomer(Customer customer) {
 		WebTarget path = update.path("/addCustomer");
 		Response response = path.request().post(Entity.json(customer));
+		response.close();
 	}
 	
 	@Override
@@ -177,6 +181,7 @@ public class RestAdapter implements IRestAdapter{
 		bean.setRoomNumber(roomNumber);
 		bean.setStatus(status);
 		Response response = path.request().post(Entity.json(bean));
+		response.close();
 		System.out.print("ping: " + response.getStatusInfo().getReasonPhrase() + "\n");
 	}
 
@@ -187,6 +192,7 @@ public class RestAdapter implements IRestAdapter{
 		bean.setPassport(passport);
 		bean.setRoomNumber(roomNumber);
 		Response response = path.request().post(Entity.json(bean));
+		response.close();
 		System.out.print("ping: " + response.getStatusInfo().getReasonPhrase() + "\n");
 	}
 
