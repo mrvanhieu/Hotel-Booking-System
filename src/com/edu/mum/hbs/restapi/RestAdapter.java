@@ -192,6 +192,15 @@ public class RestAdapter implements IRestAdapter{
 		System.out.print("ping: " + response.getStatusInfo().getReasonPhrase() + "\n");
 	}
 	// CustomerAndRoom Services End
+	
+	//InvoiceRecords
+	@Override
+	public List<InvoiceRecord> getAllInvoiceRecords(){
+		WebTarget path = query.path("/getAllInvoiceRecords");
+		List<InvoiceRecord>  invoiceRecords = path.request().get().
+				readEntity(new GenericType<List<InvoiceRecord>>(){});
+		return invoiceRecords;
+	}
 
 	// RoomDao Services Start
 	@Override
@@ -241,7 +250,85 @@ public class RestAdapter implements IRestAdapter{
 
 	// RoomDao Services End
 
-
+	@Override
+	public List<Revenue> getAllRevenueRecordsFromToDate(String fromDate, String toDate){
+		WebTarget path = query.path("/getAllRevenueRecordsFromToDate/" + fromDate+"/" + toDate);
+		Response response  = path.request().get();
+		List<Revenue>  invoiceRecords = response.
+				readEntity(new GenericType<List<Revenue>>(){});
+		return invoiceRecords;
+	}
+	
+	//RoomService
+	@Override
+	public List<RoomService> getAllRoomServices(){
+		WebTarget path = query.path("/getAllRoomServices");
+		List<RoomService>  roomServices = path.request().get().
+				readEntity(new GenericType<List<RoomService>>(){});
+		return roomServices;
+	}
+	
+	@Override
+	public List<RoomService> getAllRoomServicesByRoomNumber(String roomNumber){
+		WebTarget path = query.path("/getAllRoomServicesByRoomNumber/" + roomNumber);
+		List<RoomService>  roomServices = path.request().get().
+				readEntity(new GenericType<List<RoomService>>(){});
+		return roomServices;
+	}
+	
+	@Override
+	public List<String> getUsedRooms(String roomStatus){
+		WebTarget path = query.path("/getUsedRooms/" + roomStatus);
+		List<String>  roomServices = path.request().get().
+				readEntity(new GenericType<List<String>>(){});
+		return roomServices;
+	}
+	
+	@Override
+	public Double getTotalUsingService(String roomStatus){
+		WebTarget path = query.path("/getTotalUsingService/" + roomStatus);
+		Double  total = path.request().get().
+				readEntity(new GenericType<Double>(){});
+		return total;
+	}
+	
+	@Override
+	public void addRoomService (RoomService service){
+		WebTarget path = update.path("/addRoomService");
+		Response response = path.request().post(Entity.json(service));
+		response.close();
+	}
+	
+	@Override
+	public void updateRoomService (RoomService service){
+		WebTarget path = update.path("/updateRoomService");
+		Response response = path.request().post(Entity.json(service));
+		response.close();
+	}
+	
+	@Override
+	public boolean deleteRoomService(RoomService service){
+		WebTarget path = update.path("/deleteRoomService");
+		Response response = path.request().post(Entity.json(service));
+		if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+			response.close();
+			return true;
+		}
+		response.close();
+		return false; 
+	}
+	
+	@Override
+	public boolean deleteRoomServiceByString(String roomServiceId){
+		WebTarget path = update.path("/deleteRoomServiceByString");
+		Response response = path.request().post(Entity.json(roomServiceId));
+		if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+			response.close();
+			return true;
+		}
+		response.close();
+		return false; 
+	}
 
 	/**
 	 * The main method.

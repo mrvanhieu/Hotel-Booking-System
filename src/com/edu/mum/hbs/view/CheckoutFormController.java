@@ -140,8 +140,9 @@ public class CheckoutFormController extends ControllerBase{
 			LocalDate checkOutDate =  clonedRoomDate.getCheckOutDate();
 			int days = Period.between(checkInDate,checkOutDate).getDays();
 			double roomAmount = clonedRoomDate.getRoomPrice()*days;
+
 			// double serviceAmount = rsDao.getTotalUsingService(clonedRoomDate.getRoomNumber());
-			List<RoomService> roomServices = rsDao.getAllRoomService(clonedRoomDate.getRoomNumber());
+			List<RoomService> roomServices = adapter.getAllRoomServicesByRoomNumber(clonedRoomDate.getRoomNumber());
 			double serviceAmount = 0.0;
 			String roomClass = clonedRoomDate.getRoomClass();
 			StrategyContext strategyContext;
@@ -151,15 +152,14 @@ public class CheckoutFormController extends ControllerBase{
 				strategyContext = new StrategyContext(new StandardStrategy());
 			}
 			serviceAmount = strategyContext.getRoomServiceAmount(roomServices);
-
 			invoiceRecordBuilder.buildCheckInDate(checkInDate);
 			invoiceRecordBuilder.buildCheckOutDate(checkOutDate);
 			invoiceRecordBuilder.buildRoomAmount(roomAmount);
 			invoiceRecordBuilder.buildServiceAmount(serviceAmount);
 			invoiceRecordBuilder.buildTotalAmount(roomAmount + serviceAmount);
 			InvoiceRecord invoiceRecord = invoiceRecordBuilder.getInvoiceRecord();
-			
-			rsDao.delete(clonedRoomDate.getRoomNumber());
+				
+      adapter.deleteRoomServiceByString(clonedRoomDate.getRoomNumber());
 			adapter.addInvoice(invoiceRecord);
 			//crdao.delete(passport.getText(),clonedRoomDate.getRoomNumber());
 			adapter.deleteCustomerAndRooms(passport.getText(),clonedRoomDate.getRoomNumber());

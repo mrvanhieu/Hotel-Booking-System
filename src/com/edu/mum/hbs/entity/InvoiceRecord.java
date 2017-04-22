@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.edu.mum.hbs.restapi.util.LocalDateWithStringsDeserializer;
 import com.edu.mum.hbs.restapi.util.LocalDateWithStringsSerializable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
@@ -66,7 +67,7 @@ public class InvoiceRecord {
 		this.checkOutDate = checkOutDate;
 	}
 
-	public void setCheckOutDate(String checkOutDate) {
+	public void setCheckOutDateByString(String checkOutDate) {
 		this.checkOutDate = LocalDate.parse(checkOutDate);
 	}
 	
@@ -74,6 +75,7 @@ public class InvoiceRecord {
 		return roomAmount;
 	}
 
+	@JsonIgnore
 	public String getRoomAmountDollar() {
 		return "$" + roomAmount;
 	}
@@ -82,7 +84,7 @@ public class InvoiceRecord {
 		this.roomAmount = roomAmount;
 	}
 
-	public void setRoomAmount(String roomAmount) {
+	public void setRoomAmountByString(String roomAmount) {
 		this.roomAmount = Double.parseDouble(roomAmount);
 	}
 	
@@ -90,6 +92,7 @@ public class InvoiceRecord {
 		return serviceAmount;
 	}
 
+	@JsonIgnore
 	public String getServiceAmountDollar() {
 		return "$" + serviceAmount;
 	}
@@ -98,7 +101,7 @@ public class InvoiceRecord {
 		this.serviceAmount = serviceAmount;
 	}
 
-	public void setServiceAmount(String serviceAmount) {
+	public void setServiceAmountByString(String serviceAmount) {
 		this.serviceAmount = Double.parseDouble(serviceAmount);
 	}
 	
@@ -106,6 +109,7 @@ public class InvoiceRecord {
 		return totalAmount;
 	}
 	
+	@JsonIgnore
 	public String getTotalAmountDollar() {
 		return "$" + totalAmount;
 	}
@@ -114,7 +118,7 @@ public class InvoiceRecord {
 		this.totalAmount = totalAmount;
 	}
 	
-	public void setTotalAmount(String totalAmount) {
+	public void setTotalAmountByString(String totalAmount) {
 		this.totalAmount = Double.parseDouble(totalAmount);
 	}
 

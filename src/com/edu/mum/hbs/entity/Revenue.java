@@ -2,10 +2,29 @@ package com.edu.mum.hbs.entity;
 
 import java.time.LocalDate;
 
+import org.junit.Ignore;
+
 import com.edu.mum.hbs.dao.CustomerDao;
 import com.edu.mum.hbs.dao.DaoFactoryImpl;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Revenue implements Item {
+	public InvoiceRecord getInvoice() {
+		return invoice;
+	}
+
+	public void setInvoice(InvoiceRecord invoice) {
+		this.invoice = invoice;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
+	}
+
 	private String fullName;
 	private String phoneNo;
 	private InvoiceRecord invoice;
@@ -28,39 +47,45 @@ public class Revenue implements Item {
 	public String getPhoneNo() {
 		return phoneNo;
 	}
-
+	@JsonIgnore
 	public String getRoomNumber() {
 		return invoice.getRoomNumber();
 	}
-
+	@JsonIgnore
 	public LocalDate getCheckInDate() {
 		return invoice.getCheckInDate();
 	}
-
+	@JsonIgnore
 	public LocalDate getCheckOutDate() {
 		return invoice.getCheckOutDate();
 	}
-
+	@JsonIgnore
 	public double getRoomAmount() {
 		return invoice.getRoomAmount();
 	}
-
+	@JsonIgnore
 	public double getServiceAmount() {
 		return invoice.getServiceAmount();
 	}
-
+	@JsonIgnore
 	public double getTotalAmount() {
 		return invoice.getTotalAmount();
 	}
 
+	@JsonIgnore
 	public String getRoomAmountDollar() {
 		return invoice.getRoomAmountDollar();
 	}
-
+	@JsonIgnore
 	public String getServiceAmountDollar() {
 		return invoice.getServiceAmountDollar();
 	}
 
+	public Revenue() {
+		super();
+	}
+
+	@JsonIgnore
 	public String getTotalAmountDollar() {
 		return invoice.getTotalAmountDollar();
 	}

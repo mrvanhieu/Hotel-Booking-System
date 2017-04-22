@@ -14,6 +14,8 @@ import com.edu.mum.hbs.entity.OccupancyVisitor;
 import com.edu.mum.hbs.entity.ProfitVisitor;
 import com.edu.mum.hbs.entity.Revenue;
 import com.edu.mum.hbs.entity.Room;
+import com.edu.mum.hbs.restapi.IRestAdapter;
+import com.edu.mum.hbs.restapi.RestAdapter;
 
 import com.edu.mum.hbs.restapi.IRestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapter;
@@ -85,8 +87,7 @@ public class ReportRevenueFormController extends ControllerBase {
 
 		String szFromDate = fromDate.getValue().toString();
 		String szToDate = toDate.getValue().toString();
-		InvoiceRecordDao irDao = (InvoiceRecordDao) DaoFactoryImpl.getFactory().createDao(InvoiceRecord.TABLE_NAME);
-		revenues = irDao.getAllRevenueRecordsFromToDate(szFromDate, szToDate);
+		revenues = adapter.getAllRevenueRecordsFromToDate(szFromDate, szToDate);
 		RoomDao rooms = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
 		Period period = Period.between(fromDate.getValue(), toDate.getValue());
 		reloadTableView(revenueTable, revenues);
