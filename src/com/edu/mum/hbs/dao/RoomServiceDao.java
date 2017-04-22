@@ -44,7 +44,7 @@ public class RoomServiceDao extends DaoAbstract{
 				roomService.setServiceDesc((String) ob.get(RoomService.SERVICE_DESC));
 				roomService.setQuantity((Integer) ob.get(RoomService.QUANTITY));
 				//System.out.println(LocalDate.parse((String)ob.get(RoomService.SERVICE_DATE)));
-				roomService.setServiceDate((String) ob.get(RoomService.SERVICE_DATE));
+				roomService.setServiceDateByString((String) ob.get(RoomService.SERVICE_DATE));
 
 				roomServices.add(roomService);
 			}
@@ -80,7 +80,7 @@ public class RoomServiceDao extends DaoAbstract{
 				RoomService roomService = new RoomService();
 				roomService.setRoomNumber((String) ob.get(RoomService.ROOM_NUMBER));
 				roomService.setServiceDesc((String) ob.get(RoomService.SERVICE_DESC));
-				roomService.setServiceDate((String) ob.get(RoomService.SERVICE_DATE));
+				roomService.setServiceDateByString((String) ob.get(RoomService.SERVICE_DATE));
 				roomService.setQuantity((int) ob.get(RoomService.QUANTITY));
 				roomServices.add(roomService);
 			}

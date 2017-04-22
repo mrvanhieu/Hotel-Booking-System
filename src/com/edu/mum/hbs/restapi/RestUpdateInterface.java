@@ -40,5 +40,22 @@ public interface RestUpdateInterface {
 	@Path("/deleteCustomerAndRooms")
 	Response deleteCustomerAndRooms(String datapointJson);
 	// CustomerAndRoom Services End
+	
+	//Room Service
+	@POST
+	@Path("/addRoomService")
+	Response addRoomService(String datapointJson);
+	
+	@POST
+	@Path("/updateRoomService")
+	Response updateRoomService(String datapointJson);
+	
+	@POST
+	@Path("/deleteRoomService")
+	Response deleteRoomService(String datapointJson);
+	
+	@POST
+	@Path("/deleteRoomServiceByString")
+	Response deleteRoomServiceByString(String datapointJson);
 
 }
