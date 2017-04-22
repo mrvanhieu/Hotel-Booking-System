@@ -141,7 +141,7 @@ public class CheckoutFormController extends ControllerBase{
 			double roomAmount = clonedRoomDate.getRoomPrice()*days;
 
 			// double serviceAmount = rsDao.getTotalUsingService(clonedRoomDate.getRoomNumber());
-			List<RoomService> roomServices = adapter.getAllRoomService(clonedRoomDate.getRoomNumber());
+			List<RoomService> roomServices = adapter.getAllRoomServicesByRoomNumber(clonedRoomDate.getRoomNumber());
 			double serviceAmount = 0.0;
 			String roomClass = clonedRoomDate.getRoomClass();
 			StrategyContext strategyContext;
