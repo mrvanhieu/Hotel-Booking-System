@@ -4,6 +4,11 @@ import java.time.LocalDate;
 
 import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.ServiceDao;
+import com.edu.mum.hbs.restapi.util.LocalDateWithStringsDeserializer;
+import com.edu.mum.hbs.restapi.util.LocalDateWithStringsSerializable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 public class RoomService {
 	public static final String TABLE_NAME = "RoomService";
@@ -14,6 +19,8 @@ public class RoomService {
 	private String roomNumber;
 	private String serviceDesc;
 	private int quantity;
+	@JsonSerialize(using = LocalDateWithStringsSerializable.class)
+	@JsonDeserialize(using = LocalDateWithStringsDeserializer.class)
 	private LocalDate serviceDate;
 	
 	public LocalDate getServiceDate() {
@@ -22,7 +29,7 @@ public class RoomService {
 	public void setServiceDate(LocalDate serviceDate) {
 		this.serviceDate = serviceDate;
 	}
-	public void setServiceDate(String stringDate) {
+	public void setServiceDateByString(String stringDate) {
 		this.serviceDate = LocalDate.parse(stringDate);
 	}
 	public String getServiceDesc() {
@@ -40,17 +47,19 @@ public class RoomService {
 	public int getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(String quantity) {
+	public void setQuantityByString(String quantity) {
 		this.quantity = Integer.parseInt(quantity);
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 
+	@JsonIgnore
 	public double getServiceAmount(){
 		return getServicePrice() * getQuantity();
 	}
 
+	@JsonIgnore
 	public double getServicePrice(){
 		ServiceDao serviceDao = (ServiceDao) DaoFactoryImpl.getFactory().createDao(Service.TABLE_NAME);
 		Service service = serviceDao.getService(this.serviceDesc);
