@@ -6,12 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.CustomerAndRoomDao;
+import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.entity.CustRoomDetails;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
 import com.edu.mum.hbs.restapi.IRestAdapter;
-import com.edu.mum.hbs.restapi.RestAdapter;
+import com.edu.mum.hbs.restapi.RestAdapterProxy;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
@@ -32,7 +33,7 @@ public class ReportCustomerRoomFormController extends ControllerBase{
 	@FXML	private TableColumn<CustRoomDetails, String> checkOutDateColumn;
 	@FXML	private TableColumn<CustRoomDetails, String> roomStatusColumn;
 
-	private static RestAdapter adapter = (RestAdapter) RestAdapter.getInstance();
+	IRestAdapter adapter = RestAdapterProxy.getRestProxy();
 	private List<CustRoomDetails> custRoomDetails = new ArrayList<CustRoomDetails>();
 
 	@Override

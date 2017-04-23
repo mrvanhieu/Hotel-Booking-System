@@ -3,6 +3,7 @@ package com.edu.mum.hbs.view;
 import com.edu.mum.hbs.dao.UserSession;
 import com.edu.mum.hbs.restapi.IRestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapter;
+import com.edu.mum.hbs.restapi.RestAdapterProxy;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +24,7 @@ public class Login extends ControllerBase {
 
     @FXML
     private Text alertMessage;
-    IRestAdapter adapter = RestAdapter.getInstance();
+	IRestAdapter adapter = RestAdapterProxy.getRestProxy();
     
     @FXML
     public void doLogin() throws Exception {
