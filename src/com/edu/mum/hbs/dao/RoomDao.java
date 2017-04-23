@@ -12,9 +12,9 @@ import com.edu.mum.hbs.util.SqliteUtil.FilterCondition;
 public class RoomDao extends DaoAbstract {
 	//private SqliteUtil db = new SqliteUtil();
 	private static final String TABLE_NAME = "Room";
-	
+
 	RoomDao(){}
-	
+
 	public Room getRoom(String roomNumber) {
 		Room room = null;
 		FilterCondition condition = new SqliteUtil.FilterCondition();
@@ -81,7 +81,7 @@ public class RoomDao extends DaoAbstract {
 		db.insertRow(TABLE_NAME, map, false);
 	}
 
-	public  boolean delete(Room room){
+	public boolean delete(Room room){
 		FilterCondition condition = new SqliteUtil.FilterCondition();
 		condition.addCondition("room_number", SqliteUtil.EQUALS, room.getRoomNumber());
 		return db.delete(TABLE_NAME, condition);

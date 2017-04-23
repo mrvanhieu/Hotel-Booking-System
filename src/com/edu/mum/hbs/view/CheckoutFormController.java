@@ -93,7 +93,8 @@ public class CheckoutFormController extends ControllerBase{
 		List<CustomerAndRoom> customerAndRooms = adapter.getCustomerAndRoom(customer.getPassportOrId(), CustomerAndRoom.CHECKED_STATUS);
 		List<RoomDate> roomDates = new ArrayList<>();
 		for (CustomerAndRoom cr : customerAndRooms){
-			Room r = rdao.getRoom(cr.getRoomNumber());
+			//Room r = rdao.getRoom(cr.getRoomNumber());
+			Room r =adapter.getRoom(cr.getRoomNumber());
 			RoomDate rd = new RoomDate(r,cr.getCheckInDate(),cr.getCheckOutDate());
 			roomDates.add(rd);
 		}

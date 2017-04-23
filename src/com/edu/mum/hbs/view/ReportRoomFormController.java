@@ -46,7 +46,8 @@ public class ReportRoomFormController extends ControllerBase {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		RoomDao rDao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
-		List<Room> availableRooms = rDao.getAvailableRooms();
+//		List<Room> availableRooms = rDao.getAvailableRooms();
+		List<Room> availableRooms = adapter.getAvailableRooms();
 		
 		if (availableRooms != null){
 			aRoomNoColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("roomNumber"));

@@ -18,6 +18,8 @@ import com.edu.mum.hbs.restapi.IRestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapterProxy;
 
+import com.edu.mum.hbs.restapi.IRestAdapter;
+import com.edu.mum.hbs.restapi.RestAdapter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
@@ -61,6 +63,7 @@ public class ReportRevenueFormController extends ControllerBase {
 
 	private List<Revenue> revenues;
 	IRestAdapter adapter = RestAdapterProxy.getRestProxy();
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		fromDate.setValue(LocalDate.now().minusDays(30));
@@ -103,7 +106,8 @@ public class ReportRevenueFormController extends ControllerBase {
 		lblSumInfo.setText("From " + szFromDate + " to " + szToDate + ", the total revenue is:");
 		lblSum.setText("$" + profitCalc.getTotalProfit());
         lblOccupancyInfo.setText("From " + szFromDate + " to " + szToDate + ", the occupancy rate is: ");
-        lblOccupancyRate.setText(occupancy.getOccupancyDays()*100/(rooms.getAllRooms().size()*period.getDays()) + "%");
+        //lblOccupancyRate.setText(occupancy.getOccupancyDays()*100/(rooms.getAllRooms().size()*period.getDays()) + "%");
+		lblOccupancyRate.setText(occupancy.getOccupancyDays()*100/(adapter.getAllRooms().size()*period.getDays()) + "%");
 	}
 
 	public void resetSearch() {

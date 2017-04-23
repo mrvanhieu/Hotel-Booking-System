@@ -8,6 +8,8 @@ import java.util.ResourceBundle;
 import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.dao.RoomDao;
+import com.edu.mum.hbs.restapi.IRestAdapter;
+import com.edu.mum.hbs.restapi.RestAdapter;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -32,10 +34,12 @@ public class RoomFormController extends ControllerBase {
 	private RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
 
 	private List<Room> rooms = new ArrayList<Room>();
+	IRestAdapter adapter = RestAdapter.getInstance();
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		List<Room> listRooms = rdao.getAllRooms();
+//		List<Room> listRooms = rdao.getAllRooms();
+		List<Room> listRooms = adapter.getAllRooms();
 		
 		roomNumberColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("roomNumber"));
 		roomTypeColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("roomType"));
@@ -69,7 +73,8 @@ public class RoomFormController extends ControllerBase {
 		room.setRoomType(roomType.getText());
 		room.setRoomClass(roomClass.getText());
 
-        rdao.addRoom(room);
+        //rdao.addRoom(room);
+		adapter.addRoom(room);
 
 		//Add newest added room to the list
 		rooms.add(room);
@@ -93,14 +98,18 @@ public class RoomFormController extends ControllerBase {
 		room.setRoomNumber(roomNumber.getText());
 		room.setRoomType(roomType.getText());
 		room.setRoomClass(roomClass.getText());
-        Room roomExistence = rdao.getRoom(room.getRoomNumber());
+//        Room roomExistence = rdao.getRoom(room.getRoomNumber());
+		Room roomExistence =adapter.getRoom(room.getRoomNumber());
 
         if (roomExistence == null){
-            rdao.addRoom(room);
+            //rdao.addRoom(room);
+			adapter.addRoom(room);
+
             rooms.add(room);
         }
         else {
-            rdao.update(room);
+            //rdao.update(room);
+			adapter.updateRoom(room);
             int roomSelectedInList = roomTable.getSelectionModel().getSelectedIndex();
             //Replace the newest room info to the list
             rooms.set(roomSelectedInList, room);
@@ -119,7 +128,8 @@ public class RoomFormController extends ControllerBase {
         	return;
         }
 
-        rdao.delete(room);
+        //rdao.delete(room);
+		adapter.deleteRoom(room);
 		rooms.remove(room);
         TextField[] roomFields = new TextField[] { roomNumber, roomType, roomClass, roomPrice };
         //Clear form for entering new Rooms
