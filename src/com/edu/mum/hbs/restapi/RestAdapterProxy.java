@@ -8,6 +8,7 @@ import com.edu.mum.hbs.entity.Customer;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
 import com.edu.mum.hbs.entity.InvoiceRecord;
 import com.edu.mum.hbs.entity.Revenue;
+import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.entity.RoomService;
 import com.edu.mum.hbs.entity.Service;
 
@@ -165,6 +166,37 @@ public class RestAdapterProxy implements IRestAdapter{
 	@Override
 	public List<CustRoomDetails> getCustomerRoomFullFromToDate(String fromDate, String toDate) {
 		return getAdapter().getCustomerRoomFullFromToDate(fromDate, toDate);
+	}
+
+	@Override
+	public Room getRoom(String roomNumber) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Room> getAllRooms() {
+		return getAdapter().getAllRooms();
+	}
+
+	@Override
+	public List<Room> getAvailableRooms() {
+		return getAdapter().getAvailableRooms();
+	}
+
+	@Override
+	public void addRoom(Room room) {
+		getAdapter().addRoom(room);
+	}
+
+	@Override
+	public boolean deleteRoom(Room room) {
+		return getAdapter().deleteRoom(room);
+	}
+
+	@Override
+	public void updateRoom(Room room) {
+		getAdapter().updateRoom(room);
 	}
 
 }
