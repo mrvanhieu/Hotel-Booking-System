@@ -1,6 +1,7 @@
 package com.edu.mum.hbs.restapi;
 
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 import com.edu.mum.hbs.dao.CustomerDao;
@@ -10,7 +11,10 @@ import com.edu.mum.hbs.dao.ServiceDao;
 import com.edu.mum.hbs.dao.UserSession;
 import com.edu.mum.hbs.entity.Customer;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
+import com.edu.mum.hbs.entity.InvoiceRecord;
+import com.edu.mum.hbs.entity.RoomService;
 import com.edu.mum.hbs.dao.*;
+import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.entity.Service;
 import com.edu.mum.hbs.restapi.bean.LoginBean;
 import com.google.gson.Gson;
@@ -23,7 +27,10 @@ public class RestQueryImpl implements RestQueryInterface {
 	CustomerDao customerDao = (CustomerDao) DaoFactoryImpl.getFactory().createDao(Customer.TABLE_NAME);
 	ServiceDao serviceDao = (ServiceDao) DaoFactoryImpl.getFactory().createDao(Service.TABLE_NAME);
 	CustomerAndRoomDao customerAndRoomDao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
-	
+
+	RoomDao roomDao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
+	InvoiceRecordDao invoiceDao = (InvoiceRecordDao) DaoFactoryImpl.getFactory().createDao(InvoiceRecord.TABLE_NAME);
+	RoomServiceDao roomServiceDao =(RoomServiceDao) DaoFactoryImpl.getFactory().createDao(RoomService.TABLE_NAME);
 	@Override
 	public UserSession validateLogin(String input) {
 
@@ -81,7 +88,7 @@ public class RestQueryImpl implements RestQueryInterface {
         return Response.status(Response.Status.OK)
                 .entity((customerAndRoomDao.getAllRoomNumbers())).build();
     }
-
+    
     @Override
     public Response getAllCustomerRoom() {
         return Response.status(Response.Status.OK)
@@ -94,5 +101,64 @@ public class RestQueryImpl implements RestQueryInterface {
                 .entity((customerAndRoomDao.getCustomerRoomFullFromToDate(fromDate, toDate))).build();
     }
 
+	// CustomerAndRoom Services End
+
+	// RoomDao Services Start
+	@Override
+	public Response getRoom(String roomNumber) {
+		return Response.status(Response.Status.OK)
+				.entity((roomDao.getRoom(roomNumber))).build();
+
+	}
+
+	@Override
+	public Response getAllRooms() {
+		return Response.status(Response.Status.OK).entity(roomDao.getAllRooms()).build();
+	}
+
+	@Override
+	public Response getAvailableRooms() {
+		return Response.status(Response.Status.OK).entity(roomDao.getAvailableRooms()).build();
+	}
+
+	// RoomDao Services End
     // CustomerAndRoom Services End
+    
+    //Invoice
+    @Override
+    public Response getAllInvoiceRecords() {
+        return Response.status(Response.Status.OK)
+                .entity((invoiceDao.getAllInvoiceRecords())).build();
+    }
+
+	@Override
+	public Response getAllRevenueRecordsFromToDate(String fromDate, String toDate) {
+        return Response.status(Response.Status.OK)
+                .entity((invoiceDao.getAllRevenueRecordsFromToDate(fromDate, toDate))).build();
+	}
+	
+	//RoomService
+	@Override
+    public Response getAllRoomServices() {
+        return Response.status(Response.Status.OK)
+                .entity((roomServiceDao.getAllRoomServices())).build();
+    }
+	
+	public Response getAllRoomServicesByRoomNumber(String roomNumber) {
+        return Response.status(Response.Status.OK)
+                .entity((roomServiceDao.getAllRoomService(roomNumber))).build();
+    }
+	
+	@Override
+	public Response getUsedRooms(String roomStatus) {
+		return Response.status(Response.Status.OK)
+                .entity((roomServiceDao.getUsedRooms(roomStatus))).build();
+	}
+	
+	@Override
+	public Response getTotalUsingService(String roomNumber) {
+		return Response.status(Response.Status.OK)
+                .entity(roomServiceDao.getTotalUsingService(roomNumber)).build();
+	}
+
 }

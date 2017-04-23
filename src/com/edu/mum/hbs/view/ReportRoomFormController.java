@@ -9,7 +9,10 @@ import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.RoomDao;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
 import com.edu.mum.hbs.entity.Room;
+import com.edu.mum.hbs.restapi.IRestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapter;
+import com.edu.mum.hbs.restapi.RestAdapterProxy;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -37,13 +40,14 @@ public class ReportRoomFormController extends ControllerBase {
 	@FXML	private TableColumn<CustomerAndRoom, String> cCheckInColumn;
 	@FXML	private TableColumn<CustomerAndRoom, String> cCheckOutColumn;
 
-	private RestAdapter adapter = (RestAdapter) RestAdapter.getInstance();
+	private IRestAdapter adapter = RestAdapterProxy.getRestProxy();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
 		RoomDao rDao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
-		List<Room> availableRooms = rDao.getAvailableRooms();
+//		List<Room> availableRooms = rDao.getAvailableRooms();
+		List<Room> availableRooms = adapter.getAvailableRooms();
 		
 		if (availableRooms != null){
 			aRoomNoColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("roomNumber"));

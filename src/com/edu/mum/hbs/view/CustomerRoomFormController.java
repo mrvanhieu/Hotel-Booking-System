@@ -20,6 +20,7 @@ import com.edu.mum.hbs.notification.NotificationObserver;
 import com.edu.mum.hbs.notification.NotificationSubject;
 import com.edu.mum.hbs.restapi.IRestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapter;
+import com.edu.mum.hbs.restapi.RestAdapterProxy;
 import com.edu.mum.hbs.util.Constants;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -58,7 +59,7 @@ public class CustomerRoomFormController extends ControllerBase implements Notifi
 
 	private List<NotificationObserver> observers = new ArrayList<>();
 	private static String STATUS = "Booking";
-	private IRestAdapter adapter = RestAdapter.getInstance();
+	IRestAdapter adapter = RestAdapterProxy.getRestProxy();
 	private RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
 
 	private List<RoomDate> rooms = new ArrayList<RoomDate>();
@@ -122,7 +123,8 @@ public class CustomerRoomFormController extends ControllerBase implements Notifi
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		availableRooms = rdao.getAvailableRooms();
+//		availableRooms = rdao.getAvailableRooms();
+		availableRooms = adapter.getAvailableRooms();
 		for (Room room : availableRooms){
 			//stringRoomNumbers.add(room.getRoomNumber());
 			stringRoomTypes.add(room.getRoomType());

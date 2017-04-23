@@ -44,7 +44,7 @@ public class RoomServiceDao extends DaoAbstract{
 				roomService.setServiceDesc((String) ob.get(RoomService.SERVICE_DESC));
 				roomService.setQuantity((Integer) ob.get(RoomService.QUANTITY));
 				//System.out.println(LocalDate.parse((String)ob.get(RoomService.SERVICE_DATE)));
-				roomService.setServiceDate((String) ob.get(RoomService.SERVICE_DATE));
+				roomService.setServiceDateByString((String) ob.get(RoomService.SERVICE_DATE));
 
 				roomServices.add(roomService);
 			}
@@ -61,33 +61,15 @@ public class RoomServiceDao extends DaoAbstract{
 		db.insertRow(TABLE_NAME, map, false);
 	}
 	
-	public double getTotalUsingService(String roomNumber){
-		Hashtable<String,Integer> services = new Hashtable<String,Integer>();
-		SqliteUtil.FilterCondition condition = new SqliteUtil.FilterCondition();
-		condition.addCondition(RoomService.ROOM_NUMBER, SqliteUtil.EQUALS, roomNumber);
-		List<Map<String, Object>> objects = db.get(TABLE_NAME, null, condition);
-		if (objects.size() > 0){
-			for (Map<String, Object> ob : objects){
-				String serviceDesc = (String) ob.get(RoomService.SERVICE_DESC);
-				int quantity = (int) ob.get(RoomService.QUANTITY);
-				if (services.containsKey(serviceDesc)){
-					services.put(serviceDesc, services.get(serviceDesc) + quantity);
-				}
-				else{
-					services.put(serviceDesc,0);
-				}
-			}
-		}
-		ServiceDao sdao = new ServiceDao();
+	public double getTotalUsingService(String roomNumber) { 
+		List<RoomService> roomServices = getAllRoomService(roomNumber);
 		double usedServices = 0.0;
-		Enumeration<String> names = services.keys();
-		while (names.hasMoreElements()){
-			String serviceDesc = names.nextElement();
-			Service s = sdao.getService(serviceDesc);
-			usedServices += s.getServicePrice()* services.get(serviceDesc);
+		for (RoomService roomService : roomServices) {
+			usedServices += roomService.getServiceAmount();
 		}
 		return usedServices;
 	}
+	
 	public List<RoomService> getAllRoomService(String roomNumber){
 		List<RoomService> roomServices = new ArrayList<>();
 		SqliteUtil.FilterCondition condition = new SqliteUtil.FilterCondition();
@@ -98,7 +80,7 @@ public class RoomServiceDao extends DaoAbstract{
 				RoomService roomService = new RoomService();
 				roomService.setRoomNumber((String) ob.get(RoomService.ROOM_NUMBER));
 				roomService.setServiceDesc((String) ob.get(RoomService.SERVICE_DESC));
-				roomService.setServiceDate((String) ob.get(RoomService.SERVICE_DATE));
+				roomService.setServiceDateByString((String) ob.get(RoomService.SERVICE_DATE));
 				roomService.setQuantity((int) ob.get(RoomService.QUANTITY));
 				roomServices.add(roomService);
 			}

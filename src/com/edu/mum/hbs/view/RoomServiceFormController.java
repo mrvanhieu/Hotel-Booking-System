@@ -9,12 +9,11 @@ import java.util.ResourceBundle;
 import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.RoomDao;
 import com.edu.mum.hbs.dao.RoomServiceDao;
-import com.edu.mum.hbs.dao.ServiceDao;
 import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.entity.RoomService;
-import com.edu.mum.hbs.entity.Service;
 import com.edu.mum.hbs.restapi.IRestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapter;
+import com.edu.mum.hbs.restapi.RestAdapterProxy;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -40,11 +39,9 @@ public class RoomServiceFormController extends ControllerBase {
 	
 	//For populate information into 02 ChoiceBox
 
-	private IRestAdapter adapter = RestAdapter.getInstance();
-	private RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
+	private IRestAdapter adapter = RestAdapterProxy.getRestProxy();
 
 	//For adding/updating and removing data in DB
-	RoomServiceDao rsdao = (RoomServiceDao) DaoFactoryImpl.getFactory().createDao(RoomService.TABLE_NAME);
 	private List<RoomService> roomServices = new ArrayList<RoomService>();
 
 	@Override
@@ -57,7 +54,7 @@ public class RoomServiceFormController extends ControllerBase {
 		serviceDateColumn.setCellValueFactory(new PropertyValueFactory<RoomService, String>("serviceDate"));
 
 		//Get current roomServices from DB and show into TableView
-		roomServices = rsdao.getAllRoomServices();
+		roomServices = adapter.getAllRoomServices();
 		reloadTableView(roomServiceTable, roomServices);
 		roomServiceTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<RoomService>() {
 			@Override
@@ -74,7 +71,7 @@ public class RoomServiceFormController extends ControllerBase {
 		//Add an empty value to the ChoiceBox
 		usedRooms.add("");
 		//Append all rooms which are in "checked-in" status
-		usedRooms.addAll(rsdao.getUsedRooms("Checked"));
+		usedRooms.addAll(adapter.getUsedRooms("Checked"));
 		populateData2ChoiceBox(roomNumber,usedRooms);
 
 		List<String> listServiceDesc = new ArrayList<String>();
@@ -107,11 +104,11 @@ public class RoomServiceFormController extends ControllerBase {
 		
 		roomService.setRoomNumber(roomNumber.getValue());
 		roomService.setServiceDesc(serviceDesc.getValue());
-		roomService.setQuantity(quantity.getValue());
+		roomService.setQuantityByString(quantity.getValue());
 		roomService.setServiceDate(serviceDate.getValue());
 
 		//save current roomService data to DB
-		rsdao.addRoomService(roomService);
+		adapter.addRoomService(roomService);
 		
 		//Add newest added roomService to the list
 		roomServices.add(roomService);
@@ -149,11 +146,11 @@ public class RoomServiceFormController extends ControllerBase {
 		
 		roomService.setRoomNumber(roomNumber.getValue());
 		roomService.setServiceDesc(serviceDesc.getValue());
-		roomService.setQuantity(quantity.getValue());
+		roomService.setQuantityByString(quantity.getValue());
 		roomService.setServiceDate(serviceDate.getValue());
 		
 		//save current service data to DB
-		rsdao.update(roomService);
+		adapter.updateRoomService(roomService);
 		
 		//Replace the newest service info to the list
         int roomServiceSelectedInList = roomServiceTable.getSelectionModel().getSelectedIndex();
@@ -173,7 +170,7 @@ public class RoomServiceFormController extends ControllerBase {
         }
 		
 		//delete in DB base on the serviceDesc's value
-		rsdao.delete(roomServiceSelected);
+		adapter.deleteRoomService(roomServiceSelected);
 		
 		//get selected service from table view, 
 		int roomServiceSelectedInList = roomServiceTable.getSelectionModel().getSelectedIndex();

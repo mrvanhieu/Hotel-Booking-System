@@ -5,20 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.edu.mum.hbs.dao.DaoFactoryImpl;
-import com.edu.mum.hbs.dao.ServiceDao;
 import com.edu.mum.hbs.entity.Service;
 import com.edu.mum.hbs.restapi.IRestAdapter;
-import com.edu.mum.hbs.restapi.RestAdapter;
-import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.Adapter;
+import com.edu.mum.hbs.restapi.RestAdapterProxy;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ServiceFormController extends ControllerBase {
@@ -29,7 +26,8 @@ public class ServiceFormController extends ControllerBase {
 	@FXML	private TableColumn<Service, String> serviceDescColumn;
 	@FXML	private TableColumn<Service, String> servicePriceColumn;
 	
-	private IRestAdapter adapter = RestAdapter.getInstance();
+	private	IRestAdapter adapter = RestAdapterProxy.getRestProxy();
+
 	private List<Service> services = new ArrayList<Service>();
 
 	@Override
