@@ -16,6 +16,7 @@ import com.edu.mum.hbs.entity.Revenue;
 import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.restapi.IRestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapter;
+import com.edu.mum.hbs.restapi.RestAdapterProxy;
 
 import com.edu.mum.hbs.restapi.IRestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapter;
@@ -61,7 +62,7 @@ public class ReportRevenueFormController extends ControllerBase {
 	private TableColumn<Revenue, String> totalAmountColumn;
 
 	private List<Revenue> revenues;
-	IRestAdapter adapter = RestAdapter.getInstance();
+	IRestAdapter adapter = RestAdapterProxy.getRestProxy();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

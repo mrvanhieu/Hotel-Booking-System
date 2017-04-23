@@ -13,6 +13,7 @@ import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.entity.RoomService;
 import com.edu.mum.hbs.restapi.IRestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapter;
+import com.edu.mum.hbs.restapi.RestAdapterProxy;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -38,7 +39,7 @@ public class RoomServiceFormController extends ControllerBase {
 	
 	//For populate information into 02 ChoiceBox
 
-	private IRestAdapter adapter = RestAdapter.getInstance();
+	private IRestAdapter adapter = RestAdapterProxy.getRestProxy();
 
 	//For adding/updating and removing data in DB
 	private List<RoomService> roomServices = new ArrayList<RoomService>();

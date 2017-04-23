@@ -7,26 +7,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.edu.mum.hbs.common.RoomClass;
-import com.edu.mum.hbs.dao.CustomerAndRoomDao;
 import com.edu.mum.hbs.dao.DaoFactoryImpl;
-import com.edu.mum.hbs.dao.InvoiceRecordDao;
 import com.edu.mum.hbs.dao.RoomDao;
+import com.edu.mum.hbs.dao.RoomServiceDao;
 import com.edu.mum.hbs.entity.Customer;
+import com.edu.mum.hbs.entity.CustomerAndRoom;
+import com.edu.mum.hbs.entity.InvoiceRecord;
+import com.edu.mum.hbs.entity.InvoiceRecordBuilder;
 import com.edu.mum.hbs.entity.Room;
+import com.edu.mum.hbs.entity.RoomDate;
 import com.edu.mum.hbs.entity.RoomService;
 import com.edu.mum.hbs.entity.StandardStrategy;
 import com.edu.mum.hbs.entity.StrategyContext;
 import com.edu.mum.hbs.entity.VIPStrategy;
 import com.edu.mum.hbs.restapi.IRestAdapter;
-import com.edu.mum.hbs.restapi.RestAdapter;
-import com.edu.mum.hbs.dao.CustomerDao;
-import com.edu.mum.hbs.dao.RoomServiceDao;
-import com.edu.mum.hbs.entity.CustomerAndRoom;
-import com.edu.mum.hbs.entity.InvoiceRecord;
-import com.edu.mum.hbs.entity.InvoiceRecordBuilder;
-import com.edu.mum.hbs.entity.RoomDate;
-import com.edu.mum.hbs.restapi.RestAdapter;
+import com.edu.mum.hbs.restapi.RestAdapterProxy;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -53,10 +49,8 @@ public class CheckoutFormController extends ControllerBase{
 	@FXML	private TableColumn<RoomDate, String> checkInDateColumn;
 	@FXML	private TableColumn<RoomDate, String> checkOutDateColumn;
 
-	IRestAdapter adapter = RestAdapter.getInstance();
+	IRestAdapter adapter = RestAdapterProxy.getRestProxy();
 
-	private CustomerDao cdao = (CustomerDao) DaoFactoryImpl.getFactory().createDao(Customer.TABLE_NAME);
-	private CustomerAndRoomDao crdao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
 	private RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
 
 	private List<RoomDate> checkedRooms = new ArrayList<RoomDate>();

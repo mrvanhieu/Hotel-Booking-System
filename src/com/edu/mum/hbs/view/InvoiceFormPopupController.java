@@ -13,6 +13,7 @@ import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.entity.RoomService;
 import com.edu.mum.hbs.restapi.IRestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapter;
+import com.edu.mum.hbs.restapi.RestAdapterProxy;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -39,6 +40,7 @@ public class InvoiceFormPopupController extends ControllerBase {
 	@FXML	private TableColumn<RoomService, String> serviceDateColumn;
 	@FXML	private TableColumn<RoomService, String> serviceAmountColumn;
 	@FXML	private TableColumn<RoomService, String> servicePriceColumn;
+	IRestAdapter adapter = RestAdapterProxy.getRestProxy();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -46,7 +48,7 @@ public class InvoiceFormPopupController extends ControllerBase {
 		super.initialize(location, resources);
 	}
 	
-	IRestAdapter adapter = RestAdapter.getInstance();
+
 	public void viewData(InvoiceRecord invoiceRecord, List<RoomService> roomServices) {
 
 		roomNumberColumn.setCellValueFactory(new PropertyValueFactory<RoomService, String>("roomNumber"));
