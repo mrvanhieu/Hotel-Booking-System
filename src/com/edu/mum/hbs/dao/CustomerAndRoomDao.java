@@ -8,17 +8,14 @@ import java.util.Map;
 
 import com.edu.mum.hbs.entity.CustRoomDetails;
 import com.edu.mum.hbs.entity.Customer;
-import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
+import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.entity.RoomDate;
-import com.edu.mum.hbs.restapi.IRestAdapter;
-import com.edu.mum.hbs.restapi.RestAdapter;
 import com.edu.mum.hbs.util.SqliteUtil;
 import com.edu.mum.hbs.util.SqliteUtil.FilterCondition;
 
 public class CustomerAndRoomDao extends DaoAbstract {
 	private static final String TABLE_NAME = CustomerAndRoom.TABLE_NAME;
-	IRestAdapter adapter = RestAdapter.getInstance();
 	CustomerAndRoomDao() {
 	}
 	public List<CustRoomDetails> getCustomerRoomFullFromToDate(String fromDate, String toDate){
@@ -36,8 +33,7 @@ public class CustomerAndRoomDao extends DaoAbstract {
 				
 				String szRoomNo = (String) ob.get(CustomerAndRoom.ROOM_NUMBER);
 				RoomDao rDao = new RoomDao();
-//				Room room = rDao.getRoom(szRoomNo);
-				Room room = adapter.getRoom(szRoomNo);
+				Room room = rDao.getRoom(szRoomNo);
 
 				CustRoomDetails cr = new CustRoomDetails(customer, room);
 				cr.setStatus((String) ob.get(CustomerAndRoom.STATUS));

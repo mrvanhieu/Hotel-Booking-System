@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.edu.mum.hbs.dao.CustomerDao;
 import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.dao.RoomDao;
 import com.edu.mum.hbs.entity.Customer;
@@ -12,11 +11,14 @@ import com.edu.mum.hbs.entity.InvoiceRecord;
 import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.entity.RoomService;
 import com.edu.mum.hbs.restapi.IRestAdapter;
-import com.edu.mum.hbs.restapi.RestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapterProxy;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class InvoiceFormPopupController extends ControllerBase {
@@ -73,8 +75,6 @@ public class InvoiceFormPopupController extends ControllerBase {
 		fullName.setText(customer.getFullName());
 		phoneNo.setText(customer.getPhoneNo());
 
-		RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
-//		Room room = rdao.getRoom(invoiceRecord.getRoomNumber());
 		Room room =adapter.getRoom(invoiceRecord.getRoomNumber());
 		roomType.setText(room.getRoomType());
 		roomClass.setText(room.getRoomClass());
