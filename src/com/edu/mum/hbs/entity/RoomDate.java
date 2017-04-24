@@ -1,9 +1,18 @@
 package com.edu.mum.hbs.entity;
 
+import com.edu.mum.hbs.restapi.util.LocalDateWithStringsDeserializer;
+import com.edu.mum.hbs.restapi.util.LocalDateWithStringsSerializable;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.time.LocalDate;
 
 public class RoomDate extends Room implements Prototype {
+	@JsonSerialize(using = LocalDateWithStringsSerializable.class)
+	@JsonDeserialize(using = LocalDateWithStringsDeserializer.class)
 	private LocalDate checkInDate;
+	@JsonSerialize(using = LocalDateWithStringsSerializable.class)
+	@JsonDeserialize(using = LocalDateWithStringsDeserializer.class)
 	private LocalDate checkOutDate;
 	private Room room;
 

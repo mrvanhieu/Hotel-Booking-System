@@ -171,6 +171,17 @@ public class RestAdapter implements IRestAdapter{
 	}
 
 	@Override
+	public void addCustomerAndRooms(String passportOrId, List<RoomDate> roomDates, String status) {
+		WebTarget path = update.path("/addCustomerAndRooms");
+		CustomerAndRoomBean bean = new CustomerAndRoomBean();
+		bean.setPassport(passportOrId);
+		bean.setRoomDates(roomDates);
+		bean.setStatus(status);
+		Response response = path.request().post(Entity.json(bean));
+		response.close();
+	}
+
+	@Override
 	public void updateCustomerAndRooms (String roomNumber, String status){
 		WebTarget path = update.path("/updateCustomerAndRooms");
 		CustomerAndRoomBean bean = new CustomerAndRoomBean();

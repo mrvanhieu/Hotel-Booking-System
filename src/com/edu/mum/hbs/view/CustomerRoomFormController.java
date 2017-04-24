@@ -215,8 +215,9 @@ private boolean checkNonEmptyCustomer(){
 		customer.setAddress(address.getText());
 		adapter.addCustomer(customer);
 
-		CustomerAndRoomDao customerAndRoomDao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
-		customerAndRoomDao.addCustomerAndRooms(customer.getPassportOrId(), rooms, STATUS);
+//		CustomerAndRoomDao customerAndRoomDao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
+//		customerAndRoomDao.addCustomerAndRooms(customer.getPassportOrId(), rooms, STATUS);
+		adapter.addCustomerAndRooms(customer.getPassportOrId(), rooms, STATUS);
 		//Clear form for entering new Customer & Rooms
 		Object[] customerFields = new Object[] { fullName, passport, address, phoneNo, roomTable, dob, checkInDate, checkOutDate };
 		clearFormFields(customerFields);

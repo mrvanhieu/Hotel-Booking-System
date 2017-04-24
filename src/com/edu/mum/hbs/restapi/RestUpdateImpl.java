@@ -67,6 +67,14 @@ public class RestUpdateImpl implements RestUpdateInterface {
 	}
 
 	@Override
+	public Response addCustomerAndRooms(String datapointJson) {
+		CustomerAndRoomBean customerAndRoomBean = gsonLocalDate.fromJson(datapointJson, CustomerAndRoomBean.class);
+		customerAndRoomDao.addCustomerAndRooms(customerAndRoomBean.getPassport(),
+				customerAndRoomBean.getRoomDates(), customerAndRoomBean.getStatus());
+		return Response.status(Response.Status.OK).build();
+	}
+
+	@Override
 	public Response updateCustomerAndRooms(String datapointJson) {
 		CustomerAndRoomBean customerAndRoomBean = gson.fromJson(datapointJson, CustomerAndRoomBean.class);
 		customerAndRoomDao.update(customerAndRoomBean.getRoomNumber(), customerAndRoomBean.getStatus());

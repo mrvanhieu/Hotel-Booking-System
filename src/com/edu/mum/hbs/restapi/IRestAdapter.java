@@ -48,6 +48,7 @@ public interface IRestAdapter {
 	public boolean deleteRoomServiceByString(String roomServiceId);
 	
 	//CustomerAndRoom
+	public void addCustomerAndRooms(String passportOrId, List<RoomDate> roomDates, String status);
 	public void deleteCustomerAndRooms (String passport, String roomNumber);
 	public void updateCustomerAndRooms (String roomNumber, String status);
 	public List<CustomerAndRoom> getAllCustomerRoomByStatus(String roomStatus);
