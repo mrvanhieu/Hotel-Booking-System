@@ -51,10 +51,10 @@ public class RoomFormController extends ControllerBase {
             @Override
             public void changed(ObservableValue<? extends Room> observable, Room oldValue, Room newValue) {
                 if (newValue == null) return;
-                roomNumber.setText(newValue.getRoomNumber());
-                roomClass.setText(newValue.getRoomClass());
-                roomType.setText(newValue.getRoomType());
-                roomPrice.setText(String.valueOf(newValue.getRoomPrice()));
+                roomNumber.setText(newValue.getRoom_number());
+                roomClass.setText(newValue.getRoom_class());
+                roomType.setText(newValue.getRoom_type());
+                roomPrice.setText(String.valueOf(newValue.getPrice()));
             }
         });
 	}
@@ -69,9 +69,9 @@ public class RoomFormController extends ControllerBase {
 		Room room = new Room();
 		
 		room.setRoomPriceByString(roomPrice.getText());
-		room.setRoomNumber(roomNumber.getText());
-		room.setRoomType(roomType.getText());
-		room.setRoomClass(roomClass.getText());
+		room.setRoom_number(roomNumber.getText());
+		room.setRoom_type(roomType.getText());
+		room.setRoom_class(roomClass.getText());
 
         //rdao.addRoom(room);
 		adapter.addRoom(room);
@@ -95,11 +95,11 @@ public class RoomFormController extends ControllerBase {
 		Room room = new Room();
 		
 		room.setRoomPriceByString(roomPrice.getText());
-		room.setRoomNumber(roomNumber.getText());
-		room.setRoomType(roomType.getText());
-		room.setRoomClass(roomClass.getText());
+		room.setRoom_number(roomNumber.getText());
+		room.setRoom_type(roomType.getText());
+		room.setRoom_class(roomClass.getText());
 //        Room roomExistence = rdao.getRoom(room.getRoomNumber());
-		Room roomExistence =adapter.getRoom(room.getRoomNumber());
+		Room roomExistence =adapter.getRoom(room.getRoom_number());
 
         if (roomExistence == null){
             //rdao.addRoom(room);

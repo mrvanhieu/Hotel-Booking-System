@@ -14,15 +14,15 @@ public class LoggingNotificationObserver implements NotificationObserver {
     public void update(Customer customer, List<RoomDate> rooms) {
         String roomInfo = "";
         for (RoomDate room : rooms) {
-            roomInfo += "\nRoom: " + room.getRoomNumber();
-            roomInfo += "\n   Price: " + room.getRoomPrice();
+            roomInfo += "\nRoom: " + room.getRoom_number();
+            roomInfo += "\n   Price: " + room.getPrice();
         }
         String body = "Booking Notification - Logging\n" +
                 "There is a customer " +
                 "that have the booking over " + Constants.MAX_ROOM_PRICE +
                 " Customer Information as below: \n" +
                 "\nCustomer Name: " + customer.getFullName() +
-                "\nPassport/ID: " + customer.getPassportOrId() +
+                "\nPassport/ID: " + customer.getPassport_id() +
                 "\nAddress: " + customer.getAddress() +
                 "\nBooking Information: \n" + roomInfo;
         System.out.println(body);

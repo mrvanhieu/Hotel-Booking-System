@@ -22,7 +22,7 @@ public class CustRoomDetails extends CustomerAndRoom {
 	@Override
 	@JsonIgnoreProperties
 	public String getPassportOrId() {
-		return customer.getPassportOrId();
+		return customer.getPassport_id();
 	}
 
 	@JsonIgnoreProperties
@@ -32,23 +32,23 @@ public class CustRoomDetails extends CustomerAndRoom {
 
 	@JsonIgnoreProperties
 	public double getRoomPrice() {
-		return room.getRoomPrice();
+		return room.getPrice();
 	}
 
 	@JsonIgnoreProperties
 	public String getRoomType() {
-		return room.getRoomType();
+		return room.getRoom_type();
 	}
 
 	@JsonIgnoreProperties
 	public String getRoomClass() {
-		return room.getRoomClass();
+		return room.getRoom_class();
 	}
 
 	@Override
 	@JsonIgnoreProperties
 	public String getRoomNumber() {
-		return room.getRoomNumber();
+		return room.getRoom_number();
 	}
 
 	public Customer getCustomer() {

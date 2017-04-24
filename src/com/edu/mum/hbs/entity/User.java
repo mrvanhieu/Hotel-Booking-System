@@ -1,11 +1,11 @@
 package com.edu.mum.hbs.entity;
 
-public class User extends Person{
+public class User extends Person implements Entity{
 	public static final String TABLE_NAME = "user";
 	public static final String USERNAME = "username";
 	public static final String PASSWORD = "password";
 	public static final String USER_ID = "user_id";
-	private int user_id;
+	private Integer user_id;
 	private String username;
 	private String password;
 	
@@ -37,5 +37,11 @@ public class User extends Person{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	public String tableName() {
+		// TODO Auto-generated method stub
+		return TABLE_NAME;
 	}
 }

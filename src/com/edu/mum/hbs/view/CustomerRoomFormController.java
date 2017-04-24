@@ -84,15 +84,15 @@ public class CustomerRoomFormController extends ControllerBase implements Notifi
 		}
 		Room room = new Room();
 		room.setRoomPriceByString(lblRoomInfo.getText());
-		room.setRoomNumber(roomNumber.getValue());
-		room.setRoomType(roomType.getValue());
-		room.setRoomClass(roomClass.getValue());
+		room.setRoom_number(roomNumber.getValue());
+		room.setRoom_type(roomType.getValue());
+		room.setRoom_class(roomClass.getValue());
 		RoomDate roomDate = new RoomDate(room,checkInDate.getValue(), checkOutDate.getValue());
 
-		roomNumberColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("roomNumber"));
-		roomTypeColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("roomType"));
-		roomClassColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("roomClass"));
-		priceColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("roomPrice"));
+		roomNumberColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("room_number"));
+		roomTypeColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("room_type"));
+		roomClassColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("room_class"));
+		priceColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("price"));
 		checkInDateColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("checkInDate"));
 		checkOutDateColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("checkOutDate"));
 		
@@ -102,7 +102,7 @@ public class CustomerRoomFormController extends ControllerBase implements Notifi
         roomTable.setItems(data);
         //ChoiceBox<String>[] roomFields = new ChoiceBox[] {roomNumber, roomType, roomClass };
         for (int i = 0; i < availableRooms.size(); i++){
-        	if (availableRooms.get(i).getRoomNumber().equals(room.getRoomNumber())){
+        	if (availableRooms.get(i).getRoom_number().equals(room.getRoom_number())){
         		availableRooms.remove(i);
         		break;
         	}
@@ -111,9 +111,9 @@ public class CustomerRoomFormController extends ControllerBase implements Notifi
         stringRoomClass.clear();
         stringRoomNumbers.clear();
         for (Room r : availableRooms){
-			stringRoomNumbers.add(r.getRoomNumber());
-			stringRoomTypes.add(r.getRoomType());
-			stringRoomClass.add(r.getRoomClass());
+			stringRoomNumbers.add(r.getRoom_number());
+			stringRoomTypes.add(r.getRoom_type());
+			stringRoomClass.add(r.getRoom_class());
 		}
         populateData2ChoiceBox(roomType, new ArrayList<>(stringRoomTypes));
         populateData2ChoiceBox(roomClass, new ArrayList<>(stringRoomClass));
@@ -127,7 +127,7 @@ public class CustomerRoomFormController extends ControllerBase implements Notifi
 		availableRooms = adapter.getAvailableRooms();
 		for (Room room : availableRooms){
 			//stringRoomNumbers.add(room.getRoomNumber());
-			stringRoomTypes.add(room.getRoomType());
+			stringRoomTypes.add(room.getRoom_type());
 			//stringRoomClass.add(room.getRoomClass());
 		}
 		populateData2ChoiceBox(roomType, new ArrayList<>(stringRoomTypes));
@@ -142,8 +142,8 @@ public class CustomerRoomFormController extends ControllerBase implements Notifi
 					return;
 				}
 				for (Room room : availableRooms){
-					if (room.getRoomType().equals(roomType.getItems().get((int) newValue))){
-						stringRoomClass.add(room.getRoomClass());
+					if (room.getRoom_type().equals(roomType.getItems().get((int) newValue))){
+						stringRoomClass.add(room.getRoom_class());
 						//stringRoomNumbers.add(room.getRoomNumber());
 					}
 				}
@@ -162,8 +162,8 @@ public class CustomerRoomFormController extends ControllerBase implements Notifi
 					return;
 				}
 				for (Room room : availableRooms){
-					if (room.getRoomNumber().equals(roomNumber.getItems().get((int) newValue))){
-						lblRoomInfo.setText(room.getRoomPrice()+"");
+					if (room.getRoom_number().equals(roomNumber.getItems().get((int) newValue))){
+						lblRoomInfo.setText(room.getPrice()+"");
 					}
 				}
 			}
@@ -180,9 +180,9 @@ public class CustomerRoomFormController extends ControllerBase implements Notifi
 					return;
 				}
 		for (Room room : availableRooms){
-			if (room.getRoomClass().equals(roomClass.getItems().get((int) newValue))){
+			if (room.getRoom_class().equals(roomClass.getItems().get((int) newValue))){
 				//stringRoomClass.add(room.getRoomClass());
-				stringRoomNumbers.add(room.getRoomNumber());
+				stringRoomNumbers.add(room.getRoom_number());
 			}
 		}
 		populateData2ChoiceBox(roomNumber, stringRoomNumbers);
@@ -210,13 +210,13 @@ private boolean checkNonEmptyCustomer(){
 		}
 		Customer customer = new Customer();
 		customer.setFullName(fullName.getText());
-		customer.setPassportOrId(passport.getText());
+		customer.setPassport_id(passport.getText());
 		customer.setPhoneNo(phoneNo.getText());
 		customer.setAddress(address.getText());
 		adapter.addCustomer(customer);
 
 		CustomerAndRoomDao customerAndRoomDao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
-		customerAndRoomDao.addCustomerAndRooms(customer.getPassportOrId(), rooms, STATUS);
+		customerAndRoomDao.addCustomerAndRooms(customer.getPassport_id(), rooms, STATUS);
 		//Clear form for entering new Customer & Rooms
 		Object[] customerFields = new Object[] { fullName, passport, address, phoneNo, roomTable, dob, checkInDate, checkOutDate };
 		clearFormFields(customerFields);
@@ -236,7 +236,7 @@ private boolean checkNonEmptyCustomer(){
 	private double getTotalPrice(){
 		double total =0;
 		for(RoomDate room : rooms){
-			total += room.getRoomPrice();
+			total += room.getPrice();
 		}
 
 		return total;

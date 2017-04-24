@@ -1,11 +1,18 @@
 package com.edu.mum.hbs.dao;
 
+import com.edu.mum.hbs.entity.User;
 import com.edu.mum.hbs.util.SqliteUtil;
 import java.util.Map;
 
-public class LoginDao extends DaoAbstract {
-    private static final String TABLE_NAME = "user";
+public class LoginDao extends DaoAbstract<User,String> {
+    public LoginDao() {
+		super(User.class);
+		// TODO Auto-generated constructor stub
+	}
+
+	private static final String TABLE_NAME = "user";
     UserSession session = null;
+    
     
     public UserSession validateLogin(String username, String password) {
         // check with database whether user is logged in or not

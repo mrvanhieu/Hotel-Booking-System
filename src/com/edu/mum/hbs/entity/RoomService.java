@@ -63,6 +63,6 @@ public class RoomService {
 	public double getServicePrice(){
 		ServiceDao serviceDao = (ServiceDao) DaoFactoryImpl.getFactory().createDao(Service.TABLE_NAME);
 		Service service = serviceDao.getService(this.serviceDesc);
-		return service.getServicePrice();
+		return service.getService_price();
 	}
 }

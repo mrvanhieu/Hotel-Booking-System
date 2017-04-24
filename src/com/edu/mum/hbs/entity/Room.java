@@ -1,51 +1,63 @@
 package com.edu.mum.hbs.entity;
 
-public class Room implements Prototype{
+public class Room  implements Entity, Prototype{
 	public static final String TABLE_NAME = "Room";
-	protected String roomNumber;
-	protected String roomType;
-	protected String roomClass;
-	protected double roomPrice;
+	@Id
+	protected String room_number;
 	
-	public String getRoomNumber() {
-		return roomNumber;
+	@Column
+	protected String room_type;
+	
+	@Column
+	protected String room_class;
+	
+	@Column
+	protected Double price;
+	
+	public String getRoom_number() {
+		return room_number;
 	}
-	public void setRoomNumber(String roomNumber) {
-		this.roomNumber = roomNumber;
+	public void setRoom_number(String roomNumber) {
+		this.room_number = roomNumber;
 	}
-	public double getRoomPrice() {
-		return roomPrice;
+	public Double getPrice() {
+		return price;
 	}
 //	public String getRoomPriceDollar() {
 //		return "$" + roomPrice;
 //	}
-	public void setRoomPrice(double price) {
-		this.roomPrice = price;
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 	public void setRoomPriceByString(String price) {
-		this.roomPrice = Double.parseDouble(price);
+		this.price = Double.parseDouble(price);
 	}
-	public String getRoomType() {
-		return roomType;
+	public String getRoom_type() {
+		return room_type;
 	}
-	public void setRoomType(String roomType) {
-		this.roomType = roomType;
+	public void setRoom_type(String roomType) {
+		this.room_type = roomType;
 	}
-	public String getRoomClass() {
-		return roomClass;
+	public String getRoom_class() {
+		return room_class;
 	}
-	public void setRoomClass(String roomClass) {
-		this.roomClass = roomClass;
+	public void setRoom_class(String roomClass) {
+		this.room_class = roomClass;
 	}
 
 	@Override
 	public Prototype doClone() {
 		Room room = new Room();
-		room.setRoomClass(roomClass);
-		room.setRoomNumber(roomNumber);
-		room.setRoomPrice(roomPrice);
-		room.setRoomType(roomType);
+		room.setRoom_class(room_class);
+		room.setRoom_number(room_number);
+		room.setPrice(price);
+		room.setRoom_type(room_type);
 
 		return room;
+	}
+	@Override
+	public String tableName() {
+		// TODO Auto-generated method stub
+		return TABLE_NAME;
 	}
 }

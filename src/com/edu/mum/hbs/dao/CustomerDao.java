@@ -7,11 +7,12 @@ import java.util.Map;
 import com.edu.mum.hbs.entity.Customer;
 import com.edu.mum.hbs.util.SqliteUtil;
 
-public class CustomerDao extends DaoAbstract {
+public class CustomerDao extends DaoAbstract<Customer, String> {
 	//private SqliteUtil db = new SqliteUtil();
 	private static final String TABLE_NAME = "Customer";
 	
 	CustomerDao() {
+		super(Customer.class);
 	}
 	public Customer getCustomerFromPassportOrPhone(String passportOrPhone) {
 		Customer customer = null;
@@ -42,7 +43,7 @@ public class CustomerDao extends DaoAbstract {
 			Map<String, Object> rawCustomer = data.get(0);
 			customer = new Customer();
 			customer.setFullName((String) rawCustomer.get(Customer.FULL_NAME));
-			customer.setPassportOrId((String) rawCustomer.get(Customer.PASSPORT_OR_ID));
+			customer.setPassport_id((String) rawCustomer.get(Customer.PASSPORT_OR_ID));
 			customer.setPhoneNo((String) rawCustomer.get(Customer.PHONE_NUMBER));
 			customer.setAddress((String) rawCustomer.get(Customer.ADDRESS));
 		}
@@ -53,7 +54,7 @@ public class CustomerDao extends DaoAbstract {
 	public void addCustomer(Customer customer){
 		LinkedHashMap<String, Object> map = new LinkedHashMap<String, Object>();
     	map.put(Customer.FULL_NAME, customer.getFullName());
-    	map.put(Customer.PASSPORT_OR_ID, customer.getPassportOrId());
+    	map.put(Customer.PASSPORT_OR_ID, customer.getPassport_id());
     	map.put(Customer.PHONE_NUMBER, customer.getPhoneNo());
     	map.put(Customer.ADDRESS, customer.getAddress());
     	db.insertRow(TABLE_NAME, map,false);
@@ -61,7 +62,7 @@ public class CustomerDao extends DaoAbstract {
 	
 	public static void main(String[] args){
 		Customer customer = new Customer();
-    	customer.setPassportOrId("B852007");
+    	customer.setPassport_id("B852007");
     	customer.setFullName("Nguyen Minh Sang");
     	customer.setPhoneNo("01216270039");
     	customer.setAddress("1000 N 4th St, IA, 52557");

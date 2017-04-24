@@ -16,10 +16,11 @@ import com.edu.mum.hbs.restapi.RestAdapter;
 import com.edu.mum.hbs.util.SqliteUtil;
 import com.edu.mum.hbs.util.SqliteUtil.FilterCondition;
 
-public class CustomerAndRoomDao extends DaoAbstract {
+public class CustomerAndRoomDao extends DaoAbstract<CustomerAndRoom,String> {
 	private static final String TABLE_NAME = CustomerAndRoom.TABLE_NAME;
 	IRestAdapter adapter = RestAdapter.getInstance();
 	CustomerAndRoomDao() {
+		super(CustomerAndRoom.class);
 	}
 	public List<CustRoomDetails> getCustomerRoomFullFromToDate(String fromDate, String toDate){
 		List<CustRoomDetails> customerAndRooms = new ArrayList<CustRoomDetails>();
@@ -135,7 +136,7 @@ public class CustomerAndRoomDao extends DaoAbstract {
 		for (RoomDate roomdate : roomDates){
 			LinkedHashMap<String, Object> map = new LinkedHashMap<String, Object>();
 	    	map.put(CustomerAndRoom.PASSPORT_OR_ID, passportOrId);
-	    	map.put(CustomerAndRoom.ROOM_NUMBER, roomdate.getRoomNumber());
+	    	map.put(CustomerAndRoom.ROOM_NUMBER, roomdate.getRoom_number());
 	    	map.put(CustomerAndRoom.STATUS, status);
 	    	map.put(CustomerAndRoom.CHECK_IN_DATE, roomdate.getCheckInDate());
 	    	map.put(CustomerAndRoom.CHECK_OUT_DATE,roomdate.getCheckOutDate() );

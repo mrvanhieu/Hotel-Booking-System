@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
-public class InvoiceRecord {
+public class InvoiceRecord implements Entity {
 	public static final String TABLE_NAME = "InvoiceRecord";
 	public static final String PASSPORT_OR_ID = "passport_id";
 	public static final String ROOM_NUMBER = "room_number";
@@ -18,108 +18,119 @@ public class InvoiceRecord {
 	public static final String ROOM_AMOUNT = "room_amount";
 	public static final String SERVICE_AMOUNT = "service_amount";
 	public static final String TOTAL_AMOUNT = "total_amount";
-	private String passportOrId;
-	private String roomNumber;
+	private String passport_id;
+	private String room_number;
 	@JsonSerialize(using = LocalDateWithStringsSerializable.class)
 	@JsonDeserialize(using = LocalDateWithStringsDeserializer.class)
-	private LocalDate checkInDate;
+	@Column
+	private LocalDate check_in_date;
 	
 	@JsonSerialize(using = LocalDateWithStringsSerializable.class)
 	@JsonDeserialize(using = LocalDateWithStringsDeserializer.class)
-	private LocalDate checkOutDate;
-	private double roomAmount;
-	private double serviceAmount;
-	private double totalAmount;
+	@Column
+	private LocalDate check_out_date;
+	@Column
+	private double room_amount;
+	@Column
+	private double service_amount;
+	@Column
+	private double total_amount;
 
-	public String getPassportOrId() {
-		return passportOrId;
+	public String getPassport_id() {
+		return passport_id;
 	}
 
-	public void setPassportOrId(String passportOrId) {
-		this.passportOrId = passportOrId;
+	public void setPassport_id(String passportOrId) {
+		this.passport_id = passportOrId;
 	}
 
-	public String getRoomNumber() {
-		return roomNumber;
+	public String getRoom_number() {
+		return room_number;
 	}
 
-	public void setRoomNumber(String roomNumber) {
-		this.roomNumber = roomNumber;
+	public void setRoom_number(String roomNumber) {
+		this.room_number = roomNumber;
 	}
 
-	public LocalDate getCheckInDate() {
-		return checkInDate;
+	public LocalDate getCheck_in_date() {
+		return check_in_date;
 	}
 
-	public void setCheckInDate(LocalDate checkInDate) {
-		this.checkInDate = checkInDate;
+	public void setCheck_in_date(LocalDate checkInDate) {
+		this.check_in_date = checkInDate;
 	}
 
 	public void setCheckInDateByString(String checkInDate) {
-		this.checkInDate = LocalDate.parse(checkInDate);
+		this.check_in_date = LocalDate.parse(checkInDate);
 	}
 	
-	public LocalDate getCheckOutDate() {
-		return checkOutDate;
+	public LocalDate getCheck_out_date() {
+		return check_out_date;
 	}
 
-	public void setCheckOutDate(LocalDate checkOutDate) {
-		this.checkOutDate = checkOutDate;
+	public void setCheck_out_date(LocalDate checkOutDate) {
+		this.check_out_date = checkOutDate;
 	}
 
 	public void setCheckOutDateByString(String checkOutDate) {
-		this.checkOutDate = LocalDate.parse(checkOutDate);
+		this.check_out_date = LocalDate.parse(checkOutDate);
 	}
 	
-	public double getRoomAmount() {
-		return roomAmount;
+	public double getRoom_amount() {
+		return room_amount;
 	}
 
 	@JsonIgnore
 	public String getRoomAmountDollar() {
-		return "$" + roomAmount;
+		return "$" + room_amount;
 	}
 	
-	public void setRoomAmount(double roomAmount) {
-		this.roomAmount = roomAmount;
+	public void setRoom_amount(double roomAmount) {
+		this.room_amount = roomAmount;
 	}
 
 	public void setRoomAmountByString(String roomAmount) {
-		this.roomAmount = Double.parseDouble(roomAmount);
+		this.room_amount = Double.parseDouble(roomAmount);
 	}
 	
-	public double getServiceAmount() {
-		return serviceAmount;
+	public double getService_amount() {
+		return service_amount;
 	}
 
 	@JsonIgnore
 	public String getServiceAmountDollar() {
-		return "$" + serviceAmount;
+		return "$" + service_amount;
 	}
 	
-	public void setServiceAmount(double serviceAmount) {
-		this.serviceAmount = serviceAmount;
+	public void setService_amount(double serviceAmount) {
+		this.service_amount = serviceAmount;
 	}
 
 	public void setServiceAmountByString(String serviceAmount) {
-		this.serviceAmount = Double.parseDouble(serviceAmount);
+		this.service_amount = Double.parseDouble(serviceAmount);
 	}
 	
-	public double getTotalAmount() {
-		return totalAmount;
+	public double getTotal_amount() {
+		return total_amount;
 	}
 	
 	@JsonIgnore
 	public String getTotalAmountDollar() {
-		return "$" + totalAmount;
+		return "$" + total_amount;
 	}
 
-	public void setTotalAmount(double totalAmount) {
-		this.totalAmount = totalAmount;
+	public void setTotal_amount(double totalAmount) {
+		this.total_amount = totalAmount;
 	}
 	
 	public void setTotalAmountByString(String totalAmount) {
-		this.totalAmount = Double.parseDouble(totalAmount);
+		this.total_amount = Double.parseDouble(totalAmount);
+	}
+
+	@Override
+	public String tableName() {
+		// TODO Auto-generated method stub
+		return TABLE_NAME;
 	}
 
 }

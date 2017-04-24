@@ -61,24 +61,24 @@ public class InvoiceFormPopupController extends ControllerBase {
 
 		reloadTableView(roomServiceTable, roomServices);
 
-		passport.setText(invoiceRecord.getPassportOrId());
-		roomNumber.setText(invoiceRecord.getRoomNumber());
-		checkInDate.setText(String.valueOf(invoiceRecord.getCheckInDate()));
-		checkOutDate.setText(String.valueOf(invoiceRecord.getCheckOutDate()));
-		lblRoomAmount.setText("$" + invoiceRecord.getRoomAmount());
-		lblServiceAmount.setText("$" + invoiceRecord.getServiceAmount());
-		lblTotalAmount.setText("$" + invoiceRecord.getTotalAmount());
+		passport.setText(invoiceRecord.getPassport_id());
+		roomNumber.setText(invoiceRecord.getRoom_number());
+		checkInDate.setText(String.valueOf(invoiceRecord.getCheck_in_date()));
+		checkOutDate.setText(String.valueOf(invoiceRecord.getCheck_out_date()));
+		lblRoomAmount.setText("$" + invoiceRecord.getRoom_amount());
+		lblServiceAmount.setText("$" + invoiceRecord.getService_amount());
+		lblTotalAmount.setText("$" + invoiceRecord.getTotal_amount());
 
-		Customer customer = adapter.getCustomer(invoiceRecord.getPassportOrId());
+		Customer customer = adapter.getCustomer(invoiceRecord.getPassport_id());
 		fullName.setText(customer.getFullName());
 		phoneNo.setText(customer.getPhoneNo());
 
 		RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
 //		Room room = rdao.getRoom(invoiceRecord.getRoomNumber());
-		Room room =adapter.getRoom(invoiceRecord.getRoomNumber());
-		roomType.setText(room.getRoomType());
-		roomClass.setText(room.getRoomClass());
-		roomPrice.setText(String.valueOf(room.getRoomPrice()));
+		Room room =adapter.getRoom(invoiceRecord.getRoom_number());
+		roomType.setText(room.getRoom_type());
+		roomClass.setText(room.getRoom_class());
+		roomPrice.setText(String.valueOf(room.getPrice()));
 	}
 
 	@FXML

@@ -12,12 +12,13 @@ import com.edu.mum.hbs.entity.RoomService;
 import com.edu.mum.hbs.entity.Service;
 import com.edu.mum.hbs.util.SqliteUtil;
 
-public class RoomServiceDao extends DaoAbstract{
+public class RoomServiceDao extends DaoAbstract<RoomService,String>{
 	//private SqliteUtil db = new SqliteUtil();
 	private static final String TABLE_NAME = RoomService.TABLE_NAME;
 	
 	RoomServiceDao() {
 		// TODO Auto-generated constructor stub
+		super(RoomService.class);
 	}
 	
 	public List<String> getUsedRooms(String status) {
