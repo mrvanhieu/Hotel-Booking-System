@@ -79,11 +79,11 @@ public class CheckinFormController extends ControllerBase {
 		// 0. Reset search field for next search
 		searchText.setText("");
 		fullName.setText(customer.getFullName());
-		passport.setText(customer.getPassportOrId());
+		passport.setText(customer.getPassport_id());
 		phoneNo.setText(customer.getPhoneNo());
 
 		// 1. getCustomerAndRoom
-		List<CustomerAndRoom> customerAndRooms = adapter.getCustomerAndRoom(customer.getPassportOrId(),
+		List<CustomerAndRoom> customerAndRooms = adapter.getCustomerAndRoom(customer.getPassport_id(),
 				CustomerAndRoom.BOOKING_STATUS);
 		List<RoomDate> roomDates = new ArrayList<>();
 		for (CustomerAndRoom cr : customerAndRooms) {
@@ -115,7 +115,7 @@ public class CheckinFormController extends ControllerBase {
 			return;
 		Optional<ButtonType> result = showAlert(AlertType.CONFIRMATION, "Check In Confirmation", "Are you sure?", "");
 		if (result.get() == ButtonType.OK) {
-			adapter.updateCustomerAndRooms(roomDate.getRoomNumber(), CustomerAndRoom.CHECKED_STATUS);
+			adapter.updateCustomerAndRooms(roomDate.getRoom_number(), CustomerAndRoom.CHECKED_STATUS);
 			bookingRooms.remove(roomDate);
 			reloadTableView(bookingTable, bookingRooms);
 		} else {
@@ -135,7 +135,7 @@ public class CheckinFormController extends ControllerBase {
 		Optional<ButtonType> result = showAlert(AlertType.CONFIRMATION, "Cancel Booking Confirmation", "Are you sure?",
 				"");
 		if (result.get() == ButtonType.OK) {
-			adapter.deleteCustomerAndRooms(passport.getText(), roomDate.getRoomNumber());
+			adapter.deleteCustomerAndRooms(passport.getText(), roomDate.getRoom_number());
 			bookingRooms.remove(roomDate);
 			reloadTableView(bookingTable, bookingRooms);
 		} else {

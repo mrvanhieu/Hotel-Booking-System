@@ -110,7 +110,7 @@ public class CustomerRoomFormController extends ControllerBase implements Notifi
 		ObservableList<RoomDate> data = FXCollections.observableArrayList(rooms);
 		roomTable.setItems(data);
 		for (int i = 0; i < availableRooms.size(); i++) {
-			if (availableRooms.get(i).getRoomNumber().equals(room.getRoomNumber())) {
+			if (availableRooms.get(i).getRoom_number().equals(room.getRoom_number())) {
 				availableRooms.remove(i);
 				break;
 			}
@@ -119,9 +119,9 @@ public class CustomerRoomFormController extends ControllerBase implements Notifi
 		stringRoomClass.clear();
 		stringRoomNumbers.clear();
 		for (Room r : availableRooms) {
-			stringRoomNumbers.add(r.getRoomNumber());
-			stringRoomTypes.add(r.getRoomType());
-			stringRoomClass.add(r.getRoomClass());
+			stringRoomNumbers.add(r.getRoom_number());
+			stringRoomTypes.add(r.getRoom_type());
+			stringRoomClass.add(r.getRoom_class());
 		}
 		populateData2ChoiceBox(roomType, new ArrayList<>(stringRoomTypes));
 		populateData2ChoiceBox(roomClass, new ArrayList<>(stringRoomClass));
@@ -146,7 +146,7 @@ public class CustomerRoomFormController extends ControllerBase implements Notifi
 				for (Room room : availableRooms){
 					if (room.getRoom_type().equals(roomType.getItems().get((int) newValue))){
 						stringRoomClass.add(room.getRoom_class());
-						//stringRoomNumbers.add(room.getRoomNumber());
+						//stringRoomNumbers.add(room.getRoom_number());
 					}
 				}
 				populateData2ChoiceBox(roomClass, new ArrayList<>(stringRoomClass));
@@ -215,7 +215,7 @@ private boolean checkNonEmptyCustomer(){
 		
 		adapter.addCustomer(customer);
 
-		adapter.addCustomerAndRooms(customer.getPassportOrId(), rooms, STATUS);
+		adapter.addCustomerAndRooms(customer.getPassport_id(), rooms, STATUS);
 		//Clear form for entering new Customer & Rooms
 		Object[] customerFields = new Object[] { fullName, passport, address, phoneNo, roomTable, dob, checkInDate, checkOutDate };
 		clearFormFields(customerFields);

@@ -95,7 +95,7 @@ public class ServiceFormController extends ControllerBase {
 		service.setService_desc(serviceDesc.getText());
 		service.setServicePriceByString(servicePrice.getText());
 
-		Service serviceExistence = adapter.getService(service.getServiceDesc());
+		Service serviceExistence = adapter.getService(service.getService_desc());
 		if (serviceExistence == null) {
 			adapter.addService(service);
 			services.add(service);
