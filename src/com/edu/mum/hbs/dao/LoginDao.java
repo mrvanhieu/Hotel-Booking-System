@@ -1,8 +1,9 @@
 package com.edu.mum.hbs.dao;
 
+import java.util.List;
+
 import com.edu.mum.hbs.entity.User;
 import com.edu.mum.hbs.util.SqliteUtil;
-import java.util.Map;
 
 public class LoginDao extends DaoAbstract<User,String> {
     public LoginDao() {
@@ -16,15 +17,15 @@ public class LoginDao extends DaoAbstract<User,String> {
     
     public UserSession validateLogin(String username, String password) {
         // check with database whether user is logged in or not
-    	this.setQuery("select * from user where username = ? and password = ?");
+    	
         SqliteUtil.FilterCondition condition = new SqliteUtil.FilterCondition(SqliteUtil.LogicalOperator.AND);
         condition.addCondition("username", SqliteUtil.EQUALS, username);
         condition.addCondition("password", SqliteUtil.EQUALS, password);
-        Map<String, Object> member = db.findOne(TABLE_NAME, new String[] { "user_id" }, condition);
+        List<User> users = getAll(condition);
 
         // initialize session
-        if(member != null) {
-            int user_id = (int)(member.get("user_id"));
+        if(users.size() > 0) {
+            int user_id = (int)(users.get(0).getUser_id());
             session = new UserSession();
             session.setMemberId(user_id);
             session.setUsername(username);

@@ -1,5 +1,12 @@
 package com.edu.mum.hbs.entity;
 
+import java.time.LocalDate;
+
+import com.edu.mum.hbs.restapi.util.LocalDateWithStringsDeserializer;
+import com.edu.mum.hbs.restapi.util.LocalDateWithStringsSerializable;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 public class Customer extends Person implements Entity {
 	public static final String TABLE_NAME = "Customer";
 	public static final String PASSPORT_OR_ID = "passport_id";
@@ -17,8 +24,11 @@ public class Customer extends Person implements Entity {
 	private String phone_no;
 	@Column
 	private String address;
+	
+	@JsonSerialize(using = LocalDateWithStringsSerializable.class)
+	@JsonDeserialize(using = LocalDateWithStringsDeserializer.class)
 	@Column
-	private String dob;
+	private LocalDate dob;
 
 	public String getFullname() {
 		return fullname;
@@ -32,10 +42,10 @@ public class Customer extends Person implements Entity {
 	public void setPhone_no(String phone_no) {
 		this.phone_no = phone_no;
 	}
-	public String getDob() {
+	public LocalDate getDob() {
 		return dob;
 	}
-	public void setDob(String dob) {
+	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
 	public String getPassport_id() {

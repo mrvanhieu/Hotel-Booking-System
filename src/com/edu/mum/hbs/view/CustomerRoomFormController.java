@@ -213,6 +213,8 @@ private boolean checkNonEmptyCustomer(){
 		customer.setPassport_id(passport.getText());
 		customer.setPhoneNo(phoneNo.getText());
 		customer.setAddress(address.getText());
+		customer.setDob(dob.getValue());
+		
 		adapter.addCustomer(customer);
 
 		CustomerAndRoomDao customerAndRoomDao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);

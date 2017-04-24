@@ -1,5 +1,6 @@
 package com.edu.mum.hbs.dao;
 
+import java.util.Iterator;
 import java.util.List;
 
 import com.edu.mum.hbs.entity.Room;
@@ -24,18 +25,14 @@ public class RoomDao extends DaoAbstract<Room,String> {
 		CustomerAndRoomDao cusRoomDao = new CustomerAndRoomDao();
 		//List<String> roomNumbers = cusRoomDao.getAllRoomNumbers();
 		List<String> roomNumbers = cusRoomDao.getAllRoomNumbers();
-		String value = "";
-		for (String str : roomNumbers) {
-			value +=str + ",";
-		}
-
-		value = value.substring(0, value.length() - 1);
+		
 		List<Room> rooms = getAllRooms();
-		for (int i = 0; i < rooms.size();){
-			if (value.contains(rooms.get(i).getRoom_number())){
-				rooms.remove(i);
-			}else{
-				i++;
+		
+		Iterator<Room> it = rooms.iterator();
+		while (it.hasNext()) {
+			Room r = it.next();
+			if (roomNumbers.contains(r.getRoom_number())){
+				it.remove();
 			}
 		}
 		return rooms;

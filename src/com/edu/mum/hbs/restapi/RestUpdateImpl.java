@@ -48,7 +48,12 @@ public class RestUpdateImpl implements RestUpdateInterface {
 
 	@Override
 	public Response addCustomer(String datapointJson) {
-		customerDao.addCustomer(gson.fromJson(datapointJson, Customer.class));
+		try {
+			customerDao.addCustomer(gsonLocalDate.fromJson(datapointJson, Customer.class));
+		} catch (JsonSyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return Response.status(Response.Status.OK).build();
 	}
 

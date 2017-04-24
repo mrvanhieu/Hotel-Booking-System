@@ -30,11 +30,11 @@ public class InvoiceRecord implements Entity {
 	@Column
 	private LocalDate check_out_date;
 	@Column
-	private double room_amount;
+	private Double room_amount;
 	@Column
-	private double service_amount;
+	private Double service_amount;
 	@Column
-	private double total_amount;
+	private Double total_amount;
 
 	public String getPassport_id() {
 		return passport_id;
@@ -85,7 +85,7 @@ public class InvoiceRecord implements Entity {
 		return "$" + room_amount;
 	}
 	
-	public void setRoom_amount(double roomAmount) {
+	public void setRoom_amount(Double roomAmount) {
 		this.room_amount = roomAmount;
 	}
 
@@ -102,7 +102,7 @@ public class InvoiceRecord implements Entity {
 		return "$" + service_amount;
 	}
 	
-	public void setService_amount(double serviceAmount) {
+	public void setService_amount(Double serviceAmount) {
 		this.service_amount = serviceAmount;
 	}
 
@@ -119,7 +119,7 @@ public class InvoiceRecord implements Entity {
 		return "$" + total_amount;
 	}
 
-	public void setTotal_amount(double totalAmount) {
+	public void setTotal_amount(Double totalAmount) {
 		this.total_amount = totalAmount;
 	}
 	

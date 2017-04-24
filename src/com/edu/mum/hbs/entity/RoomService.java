@@ -16,11 +16,15 @@ public class RoomService {
 	public static final String SERVICE_DESC = "service_desc";
 	public static final String QUANTITY = "quantity";
 	public static final String SERVICE_DATE = "service_date";
+	@Column(Name=ROOM_NUMBER)
 	private String roomNumber;
+	@Column(Name=SERVICE_DESC)
 	private String serviceDesc;
+	@Column(Name=QUANTITY)
 	private int quantity;
 	@JsonSerialize(using = LocalDateWithStringsSerializable.class)
 	@JsonDeserialize(using = LocalDateWithStringsDeserializer.class)
+	@Column(Name=SERVICE_DATE)
 	private LocalDate serviceDate;
 	
 	public LocalDate getServiceDate() {

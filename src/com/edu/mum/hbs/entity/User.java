@@ -5,8 +5,11 @@ public class User extends Person implements Entity{
 	public static final String USERNAME = "username";
 	public static final String PASSWORD = "password";
 	public static final String USER_ID = "user_id";
+	@Id(Name=USER_ID)
 	private Integer user_id;
+	@Column(Name=USERNAME)
 	private String username;
+	@Column(Name=PASSWORD)
 	private String password;
 	
 	public User(int user_id){
@@ -19,7 +22,7 @@ public class User extends Person implements Entity{
 		return user_id;
 	}
 
-	public void setUser_id(int user_id) {
+	public void setUser_id(Integer user_id) {
 		this.user_id = user_id;
 	}
 

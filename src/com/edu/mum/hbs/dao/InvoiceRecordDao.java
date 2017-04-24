@@ -28,27 +28,12 @@ public class InvoiceRecordDao extends DaoAbstract<InvoiceRecord,String> {
 	}
 
 	public List<InvoiceRecord> getAllInvoiceRecordsFromToDate(String fromDate, String toDate) {
-		List<InvoiceRecord> invoiceRecords = new ArrayList<InvoiceRecord>();
 		FilterCondition condition = new SqliteUtil.FilterCondition(SqliteUtil.LogicalOperator.AND);
 		condition.addCondition(InvoiceRecord.CHECK_IN_DATE, SqliteUtil.GREATER_EQUALS, fromDate);
 		condition.addCondition(InvoiceRecord.CHECK_OUT_DATE, SqliteUtil.LESS_EQUALS, toDate);
-		List<Map<String, Object>> objects = db.get(TABLE_NAME, null, condition);
+		List<InvoiceRecord> objects = getAll(condition);
+		return objects;
 
-		if (objects.size() > 0) {
-			for (Map<String, Object> ob : objects) {
-				InvoiceRecord invoiceRecord = new InvoiceRecord();
-				invoiceRecord.setPassport_id((String) ob.get(InvoiceRecord.PASSPORT_OR_ID));
-				invoiceRecord.setRoom_number((String) ob.get(InvoiceRecord.ROOM_NUMBER));
-				invoiceRecord.setCheckInDateByString((String) ob.get(InvoiceRecord.CHECK_IN_DATE));
-				invoiceRecord.setCheckOutDateByString((String) ob.get(InvoiceRecord.CHECK_OUT_DATE));
-				invoiceRecord.setRoom_amount((Double) ob.get(InvoiceRecord.ROOM_AMOUNT));
-				invoiceRecord.setService_amount((Double) ob.get(InvoiceRecord.SERVICE_AMOUNT));
-				invoiceRecord.setTotal_amount((Double) ob.get(InvoiceRecord.TOTAL_AMOUNT));
-
-				invoiceRecords.add(invoiceRecord);
-			}
-		}
-		return invoiceRecords;
 	}
 
 	public List<Revenue> getAllRevenueRecords() {
