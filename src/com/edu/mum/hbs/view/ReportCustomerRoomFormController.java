@@ -20,18 +20,27 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class ReportCustomerRoomFormController extends ControllerBase{
+public class ReportCustomerRoomFormController extends ControllerBase {
 
-	@FXML	private DatePicker fromDate;
-	@FXML	private DatePicker toDate;
+	@FXML
+	private DatePicker fromDate;
+	@FXML
+	private DatePicker toDate;
 
-	@FXML	private TableView<CustRoomDetails> customerRoomTable;
-	@FXML	private TableColumn<CustRoomDetails, String> customerNameColumn;
-	@FXML	private TableColumn<CustRoomDetails, String> customerIDColumn;
-	@FXML	private TableColumn<CustRoomDetails, String> roomNumberColumn;
-	@FXML	private TableColumn<CustRoomDetails, String> checkInDateColumn;
-	@FXML	private TableColumn<CustRoomDetails, String> checkOutDateColumn;
-	@FXML	private TableColumn<CustRoomDetails, String> roomStatusColumn;
+	@FXML
+	private TableView<CustRoomDetails> customerRoomTable;
+	@FXML
+	private TableColumn<CustRoomDetails, String> customerNameColumn;
+	@FXML
+	private TableColumn<CustRoomDetails, String> customerIDColumn;
+	@FXML
+	private TableColumn<CustRoomDetails, String> roomNumberColumn;
+	@FXML
+	private TableColumn<CustRoomDetails, String> checkInDateColumn;
+	@FXML
+	private TableColumn<CustRoomDetails, String> checkOutDateColumn;
+	@FXML
+	private TableColumn<CustRoomDetails, String> roomStatusColumn;
 
 	IRestAdapter adapter = RestAdapterProxy.getRestProxy();
 	private List<CustRoomDetails> custRoomDetails = new ArrayList<CustRoomDetails>();
@@ -44,16 +53,17 @@ public class ReportCustomerRoomFormController extends ControllerBase{
 
 	@FXML
 	public void lookupInfo() {
-		if (fromDate.getValue() == null || toDate.getValue() == null){
-			showAlert(AlertType.INFORMATION, "Enter Dates", null, "You have to fill From Date and To Date to continue.");
+		if (fromDate.getValue() == null || toDate.getValue() == null) {
+			showAlert(AlertType.INFORMATION, "Enter Dates", null,
+					"You have to fill From Date and To Date to continue.");
 			return;
 		}
-		CustomerAndRoomDao crDao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
-		
+		CustomerAndRoomDao crDao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory()
+				.createDao(CustomerAndRoom.TABLE_NAME);
+
 		String szFromDate = fromDate.getValue().toString();
 		String szToDate = toDate.getValue().toString();
-		
-//		custRoomDetails = crDao.getCustomerRoomFullFromToDate(szFromDate, szToDate);
+
 		custRoomDetails = adapter.getCustomerRoomFullFromToDate(szFromDate, szToDate);
 
 		customerNameColumn.setCellValueFactory(new PropertyValueFactory<CustRoomDetails, String>("fullName"));
@@ -62,14 +72,14 @@ public class ReportCustomerRoomFormController extends ControllerBase{
 		checkInDateColumn.setCellValueFactory(new PropertyValueFactory<CustRoomDetails, String>("checkInDate"));
 		checkOutDateColumn.setCellValueFactory(new PropertyValueFactory<CustRoomDetails, String>("checkOutDate"));
 		roomStatusColumn.setCellValueFactory(new PropertyValueFactory<CustRoomDetails, String>("status"));
-		
-        reloadTableView(customerRoomTable, custRoomDetails);
+
+		reloadTableView(customerRoomTable, custRoomDetails);
 	}
 
-	public void resetSearch(){
-		DatePicker[] dateFields = new DatePicker[] { fromDate, toDate };	
-        clearFormFields(dateFields);
-        clearFormFields(customerRoomTable);
+	public void resetSearch() {
+		DatePicker[] dateFields = new DatePicker[] { fromDate, toDate };
+		clearFormFields(dateFields);
+		clearFormFields(customerRoomTable);
 	}
 
 }
