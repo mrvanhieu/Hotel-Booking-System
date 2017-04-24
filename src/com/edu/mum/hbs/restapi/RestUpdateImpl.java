@@ -7,6 +7,7 @@ import javax.ws.rs.core.Response;
 
 import com.edu.mum.hbs.dao.*;
 import com.edu.mum.hbs.entity.*;
+import com.edu.mum.hbs.facade.HotelBookingSystemMaintenanceFacade;
 import com.edu.mum.hbs.restapi.bean.CustomerAndRoomBean;
 import com.edu.mum.hbs.restapi.util.LocalDateAdapter;
 import com.google.gson.Gson;
@@ -15,32 +16,26 @@ import com.google.gson.JsonSyntaxException;
 
 @Path("/update")
 public class RestUpdateImpl implements RestUpdateInterface {
-	ServiceDao serviceDao = (ServiceDao) DaoFactoryImpl.getFactory().createDao(Service.TABLE_NAME);
-	CustomerDao customerDao = (CustomerDao) DaoFactoryImpl.getFactory().createDao(Customer.TABLE_NAME);
-	InvoiceRecordDao invoiceDao = (InvoiceRecordDao) DaoFactoryImpl.getFactory().createDao(InvoiceRecord.TABLE_NAME);
-	CustomerAndRoomDao customerAndRoomDao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
-	RoomDao roomDao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
-	private static final RoomServiceDao roomServiceDao = (RoomServiceDao) DaoFactoryImpl.getFactory()
-			.createDao(RoomService.TABLE_NAME);
+	HotelBookingSystemMaintenanceFacade hbsMaintenanceFacade = HotelBookingSystemMaintenanceFacade.getInstance();
 	private final static Gson gson = new Gson();
 	private final static Gson gsonLocalDate = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 
 
 	@Override
 	public Response updateService(String datapointJson) {
-		serviceDao.update(gson.fromJson(datapointJson, Service.class));
+		hbsMaintenanceFacade.updateService(gson.fromJson(datapointJson, Service.class));
 		return Response.status(Response.Status.OK).build();
 	}
 
 	@Override
 	public Response addService(String datapointJson) {
-		serviceDao.addService(gson.fromJson(datapointJson, Service.class));
+		hbsMaintenanceFacade.addService(gson.fromJson(datapointJson, Service.class));
 		return Response.status(Response.Status.OK).build();
 	}
 
 	@Override
 	public Response deleteService(String datapointJson) {
-		boolean result = serviceDao.delete(gson.fromJson(datapointJson, Service.class));
+		boolean result = hbsMaintenanceFacade.deleteService(gson.fromJson(datapointJson, Service.class));
 		if (!result)
 			return Response.status(Response.Status.EXPECTATION_FAILED).build();
 		return Response.status(Response.Status.OK).build();
@@ -48,12 +43,7 @@ public class RestUpdateImpl implements RestUpdateInterface {
 
 	@Override
 	public Response addCustomer(String datapointJson) {
-		try {
-			customerDao.addCustomer(gsonLocalDate.fromJson(datapointJson, Customer.class));
-		} catch (JsonSyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		hbsMaintenanceFacade.addCustomer(gson.fromJson(datapointJson, Customer.class));
 		return Response.status(Response.Status.OK).build();
 	}
 
@@ -62,7 +52,7 @@ public class RestUpdateImpl implements RestUpdateInterface {
 		try {
 			Gson gson1 = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 			InvoiceRecord record = gson1.fromJson(datapointJson, InvoiceRecord.class);
-			invoiceDao.addInvoice(record);
+			hbsMaintenanceFacade.addInvoice(record);
 		} catch (JsonSyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,36 +62,44 @@ public class RestUpdateImpl implements RestUpdateInterface {
 	}
 
 	@Override
+	public Response addCustomerAndRooms(String datapointJson) {
+		CustomerAndRoomBean customerAndRoomBean = gsonLocalDate.fromJson(datapointJson, CustomerAndRoomBean.class);
+		customerAndRoomDao.addCustomerAndRooms(customerAndRoomBean.getPassport(),
+				customerAndRoomBean.getRoomDates(), customerAndRoomBean.getStatus());
+		return Response.status(Response.Status.OK).build();
+	}
+
+	@Override
 	public Response updateCustomerAndRooms(String datapointJson) {
 		CustomerAndRoomBean customerAndRoomBean = gson.fromJson(datapointJson, CustomerAndRoomBean.class);
-		customerAndRoomDao.update(customerAndRoomBean.getRoomNumber(), customerAndRoomBean.getStatus());
+		hbsMaintenanceFacade.updateCustomerAndRooms(customerAndRoomBean.getRoomNumber(), customerAndRoomBean.getStatus());
 		return Response.status(Response.Status.OK).build();
 	}
 
 	@Override
 	public Response deleteCustomerAndRooms(String datapointJson) {
 		CustomerAndRoomBean customerAndRoomBean = gson.fromJson(datapointJson, CustomerAndRoomBean.class);
-		customerAndRoomDao.delete(customerAndRoomBean.getPassport(), customerAndRoomBean.getRoomNumber());
+		hbsMaintenanceFacade.deleteCustomerAndRooms(customerAndRoomBean.getPassport(), customerAndRoomBean.getRoomNumber());
 		return Response.status(Response.Status.OK).build();
   }
 
 	// RoomDao Services Start
 	@Override
 	public Response addRoom(String datapointJson) {
-		roomDao.addRoom(gson.fromJson(datapointJson, Room.class));
+		hbsMaintenanceFacade.addRoom(gson.fromJson(datapointJson, Room.class));
 		return Response.status(Response.Status.OK).build();
 	}
 
 	@Override
 	public Response deleteRoom(String datapointJson) {
-		boolean result = roomDao.delete(gson.fromJson(datapointJson, Room.class));
+		boolean result = hbsMaintenanceFacade.deleteRoom(gson.fromJson(datapointJson, Room.class));
 		if (!result) return Response.status(Response.Status.EXPECTATION_FAILED).build();
 		return Response.status(Response.Status.OK).build();
 	}
 
 	@Override
 	public Response updateRoom(String datapointJson) {
-		roomDao.update(gson.fromJson(datapointJson, Room.class));
+		hbsMaintenanceFacade.updateRoom(gson.fromJson(datapointJson, Room.class));
 		return Response.status(Response.Status.OK).build();
 	}
 	// RoomDao Services End
@@ -111,7 +109,7 @@ public class RestUpdateImpl implements RestUpdateInterface {
 	public Response addRoomService(String datapointJson) {
 		try {
 			RoomService record = gsonLocalDate.fromJson(datapointJson, RoomService.class);
-			roomServiceDao.addRoomService(record);
+			hbsMaintenanceFacade.addRoomService(record);
 		} catch (JsonSyntaxException e) {
 			System.out.println(datapointJson);
 		}
@@ -122,7 +120,7 @@ public class RestUpdateImpl implements RestUpdateInterface {
 	public Response updateRoomService(String datapointJson) {
 		try {
 			RoomService record = gsonLocalDate.fromJson(datapointJson, RoomService.class);
-			roomServiceDao.update(record);
+			hbsMaintenanceFacade.updateRoomService(record);
 		} catch (JsonSyntaxException e) {
 			System.out.println(datapointJson);
 		}
@@ -131,7 +129,7 @@ public class RestUpdateImpl implements RestUpdateInterface {
 	
 	@Override
 	public Response deleteRoomService(String datapointJson) {
-		boolean result = roomServiceDao.delete(gson.fromJson(datapointJson, RoomService.class));
+		boolean result = hbsMaintenanceFacade.deleteRoomService(gson.fromJson(datapointJson, RoomService.class));
 		if (!result)
 			return Response.status(Response.Status.EXPECTATION_FAILED).build();
 		return Response.status(Response.Status.OK).build();
@@ -139,7 +137,7 @@ public class RestUpdateImpl implements RestUpdateInterface {
 	
 	@Override
 	public Response deleteRoomServiceByString(String datapointJson) {
-		boolean result = roomServiceDao.delete(gson.fromJson(datapointJson, String.class));
+		boolean result = hbsMaintenanceFacade.deleteRoomServiceByString(gson.fromJson(datapointJson, String.class));
 		if (!result)
 			return Response.status(Response.Status.EXPECTATION_FAILED).build();
 		return Response.status(Response.Status.OK).build();

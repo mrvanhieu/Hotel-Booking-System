@@ -34,6 +34,11 @@ public interface RestUpdateInterface {
 
 
 	// CustomerAndRoom Services Begin
+
+	@POST
+	@Path("/addCustomerAndRooms")
+	Response addCustomerAndRooms(String datapointJson);
+
 	@POST
 	@Path("/updateCustomerAndRooms")
 	Response updateCustomerAndRooms(String datapointJson);

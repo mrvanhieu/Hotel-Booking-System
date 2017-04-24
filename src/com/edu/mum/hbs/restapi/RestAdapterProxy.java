@@ -3,14 +3,7 @@ package com.edu.mum.hbs.restapi;
 import java.util.List;
 
 import com.edu.mum.hbs.dao.UserSession;
-import com.edu.mum.hbs.entity.CustRoomDetails;
-import com.edu.mum.hbs.entity.Customer;
-import com.edu.mum.hbs.entity.CustomerAndRoom;
-import com.edu.mum.hbs.entity.InvoiceRecord;
-import com.edu.mum.hbs.entity.Revenue;
-import com.edu.mum.hbs.entity.Room;
-import com.edu.mum.hbs.entity.RoomService;
-import com.edu.mum.hbs.entity.Service;
+import com.edu.mum.hbs.entity.*;
 
 public class RestAdapterProxy implements IRestAdapter{
 	private final IRestAdapter adapter = RestAdapter.getInstance();
@@ -114,6 +107,10 @@ public class RestAdapterProxy implements IRestAdapter{
 	}
 
 	@Override
+	public void addCustomerAndRooms(String passportOrId, List<RoomDate> roomDates, String status) {
+		getAdapter().addCustomerAndRooms(passportOrId, roomDates, status);
+	}
+	@Override
 	public void addRoomService(RoomService service) {
 		getAdapter().addRoomService(service);
 	}
@@ -170,8 +167,7 @@ public class RestAdapterProxy implements IRestAdapter{
 
 	@Override
 	public Room getRoom(String roomNumber) {
-		// TODO Auto-generated method stub
-		return null;
+		return getAdapter().getRoom(roomNumber);
 	}
 
 	@Override
@@ -200,3 +196,4 @@ public class RestAdapterProxy implements IRestAdapter{
 	}
 
 }
+

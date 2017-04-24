@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.edu.mum.hbs.dao.DaoFactoryImpl;
-import com.edu.mum.hbs.dao.RoomDao;
-import com.edu.mum.hbs.dao.RoomServiceDao;
 import com.edu.mum.hbs.entity.Customer;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
 import com.edu.mum.hbs.entity.InvoiceRecord;
@@ -35,41 +32,52 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class CheckoutFormController extends ControllerBase{
-	@FXML	private TextField searchText;
-	@FXML	private TextField fullName;
-	@FXML	private TextField passport;
-	@FXML	private TextField phoneNo;
-	
-	@FXML	private TableView<RoomDate> checkedTable;
-	@FXML	private TableColumn<RoomDate, String> roomNumberColumn;
-	@FXML	private TableColumn<RoomDate, String> priceColumn;
-	@FXML	private TableColumn<RoomDate, String> roomTypeColumn;
-	@FXML	private TableColumn<RoomDate, String> roomClassColumn;
-	@FXML	private TableColumn<RoomDate, String> checkInDateColumn;
-	@FXML	private TableColumn<RoomDate, String> checkOutDateColumn;
+public class CheckoutFormController extends ControllerBase {
+	@FXML
+	private TextField searchText;
+	@FXML
+	private TextField fullName;
+	@FXML
+	private TextField passport;
+	@FXML
+	private TextField phoneNo;
+
+	@FXML
+	private TableView<RoomDate> checkedTable;
+	@FXML
+	private TableColumn<RoomDate, String> roomNumberColumn;
+	@FXML
+	private TableColumn<RoomDate, String> priceColumn;
+	@FXML
+	private TableColumn<RoomDate, String> roomTypeColumn;
+	@FXML
+	private TableColumn<RoomDate, String> roomClassColumn;
+	@FXML
+	private TableColumn<RoomDate, String> checkInDateColumn;
+	@FXML
+	private TableColumn<RoomDate, String> checkOutDateColumn;
 
 	IRestAdapter adapter = RestAdapterProxy.getRestProxy();
 
-	private RoomDao rdao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
-
 	private List<RoomDate> checkedRooms = new ArrayList<RoomDate>();
-		
-	@FXML	public void searchCustomer() {
+
+	@FXML
+	public void searchCustomer() {
 		String szSearch = searchText.getText();
-		if (szSearch == null || szSearch.equals("")){
+		if (szSearch == null || szSearch.equals("")) {
 			showAlert(AlertType.INFORMATION, "Enter Values", null, "You have to fill in search content to continue.");
 			return;
 		}
-		
+
 		Customer customer = adapter.getCustomerFromPassportOrPhone(szSearch);
-		
+
 		if (customer == null) {
-			//Show error msg
+			// Show error msg
 			fullName.setText("");
 			passport.setText("");
-			phoneNo.setText("");			
-			showAlert(AlertType.INFORMATION, "Cannot Find", null, "We can not find any data matching with your criteria. Please try with another one");
+			phoneNo.setText("");
+			showAlert(AlertType.INFORMATION, "Cannot Find", null,
+					"We can not find any data matching with your criteria. Please try with another one");
 			return;
 		}
 
@@ -79,23 +87,22 @@ public class CheckoutFormController extends ControllerBase{
 		priceColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("roomPrice"));
 		checkInDateColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("checkInDate"));
 		checkOutDateColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("checkOutDate"));
-				
-		//If found a customer
-		
-		//0. Reset search field for next search
+
+		// If found a customer
+
+		// 0. Reset search field for next search
 		searchText.setText("");
 		fullName.setText(customer.getFullName());
-		passport.setText(customer.getPassport_id());
+		passport.setText(customer.getPassportOrId());
 		phoneNo.setText(customer.getPhoneNo());
-		
-		//1. getCustomerAndRoom
-//		List<CustomerAndRoom> customerAndRooms = crdao.getCustomerAndRoom(customer.getPassportOrId(), CustomerAndRoom.CHECKED_STATUS);
-		List<CustomerAndRoom> customerAndRooms = adapter.getCustomerAndRoom(customer.getPassport_id(), CustomerAndRoom.CHECKED_STATUS);
+
+		// 1. getCustomerAndRoom
+		List<CustomerAndRoom> customerAndRooms = adapter.getCustomerAndRoom(customer.getPassportOrId(),
+				CustomerAndRoom.CHECKED_STATUS);
 		List<RoomDate> roomDates = new ArrayList<>();
-		for (CustomerAndRoom cr : customerAndRooms){
-			//Room r = rdao.getRoom(cr.getRoomNumber());
-			Room r =adapter.getRoom(cr.getRoomNumber());
-			RoomDate rd = new RoomDate(r,cr.getCheckInDate(),cr.getCheckOutDate());
+		for (CustomerAndRoom cr : customerAndRooms) {
+			Room r = adapter.getRoom(cr.getRoomNumber());
+			RoomDate rd = new RoomDate(r, cr.getCheckInDate(), cr.getCheckOutDate());
 			roomDates.add(rd);
 		}
 
@@ -103,8 +110,8 @@ public class CheckoutFormController extends ControllerBase{
 		reloadTableView(checkedTable, roomDates);
 	}
 
-	private boolean checkNonEmptyCustomer(){
-		if (fullName.getText().isEmpty() || passport.getText().isEmpty()){
+	private boolean checkNonEmptyCustomer() {
+		if (fullName.getText().isEmpty() || passport.getText().isEmpty()) {
 			return false;
 		}
 		return true;
@@ -113,7 +120,7 @@ public class CheckoutFormController extends ControllerBase{
 	@FXML
 	public void checkOut() {
 
-		if (!checkNonEmptyCustomer()){
+		if (!checkNonEmptyCustomer()) {
 			showAlert(AlertType.INFORMATION, "Enter Values", null, "You have to fill all form data to continue.");
 			return;
 		}
@@ -122,23 +129,21 @@ public class CheckoutFormController extends ControllerBase{
 			showAlert(AlertType.INFORMATION, "Enter Values", null, "Please select one row to continue.");
 			return;
 		}
-		Optional<ButtonType> result = showAlert(AlertType.CONFIRMATION,"Check Out Confirmation","Are you sure?","");
-		if (result.get() == ButtonType.OK){
-			RoomDate clonedRoomDate = (RoomDate)roomDate.doClone();
-			RoomServiceDao rsDao = (RoomServiceDao) DaoFactoryImpl.getFactory().createDao(RoomService.TABLE_NAME);
-			
+		Optional<ButtonType> result = showAlert(AlertType.CONFIRMATION, "Check Out Confirmation", "Are you sure?", "");
+		if (result.get() == ButtonType.OK) {
+			RoomDate clonedRoomDate = (RoomDate) roomDate.doClone();
+
 			InvoiceRecordBuilder invoiceRecordBuilder = new InvoiceRecordBuilder();
 			invoiceRecordBuilder.buildPassportOrId(passport.getText());
-			invoiceRecordBuilder.buildRoomNumber(clonedRoomDate.getRoom_number());
+			invoiceRecordBuilder.buildRoomNumber(clonedRoomDate.getRoomNumber());
 			LocalDate checkInDate = clonedRoomDate.getCheckInDate();
-			LocalDate checkOutDate =  clonedRoomDate.getCheckOutDate();
-			int days = Period.between(checkInDate,checkOutDate).getDays();
-			double roomAmount = clonedRoomDate.getPrice()*days;
+			LocalDate checkOutDate = clonedRoomDate.getCheckOutDate();
+			int days = Period.between(checkInDate, checkOutDate).getDays();
+			double roomAmount = clonedRoomDate.getRoomPrice() * days;
 
-			// double serviceAmount = rsDao.getTotalUsingService(clonedRoomDate.getRoomNumber());
-			List<RoomService> roomServices = adapter.getAllRoomServicesByRoomNumber(clonedRoomDate.getRoom_number());
+			List<RoomService> roomServices = adapter.getAllRoomServicesByRoomNumber(clonedRoomDate.getRoomNumber());
 			double serviceAmount = 0.0;
-			String roomClass = clonedRoomDate.getRoom_class();
+			String roomClass = clonedRoomDate.getRoomClass();
 			StrategyContext strategyContext;
 			if (roomClass.equalsIgnoreCase("VIP")) {
 				strategyContext = new StrategyContext(new VIPStrategy());
@@ -152,31 +157,28 @@ public class CheckoutFormController extends ControllerBase{
 			invoiceRecordBuilder.buildServiceAmount(serviceAmount);
 			invoiceRecordBuilder.buildTotalAmount(roomAmount + serviceAmount);
 			InvoiceRecord invoiceRecord = invoiceRecordBuilder.getInvoiceRecord();
-				
-      adapter.deleteRoomServiceByString(clonedRoomDate.getRoom_number());
+
+			adapter.deleteRoomServiceByString(clonedRoomDate.getRoomNumber());
 			adapter.addInvoice(invoiceRecord);
-			//crdao.delete(passport.getText(),clonedRoomDate.getRoomNumber());
-			adapter.deleteCustomerAndRooms(passport.getText(),clonedRoomDate.getRoom_number());
+			adapter.deleteCustomerAndRooms(passport.getText(), clonedRoomDate.getRoomNumber());
 			checkedRooms.remove(roomDate);
 			reloadTableView(checkedTable, checkedRooms);
-			showInvoiceData(invoiceRecord,roomServices);
+			showInvoiceData(invoiceRecord, roomServices);
 		} else {
 			// ... user chose CANCEL or closed the dialog
 
 		}
 	}
-	
-	public void showInvoiceData(InvoiceRecord invoiceRecord, List<RoomService> roomServices){
+
+	public void showInvoiceData(InvoiceRecord invoiceRecord, List<RoomService> roomServices) {
 		try {
 			Stage stage = new Stage();
 			FXMLLoader loader = new FXMLLoader();
 			Pane root = loader.load(getClass().getResource("InvoiceFormPopup.fxml").openStream());
 			InvoiceFormPopupController controller = (InvoiceFormPopupController) loader.getController();
-			controller.viewData(invoiceRecord,roomServices);
+			controller.viewData(invoiceRecord, roomServices);
 			Scene scene = new Scene(root);
-			scene.getStylesheets().setAll(
-					getClass().getResource("style.css").toExternalForm()
-			);
+			scene.getStylesheets().setAll(getClass().getResource("style.css").toExternalForm());
 			stage.setScene(scene);
 			stage.show();
 		} catch (IOException e) {

@@ -6,11 +6,9 @@ import java.util.ResourceBundle;
 
 import com.edu.mum.hbs.dao.CustomerAndRoomDao;
 import com.edu.mum.hbs.dao.DaoFactoryImpl;
-import com.edu.mum.hbs.dao.RoomDao;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
 import com.edu.mum.hbs.entity.Room;
 import com.edu.mum.hbs.restapi.IRestAdapter;
-import com.edu.mum.hbs.restapi.RestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapterProxy;
 
 import javafx.fxml.FXML;
@@ -20,33 +18,47 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ReportRoomFormController extends ControllerBase {
-	@FXML	private Label lblAvailableRooms;
-	@FXML	private Label lblBookingRooms;
-	@FXML	private Label lblCheckedInRooms;
-	
-	@FXML	private TableView<Room> availableTable;
-	@FXML	private TableColumn<Room, String> aRoomNoColumn;
-	@FXML	private TableColumn<Room, String> aTypeColumn;
-	@FXML	private TableColumn<Room, String> aClassColumn;
-	@FXML	private TableColumn<Room, String> aPriceColumn;
-	
-	@FXML	private TableView<CustomerAndRoom> bookingTable;
-	@FXML	private TableColumn<CustomerAndRoom, String> bRoomNoColumn;
-	@FXML	private TableColumn<CustomerAndRoom, String> bCheckInColumn;
-	@FXML	private TableColumn<CustomerAndRoom, String> bCheckOutColumn;
+	@FXML
+	private Label lblAvailableRooms;
+	@FXML
+	private Label lblBookingRooms;
+	@FXML
+	private Label lblCheckedInRooms;
 
-	@FXML	private TableView<CustomerAndRoom> checkedInTable;
-	@FXML	private TableColumn<CustomerAndRoom, String> cRoomNoColumn;
-	@FXML	private TableColumn<CustomerAndRoom, String> cCheckInColumn;
-	@FXML	private TableColumn<CustomerAndRoom, String> cCheckOutColumn;
+	@FXML
+	private TableView<Room> availableTable;
+	@FXML
+	private TableColumn<Room, String> aRoomNoColumn;
+	@FXML
+	private TableColumn<Room, String> aTypeColumn;
+	@FXML
+	private TableColumn<Room, String> aClassColumn;
+	@FXML
+	private TableColumn<Room, String> aPriceColumn;
+
+	@FXML
+	private TableView<CustomerAndRoom> bookingTable;
+	@FXML
+	private TableColumn<CustomerAndRoom, String> bRoomNoColumn;
+	@FXML
+	private TableColumn<CustomerAndRoom, String> bCheckInColumn;
+	@FXML
+	private TableColumn<CustomerAndRoom, String> bCheckOutColumn;
+
+	@FXML
+	private TableView<CustomerAndRoom> checkedInTable;
+	@FXML
+	private TableColumn<CustomerAndRoom, String> cRoomNoColumn;
+	@FXML
+	private TableColumn<CustomerAndRoom, String> cCheckInColumn;
+	@FXML
+	private TableColumn<CustomerAndRoom, String> cCheckOutColumn;
 
 	private IRestAdapter adapter = RestAdapterProxy.getRestProxy();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		RoomDao rDao = (RoomDao) DaoFactoryImpl.getFactory().createDao(Room.TABLE_NAME);
-//		List<Room> availableRooms = rDao.getAvailableRooms();
 		List<Room> availableRooms = adapter.getAvailableRooms();
 		
 		if (availableRooms != null){
@@ -59,29 +71,25 @@ public class ReportRoomFormController extends ControllerBase {
 			lblAvailableRooms.setText("Available Rooms (" + availableRooms.size() + ")");
 		}
 
-		CustomerAndRoomDao crDao = (CustomerAndRoomDao) DaoFactoryImpl.getFactory().createDao(CustomerAndRoom.TABLE_NAME);
-
-//		List<CustomerAndRoom> customerRoomBooking = crDao.getAllCustomerRoom(CustomerAndRoom.BOOKING_STATUS);
 		List<CustomerAndRoom> customerRoomBooking = adapter.getAllCustomerRoomByStatus(CustomerAndRoom.BOOKING_STATUS);
-		if (customerRoomBooking != null){
+		if (customerRoomBooking != null) {
 			bRoomNoColumn.setCellValueFactory(new PropertyValueFactory<CustomerAndRoom, String>("roomNumber"));
 			bCheckInColumn.setCellValueFactory(new PropertyValueFactory<CustomerAndRoom, String>("checkInDate"));
 			bCheckOutColumn.setCellValueFactory(new PropertyValueFactory<CustomerAndRoom, String>("checkOutDate"));
-			
+
 			reloadTableView(bookingTable, customerRoomBooking);
 			lblBookingRooms.setText("Booking Rooms (" + customerRoomBooking.size() + ")");
 		}
-		
-		//List<CustomerAndRoom> customerRoomChecked = crDao.getAllCustomerRoom(CustomerAndRoom.CHECKED_STATUS);
+
 		List<CustomerAndRoom> customerRoomChecked = adapter.getAllCustomerRoomByStatus(CustomerAndRoom.CHECKED_STATUS);
-		if (customerRoomChecked != null){
+		if (customerRoomChecked != null) {
 			cRoomNoColumn.setCellValueFactory(new PropertyValueFactory<CustomerAndRoom, String>("roomNumber"));
 			cCheckInColumn.setCellValueFactory(new PropertyValueFactory<CustomerAndRoom, String>("checkInDate"));
 			cCheckOutColumn.setCellValueFactory(new PropertyValueFactory<CustomerAndRoom, String>("checkOutDate"));
-			
+
 			reloadTableView(checkedInTable, customerRoomChecked);
 			lblCheckedInRooms.setText("Checked-in Rooms (" + customerRoomChecked.size() + ")");
 		}
-		
+
 	}
 }
