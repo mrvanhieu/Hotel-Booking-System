@@ -1,5 +1,7 @@
 package com.edu.mum.hbs.facade;
 
+import java.util.List;
+
 import com.edu.mum.hbs.dao.CustomerAndRoomDao;
 import com.edu.mum.hbs.dao.CustomerDao;
 import com.edu.mum.hbs.dao.DaoFactoryImpl;
@@ -11,6 +13,7 @@ import com.edu.mum.hbs.entity.Customer;
 import com.edu.mum.hbs.entity.CustomerAndRoom;
 import com.edu.mum.hbs.entity.InvoiceRecord;
 import com.edu.mum.hbs.entity.Room;
+import com.edu.mum.hbs.entity.RoomDate;
 import com.edu.mum.hbs.entity.RoomService;
 import com.edu.mum.hbs.entity.Service;
 
@@ -65,6 +68,11 @@ public class HotelBookingSystemMaintenanceFacade {
 	public void deleteCustomerAndRooms(String passport, String roomNumber) {
 		customerAndRoomDao.delete(passport, roomNumber);
 	}
+	
+	public void addCustomerAndRooms(String passportOrId, List<RoomDate> roomDates, String status) {
+		customerAndRoomDao.addCustomerAndRooms(passportOrId, roomDates, status);
+	}
+	
 	// CustomerAndRoom Services End
 
 	public void addRoom(Room room) {
