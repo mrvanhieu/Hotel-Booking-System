@@ -170,8 +170,7 @@ public class RestAdapterProxy implements IRestAdapter{
 
 	@Override
 	public Room getRoom(String roomNumber) {
-		// TODO Auto-generated method stub
-		return null;
+		return getAdapter().getRoom(roomNumber);
 	}
 
 	@Override
