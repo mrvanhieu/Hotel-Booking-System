@@ -46,7 +46,7 @@ public class RestUpdateImpl implements RestUpdateInterface {
 
 	@Override
 	public Response addCustomer(String datapointJson) {
-		hbsMaintenanceFacade.addCustomer(gson.fromJson(datapointJson, Customer.class));
+		hbsMaintenanceFacade.addCustomer(gsonLocalDate.fromJson(datapointJson, Customer.class));
 		return Response.status(Response.Status.OK).build();
 	}
 
