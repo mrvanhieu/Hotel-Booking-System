@@ -1,23 +1,31 @@
 package com.edu.mum.hbs.dao;
 
-import com.edu.mum.hbs.util.SqliteUtil;
-import java.util.Map;
+import java.util.List;
 
-public class LoginDao extends DaoAbstract {
-    private static final String TABLE_NAME = "user";
+import com.edu.mum.hbs.entity.User;
+import com.edu.mum.hbs.util.SqliteUtil;
+
+public class LoginDao extends DaoAbstract<User,String> {
+    public LoginDao() {
+		super(User.class);
+		// TODO Auto-generated constructor stub
+	}
+
+	private static final String TABLE_NAME = "user";
     UserSession session = null;
+    
     
     public UserSession validateLogin(String username, String password) {
         // check with database whether user is logged in or not
-    	this.setQuery("select * from user where username = ? and password = ?");
+    	
         SqliteUtil.FilterCondition condition = new SqliteUtil.FilterCondition(SqliteUtil.LogicalOperator.AND);
         condition.addCondition("username", SqliteUtil.EQUALS, username);
         condition.addCondition("password", SqliteUtil.EQUALS, password);
-        Map<String, Object> member = db.findOne(TABLE_NAME, new String[] { "user_id" }, condition);
+        List<User> users = getAll(condition);
 
         // initialize session
-        if(member != null) {
-            int user_id = (int)(member.get("user_id"));
+        if(users.size() > 0) {
+            int user_id = (int)(users.get(0).getUser_id());
             session = new UserSession();
             session.setMemberId(user_id);
             session.setUsername(username);

@@ -23,8 +23,8 @@ public class EmailNotificationObserver implements NotificationObserver {
             String subject = "Booking Notification";
             String roomInfo = "";
             for (RoomDate room : rooms) {
-            roomInfo += "<br>Room: " + room.getRoomNumber();
-            roomInfo += "<br>   Price: " + room.getRoomPrice();
+            roomInfo += "<br>Room: " + room.getRoom_number();
+            roomInfo += "<br>   Price: " + room.getPrice();
         }
 //            rooms.stream().forEach(room ->
 //                    roomInfo +=  room.getRoomNumber());
@@ -33,7 +33,7 @@ public class EmailNotificationObserver implements NotificationObserver {
                 "that have the booking over " + Constants.MAX_ROOM_PRICE +
                 "<br>Customer Information as below: <br>" +
                 "<br><br>Customer Name: " + customer.getFullName() +
-                "<br>Passport/ID: " + customer.getPassportOrId() +
+                "<br>Passport/ID: " + customer.getPassport_id() +
                 "<br>Address: " + customer.getAddress() +
                 "<br><br>Booking Information: <br>" + roomInfo;
 

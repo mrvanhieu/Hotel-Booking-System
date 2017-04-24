@@ -60,13 +60,13 @@ public class ReportRoomFormController extends ControllerBase {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		List<Room> availableRooms = adapter.getAvailableRooms();
-
-		if (availableRooms != null) {
-			aRoomNoColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("roomNumber"));
-			aTypeColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("roomType"));
-			aClassColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("roomClass"));
-			aPriceColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("roomPriceDollar"));
-
+		
+		if (availableRooms != null){
+			aRoomNoColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("room_number"));
+			aTypeColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("room_type"));
+			aClassColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("room_class"));
+			aPriceColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("price"));
+	
 			reloadTableView(availableTable, availableRooms);
 			lblAvailableRooms.setText("Available Rooms (" + availableRooms.size() + ")");
 		}

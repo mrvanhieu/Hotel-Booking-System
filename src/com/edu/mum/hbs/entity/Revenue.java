@@ -34,7 +34,7 @@ public class Revenue implements Item {
 
 		CustomerDao cDao = (CustomerDao) DaoFactoryImpl.getFactory().createDao(Customer.TABLE_NAME);
 
-		Customer customer = cDao.getCustomer(invoice.getPassportOrId());
+		Customer customer = cDao.getCustomer(invoice.getPassport_id());
 
 		fullName = customer.getFullName();
 		phoneNo = customer.getPhoneNo();
@@ -49,27 +49,27 @@ public class Revenue implements Item {
 	}
 	@JsonIgnore
 	public String getRoomNumber() {
-		return invoice.getRoomNumber();
+		return invoice.getRoom_number();
 	}
 	@JsonIgnore
 	public LocalDate getCheckInDate() {
-		return invoice.getCheckInDate();
+		return invoice.getCheck_in_date();
 	}
 	@JsonIgnore
 	public LocalDate getCheckOutDate() {
-		return invoice.getCheckOutDate();
+		return invoice.getCheck_out_date();
 	}
 	@JsonIgnore
 	public double getRoomAmount() {
-		return invoice.getRoomAmount();
+		return invoice.getRoom_amount();
 	}
 	@JsonIgnore
 	public double getServiceAmount() {
-		return invoice.getServiceAmount();
+		return invoice.getService_amount();
 	}
 	@JsonIgnore
 	public double getTotalAmount() {
-		return invoice.getTotalAmount();
+		return invoice.getTotal_amount();
 	}
 
 	@JsonIgnore

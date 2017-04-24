@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class CustomerAndRoom {
+public class CustomerAndRoom implements Entity{
 	public static final String ROOM_NUMBER = "room_number";
 	public static final String PASSPORT_OR_ID = "passport_id";
 	public static final String STATUS = "status";
@@ -19,15 +19,23 @@ public class CustomerAndRoom {
 	public static final String TABLE_NAME = "CustomerAndRoom";
 	public static final String BOOKING_STATUS = "Booking";
 	public static final String CHECKED_STATUS = "Checked";
+	@Column(Name=ROOM_NUMBER)
 	private String roomNumber;
+	
+	@Column(Name=PASSPORT_OR_ID)
 	private String passportOrId;
+	
+	@Column(Name=STATUS)
 	private String status;
+	
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@Column(Name=CHECK_IN_DATE)
 	private LocalDate checkInDate;
+	
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
-
+	@Column(Name=CHECK_OUT_DATE)
 	private LocalDate checkOutDate;
 	
 	public CustomerAndRoom(){}
@@ -83,6 +91,11 @@ public class CustomerAndRoom {
 	}
 	public void setCheckOutDateByString(String checkOutDate){
 		this.checkOutDate = LocalDate.parse(checkOutDate);
+	}
+	@Override
+	public String tableName() {
+		// TODO Auto-generated method stub
+		return TABLE_NAME;
 	}
 	
 	

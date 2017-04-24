@@ -52,17 +52,16 @@ public class RoomFormController extends ControllerBase {
 		roomPriceColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("roomPrice"));
 		rooms.addAll(listRooms);
 		reloadTableView(roomTable, listRooms);
-		roomTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Room>() {
-			@Override
-			public void changed(ObservableValue<? extends Room> observable, Room oldValue, Room newValue) {
-				if (newValue == null)
-					return;
-				roomNumber.setText(newValue.getRoomNumber());
-				roomClass.setText(newValue.getRoomClass());
-				roomType.setText(newValue.getRoomType());
-				roomPrice.setText(String.valueOf(newValue.getRoomPrice()));
-			}
-		});
+        roomTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Room>() {
+            @Override
+            public void changed(ObservableValue<? extends Room> observable, Room oldValue, Room newValue) {
+                if (newValue == null) return;
+                roomNumber.setText(newValue.getRoom_number());
+                roomClass.setText(newValue.getRoom_class());
+                roomType.setText(newValue.getRoom_type());
+                roomPrice.setText(String.valueOf(newValue.getPrice()));
+            }
+        });
 	}
 
 	@FXML
@@ -74,9 +73,9 @@ public class RoomFormController extends ControllerBase {
 		Room room = new Room();
 
 		room.setRoomPriceByString(roomPrice.getText());
-		room.setRoomNumber(roomNumber.getText());
-		room.setRoomType(roomType.getText());
-		room.setRoomClass(roomClass.getText());
+		room.setRoom_number(roomNumber.getText());
+		room.setRoom_type(roomType.getText());
+		room.setRoom_class(roomClass.getText());
 
 		adapter.addRoom(room);
 
@@ -99,10 +98,11 @@ public class RoomFormController extends ControllerBase {
 		Room room = new Room();
 
 		room.setRoomPriceByString(roomPrice.getText());
-		room.setRoomNumber(roomNumber.getText());
-		room.setRoomType(roomType.getText());
-		room.setRoomClass(roomClass.getText());
-		Room roomExistence = adapter.getRoom(room.getRoomNumber());
+		room.setRoom_number(roomNumber.getText());
+		room.setRoom_type(roomType.getText());
+		room.setRoom_class(roomClass.getText());
+//        Room roomExistence = rdao.getRoom(room.getRoomNumber());
+		Room roomExistence =adapter.getRoom(room.getRoom_number());
 
 		if (roomExistence == null) {
 			adapter.addRoom(room);

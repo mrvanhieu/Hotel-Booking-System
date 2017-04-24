@@ -48,10 +48,9 @@ public class ServiceFormController extends ControllerBase {
 			serviceTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Service>() {
 				@Override
 				public void changed(ObservableValue<? extends Service> observable, Service oldValue, Service newValue) {
-					if (newValue == null)
-						return;
-					serviceDesc.setText(newValue.getServiceDesc());
-					servicePrice.setText(String.valueOf(newValue.getServicePrice()));
+					if (newValue == null) return;
+					serviceDesc.setText(newValue.getService_desc());
+					servicePrice.setText(String.valueOf(newValue.getService_price()));
 				}
 			});
 		}
@@ -66,8 +65,8 @@ public class ServiceFormController extends ControllerBase {
 		}
 
 		Service service = new Service();
-
-		service.setServiceDesc(serviceDesc.getText());
+		
+		service.setService_desc(serviceDesc.getText());
 		service.setServicePriceByString(servicePrice.getText());
 		adapter.addService(service);
 
@@ -92,8 +91,8 @@ public class ServiceFormController extends ControllerBase {
 			return;
 
 		Service service = new Service();
-
-		service.setServiceDesc(serviceDesc.getText());
+		
+		service.setService_desc(serviceDesc.getText());
 		service.setServicePriceByString(servicePrice.getText());
 
 		Service serviceExistence = adapter.getService(service.getServiceDesc());
