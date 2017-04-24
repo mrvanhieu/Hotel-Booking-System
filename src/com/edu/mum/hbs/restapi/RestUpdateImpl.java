@@ -5,8 +5,11 @@ import java.time.LocalDate;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-import com.edu.mum.hbs.dao.*;
-import com.edu.mum.hbs.entity.*;
+import com.edu.mum.hbs.entity.Customer;
+import com.edu.mum.hbs.entity.InvoiceRecord;
+import com.edu.mum.hbs.entity.Room;
+import com.edu.mum.hbs.entity.RoomService;
+import com.edu.mum.hbs.entity.Service;
 import com.edu.mum.hbs.facade.HotelBookingSystemMaintenanceFacade;
 import com.edu.mum.hbs.restapi.bean.CustomerAndRoomBean;
 import com.edu.mum.hbs.restapi.util.LocalDateAdapter;
@@ -64,7 +67,7 @@ public class RestUpdateImpl implements RestUpdateInterface {
 	@Override
 	public Response addCustomerAndRooms(String datapointJson) {
 		CustomerAndRoomBean customerAndRoomBean = gsonLocalDate.fromJson(datapointJson, CustomerAndRoomBean.class);
-		customerAndRoomDao.addCustomerAndRooms(customerAndRoomBean.getPassport(),
+		hbsMaintenanceFacade.addCustomerAndRooms(customerAndRoomBean.getPassport(),
 				customerAndRoomBean.getRoomDates(), customerAndRoomBean.getStatus());
 		return Response.status(Response.Status.OK).build();
 	}
