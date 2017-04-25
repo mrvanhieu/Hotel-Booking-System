@@ -40,8 +40,8 @@ public class ServiceFormController extends ControllerBase {
 		List<Service> listServices = adapter.loadServices();
 		if (listServices != null) {
 
-			serviceDescColumn.setCellValueFactory(new PropertyValueFactory<Service, String>("serviceDesc"));
-			servicePriceColumn.setCellValueFactory(new PropertyValueFactory<Service, String>("servicePrice"));
+			serviceDescColumn.setCellValueFactory(new PropertyValueFactory<Service, String>("service_desc"));
+			servicePriceColumn.setCellValueFactory(new PropertyValueFactory<Service, String>("service_price"));
 
 			services.addAll(listServices);
 			reloadTableView(serviceTable, listServices);
