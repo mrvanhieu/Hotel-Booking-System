@@ -117,8 +117,19 @@ public abstract class DaoAbstract<T, K> {
 		else{
 			cond = new FilterCondition(SqliteUtil.LogicalOperator.AND);
 		}
+		Entity item = null;
+		if (t == null){
+			try {
+				item = (Entity)domainClass.newInstance();
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
-		Entity item = (Entity)t;
 		String tableName = item.tableName();
 		if (bindColumns(null,t,cond))
 			return db.delete(tableName, cond);
