@@ -46,10 +46,10 @@ public class RoomFormController extends ControllerBase {
 	public void initialize(URL location, ResourceBundle resources) {
 		List<Room> listRooms = adapter.getAllRooms();
 
-		roomNumberColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("roomNumber"));
-		roomTypeColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("roomType"));
-		roomClassColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("roomClass"));
-		roomPriceColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("roomPrice"));
+		roomNumberColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("room_number"));
+		roomTypeColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("room_type"));
+		roomClassColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("room_class"));
+		roomPriceColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("price"));
 		rooms.addAll(listRooms);
 		reloadTableView(roomTable, listRooms);
         roomTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Room>() {
