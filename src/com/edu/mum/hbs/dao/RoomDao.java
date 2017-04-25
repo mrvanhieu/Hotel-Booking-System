@@ -7,7 +7,7 @@ import com.edu.mum.hbs.entity.Room;
 
 public class RoomDao extends DaoAbstract<Room,String> {
 	//private SqliteUtil db = new SqliteUtil();
-	private static final String TABLE_NAME = "Room";
+//	private static final String TABLE_NAME = "Room";
 
 	RoomDao(){
 		super(Room.class);

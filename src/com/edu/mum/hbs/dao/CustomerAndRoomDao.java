@@ -3,9 +3,7 @@ package com.edu.mum.hbs.dao;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.edu.mum.hbs.entity.CustRoomDetails;
 import com.edu.mum.hbs.entity.Customer;
@@ -16,7 +14,7 @@ import com.edu.mum.hbs.util.SqliteUtil;
 import com.edu.mum.hbs.util.SqliteUtil.FilterCondition;
 
 public class CustomerAndRoomDao extends DaoAbstract<CustomerAndRoom,String> {
-	private static final String TABLE_NAME = CustomerAndRoom.TABLE_NAME;
+//	private static final String TABLE_NAME = CustomerAndRoom.TABLE_NAME;
 	CustomerAndRoomDao() {
 		super(CustomerAndRoom.class);
 	}

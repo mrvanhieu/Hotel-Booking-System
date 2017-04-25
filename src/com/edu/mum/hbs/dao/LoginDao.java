@@ -10,8 +10,7 @@ public class LoginDao extends DaoAbstract<User,String> {
 		super(User.class);
 		// TODO Auto-generated constructor stub
 	}
-
-	private static final String TABLE_NAME = "user";
+//	private static final String TABLE_NAME = "user";
     UserSession session = null;
     
     

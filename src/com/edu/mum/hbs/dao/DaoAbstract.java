@@ -107,12 +107,11 @@ public abstract class DaoAbstract<T, K> {
 	
 	public boolean delete(T t, FilterCondition... params){
 		FilterCondition cond = null;
-		assert params.length >= 1;
-		assert params.length <= 2;
+		assert params.length <= 1;
 		
-		if (params.length == 2){
-			assert FilterCondition.class.isInstance(params[1]);
-			cond = params[1];
+		if (params.length == 1){
+			assert FilterCondition.class.isInstance(params[0]);
+			cond = params[0];
 		}
 		else{
 			cond = new FilterCondition(SqliteUtil.LogicalOperator.AND);

@@ -1,8 +1,6 @@
 package com.edu.mum.hbs.dao;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.edu.mum.hbs.entity.Customer;
 import com.edu.mum.hbs.util.SqliteUtil;

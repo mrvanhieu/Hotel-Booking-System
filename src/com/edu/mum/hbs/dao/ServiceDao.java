@@ -1,16 +1,13 @@
 package com.edu.mum.hbs.dao;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.edu.mum.hbs.entity.Service;
-import com.edu.mum.hbs.util.SqliteUtil;
 
 public class ServiceDao extends DaoAbstract<Service,String>{
 	//private SqliteUtil db = new SqliteUtil();
-	private static final String TABLE_NAME = Service.TABLE_NAME;
+//	private static final String TABLE_NAME = Service.TABLE_NAME;
 
 	ServiceDao() {
 		super(Service.class);

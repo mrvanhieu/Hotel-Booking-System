@@ -1,9 +1,7 @@
 package com.edu.mum.hbs.dao;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.edu.mum.hbs.entity.CustomerAndRoom;
 import com.edu.mum.hbs.entity.RoomService;
@@ -11,7 +9,7 @@ import com.edu.mum.hbs.util.SqliteUtil;
 
 public class RoomServiceDao extends DaoAbstract<RoomService,String>{
 	//private SqliteUtil db = new SqliteUtil();
-	private static final String TABLE_NAME = RoomService.TABLE_NAME;
+//	private static final String TABLE_NAME = RoomService.TABLE_NAME;
 	private DaoAbstract crDao;
 	
 	RoomServiceDao() {
