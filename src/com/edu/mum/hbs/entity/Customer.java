@@ -22,6 +22,7 @@ public class Customer extends Person implements Entity {
 	
 	@Column
 	private String phone_no;
+	
 	@Column
 	private String address;
 	

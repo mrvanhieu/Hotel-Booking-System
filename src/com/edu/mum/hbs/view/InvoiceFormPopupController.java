@@ -72,7 +72,7 @@ public class InvoiceFormPopupController extends ControllerBase {
 		lblTotalAmount.setText("$" + invoiceRecord.getTotal_amount());
 
 		Customer customer = adapter.getCustomer(invoiceRecord.getPassport_id());
-		fullName.setText(customer.getFullName());
+		fullName.setText(customer.getFullname());
 		phoneNo.setText(customer.getPhoneNo());
 
 		Room room =adapter.getRoom(invoiceRecord.getRoom_number());

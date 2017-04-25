@@ -207,9 +207,9 @@ private boolean checkNonEmptyCustomer(){
 			return;
 		}
 		Customer customer = new Customer();
-		customer.setFullName(fullName.getText());
+		customer.setFullname(fullName.getText());
 		customer.setPassport_id(passport.getText());
-		customer.setPhoneNo(phoneNo.getText());
+		customer.setPhone_no(phoneNo.getText());
 		customer.setAddress(address.getText());
 		customer.setDob(dob.getValue());
 		

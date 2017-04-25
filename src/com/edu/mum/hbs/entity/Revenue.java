@@ -2,8 +2,6 @@ package com.edu.mum.hbs.entity;
 
 import java.time.LocalDate;
 
-import org.junit.Ignore;
-
 import com.edu.mum.hbs.dao.CustomerDao;
 import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -36,7 +34,7 @@ public class Revenue implements Item {
 
 		Customer customer = cDao.getCustomer(invoice.getPassport_id());
 
-		fullName = customer.getFullName();
+		fullName = customer.getFullname();
 		phoneNo = customer.getPhoneNo();
 	}
 

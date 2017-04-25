@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-public class RoomService {
+public class RoomService implements Entity{
 	public static final String TABLE_NAME = "RoomService";
 	public static final String ROOM_NUMBER = "room_number";
 	public static final String SERVICE_DESC = "service_desc";
@@ -21,7 +21,7 @@ public class RoomService {
 	@Column(Name=SERVICE_DESC)
 	private String serviceDesc;
 	@Column(Name=QUANTITY)
-	private int quantity;
+	private Integer quantity;
 	@JsonSerialize(using = LocalDateWithStringsSerializable.class)
 	@JsonDeserialize(using = LocalDateWithStringsDeserializer.class)
 	@Column(Name=SERVICE_DATE)
@@ -54,7 +54,7 @@ public class RoomService {
 	public void setQuantityByString(String quantity) {
 		this.quantity = Integer.parseInt(quantity);
 	}
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
@@ -68,5 +68,10 @@ public class RoomService {
 		ServiceDao serviceDao = (ServiceDao) DaoFactoryImpl.getFactory().createDao(Service.TABLE_NAME);
 		Service service = serviceDao.getService(this.serviceDesc);
 		return service.getService_price();
+	}
+	@Override
+	public String tableName() {
+		// TODO Auto-generated method stub
+		return TABLE_NAME;
 	}
 }

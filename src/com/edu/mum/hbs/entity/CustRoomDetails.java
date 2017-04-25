@@ -16,7 +16,7 @@ public class CustRoomDetails extends CustomerAndRoom {
 
 	@JsonIgnoreProperties
 	public String getFullName(){
-		return customer.getFullName();
+		return customer.getFullname();
 	}
 
 	@Override

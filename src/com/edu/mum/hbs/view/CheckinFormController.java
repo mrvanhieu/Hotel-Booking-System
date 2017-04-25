@@ -67,10 +67,10 @@ public class CheckinFormController extends ControllerBase {
 			return;
 		}
 
-		roomNumberColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("roomNumber"));
-		roomTypeColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("roomType"));
-		roomClassColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("roomClass"));
-		priceColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("roomPrice"));
+		roomNumberColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("room_number"));
+		roomTypeColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("room_type"));
+		roomClassColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("room_class"));
+		priceColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("price"));
 		checkInDateColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("checkInDate"));
 		checkOutDateColumn.setCellValueFactory(new PropertyValueFactory<RoomDate, String>("checkOutDate"));
 
@@ -78,7 +78,7 @@ public class CheckinFormController extends ControllerBase {
 
 		// 0. Reset search field for next search
 		searchText.setText("");
-		fullName.setText(customer.getFullName());
+		fullName.setText(customer.getFullname());
 		passport.setText(customer.getPassport_id());
 		phoneNo.setText(customer.getPhoneNo());
 

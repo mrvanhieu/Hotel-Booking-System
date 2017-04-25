@@ -1,14 +1,11 @@
 package com.edu.mum.hbs.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-
-import java.time.LocalDate;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class CustomerAndRoom implements Entity{
 	public static final String ROOM_NUMBER = "room_number";
@@ -19,10 +16,10 @@ public class CustomerAndRoom implements Entity{
 	public static final String TABLE_NAME = "CustomerAndRoom";
 	public static final String BOOKING_STATUS = "Booking";
 	public static final String CHECKED_STATUS = "Checked";
-	@Column(Name=ROOM_NUMBER)
+	@Id(Name=ROOM_NUMBER)
 	private String roomNumber;
 	
-	@Column(Name=PASSPORT_OR_ID)
+	@Id(Name=PASSPORT_OR_ID)
 	private String passportOrId;
 	
 	@Column(Name=STATUS)

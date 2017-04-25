@@ -32,7 +32,7 @@ public class EmailNotificationObserver implements NotificationObserver {
                 "This email is to let you know that we have a customer " +
                 "that have the booking over " + Constants.MAX_ROOM_PRICE +
                 "<br>Customer Information as below: <br>" +
-                "<br><br>Customer Name: " + customer.getFullName() +
+                "<br><br>Customer Name: " + customer.getFullname() +
                 "<br>Passport/ID: " + customer.getPassport_id() +
                 "<br>Address: " + customer.getAddress() +
                 "<br><br>Booking Information: <br>" + roomInfo;

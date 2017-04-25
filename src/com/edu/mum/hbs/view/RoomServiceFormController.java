@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.edu.mum.hbs.dao.DaoFactoryImpl;
 import com.edu.mum.hbs.entity.RoomService;
 import com.edu.mum.hbs.restapi.IRestAdapter;
 import com.edu.mum.hbs.restapi.RestAdapterProxy;
@@ -59,6 +60,7 @@ public class RoomServiceFormController extends ControllerBase {
 
 		// Get current roomServices from DB and show into TableView
 		roomServices = adapter.getAllRoomServices();
+		
 		reloadTableView(roomServiceTable, roomServices);
 		roomServiceTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<RoomService>() {
 			@Override

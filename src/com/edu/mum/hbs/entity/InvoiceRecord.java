@@ -7,7 +7,6 @@ import com.edu.mum.hbs.restapi.util.LocalDateWithStringsSerializable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 public class InvoiceRecord implements Entity {
 	public static final String TABLE_NAME = "InvoiceRecord";
@@ -18,11 +17,13 @@ public class InvoiceRecord implements Entity {
 	public static final String ROOM_AMOUNT = "room_amount";
 	public static final String SERVICE_AMOUNT = "service_amount";
 	public static final String TOTAL_AMOUNT = "total_amount";
+	@Id
 	private String passport_id;
+	@Id
 	private String room_number;
 	@JsonSerialize(using = LocalDateWithStringsSerializable.class)
 	@JsonDeserialize(using = LocalDateWithStringsDeserializer.class)
-	@Column
+	@Id
 	private LocalDate check_in_date;
 	
 	@JsonSerialize(using = LocalDateWithStringsSerializable.class)
