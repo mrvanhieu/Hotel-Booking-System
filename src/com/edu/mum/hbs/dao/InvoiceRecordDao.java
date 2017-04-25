@@ -1,19 +1,17 @@
 package com.edu.mum.hbs.dao;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.edu.mum.hbs.entity.InvoiceRecord;
 import com.edu.mum.hbs.entity.Revenue;
 import com.edu.mum.hbs.util.SqliteUtil;
 import com.edu.mum.hbs.util.SqliteUtil.FilterCondition;
 
-import java.time.LocalDate;
-import java.time.Period;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 public class InvoiceRecordDao extends DaoAbstract<InvoiceRecord,String> {
-	private static final String TABLE_NAME = InvoiceRecord.TABLE_NAME;
+//	private static final String TABLE_NAME = InvoiceRecord.TABLE_NAME;
 
 	InvoiceRecordDao() {
 		super(InvoiceRecord.class);
