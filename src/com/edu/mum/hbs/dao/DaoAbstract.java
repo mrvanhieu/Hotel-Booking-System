@@ -14,6 +14,7 @@ import com.edu.mum.hbs.entity.Entity;
 import com.edu.mum.hbs.entity.Id;
 import com.edu.mum.hbs.util.SqliteUtil;
 import com.edu.mum.hbs.util.SqliteUtil.FilterCondition;
+import com.edu.mum.hbs.util.SqliteUtil.LogicalOperator;
 
 import net.sf.jsqlparser.statement.StatementVisitor;
 
@@ -114,7 +115,7 @@ public abstract class DaoAbstract<T, K> {
 			cond = params[1];
 		}
 		else{
-			cond = new FilterCondition();
+			cond = new FilterCondition(SqliteUtil.LogicalOperator.AND);
 		}
 		
 		Entity item = (Entity)t;
@@ -127,7 +128,7 @@ public abstract class DaoAbstract<T, K> {
 	
 	public void update(T t){
 		LinkedHashMap<String, Object> map = new LinkedHashMap<String, Object>();
-		FilterCondition cond = new FilterCondition();
+		FilterCondition cond = new FilterCondition(SqliteUtil.LogicalOperator.AND);
 		Entity item = (Entity)t;
 		String tableName = item.tableName();
 		if (bindColumns(map,t,cond))
@@ -157,14 +158,11 @@ public abstract class DaoAbstract<T, K> {
 		if (t != null){	
 		    for (Field field : t.getClass().getDeclaredFields()) {
 		    	if (map != null){
-			    	if (field.isAnnotationPresent(Column.class)){
-			    		Column col = field.getAnnotation(Column.class);
+			    	if (field.isAnnotationPresent(Column.class)||field.isAnnotationPresent(Id.class)){
 			    		Method method = null;
-			    		String colName;
-			    		if (!col.Name().isEmpty())
-			    			colName = col.Name();
-			    		else
-			    			colName = field.getName();
+			    		String colName = null;
+			    		
+			    		colName = getColName(field);
 			    		
 						try {
 							method = t.getClass().getMethod(getMethodName(field.getName()));						
@@ -198,13 +196,9 @@ public abstract class DaoAbstract<T, K> {
 				if (cond != null)
 				{
 					if (field.isAnnotationPresent(Id.class)){
-			    		Id col = field.getAnnotation(Id.class);
+			    		
 			    		Method method = null;
-			    		String colName;
-			    		if (!col.Name().isEmpty())
-			    			colName = col.Name();
-			    		else
-			    			colName = field.getName();
+			    		String colName = getColName(field);   		
 			    		
 						try {
 							method = t.getClass().getMethod(getMethodName(field.getName()));
@@ -219,6 +213,10 @@ public abstract class DaoAbstract<T, K> {
 						}
 			    		try {
 			    			Object item = method.invoke(t);
+			    			if (cond.getConditions().size() > 0 && cond.getOp() == null){
+			    				cond.setOp(LogicalOperator.AND);
+			    			}
+
 			    			if (field.getType() == LocalDate.class)
 			    				cond.addCondition(colName, SqliteUtil.EQUALS,item.toString());
 			    			else
@@ -243,6 +241,26 @@ public abstract class DaoAbstract<T, K> {
 	    return success;
 	}
 	
+	private String getColName(Field field){
+		String colName = null;
+		
+		if (field.isAnnotationPresent(Column.class)){
+			Column col = field.getAnnotation(Column.class);
+    		if (!col.Name().isEmpty())
+    			colName = col.Name();
+    		else
+    			colName = field.getName();
+		}
+		
+		if (field.isAnnotationPresent(Id.class)){
+			Id col = field.getAnnotation(Id.class);
+    		if (!col.Name().isEmpty())
+    			colName = col.Name();
+    		else
+    			colName = field.getName();
+		}
+		return colName;		
+	}
 	private String getIdColumnName(T t){
 		for (Field field : t.getClass().getDeclaredFields()) {
 			if (field.isAnnotationPresent(Id.class)){
@@ -267,21 +285,7 @@ public abstract class DaoAbstract<T, K> {
 		    		Method method = null;
 		    		String colName = null;
 		    		
-		    		if (field.isAnnotationPresent(Column.class)){
-		    			Column col = field.getAnnotation(Column.class);
-			    		if (!col.Name().isEmpty())
-			    			colName = col.Name();
-			    		else
-			    			colName = field.getName();
-		    		}
-		    		
-		    		if (field.isAnnotationPresent(Id.class)){
-		    			Id col = field.getAnnotation(Id.class);
-			    		if (!col.Name().isEmpty())
-			    			colName = col.Name();
-			    		else
-			    			colName = field.getName();
-		    		}
+		    		colName = getColName(field);
 
 					try {
 						method = t.getClass().getMethod(setMethodName(field.getName()), field.getType());						
@@ -295,15 +299,17 @@ public abstract class DaoAbstract<T, K> {
 						success = false;
 					}
 		    		try {
-		    			Object ob = map.get(colName);	 
+		    			Object ob = map.get(colName);
 		    			Object param = null;
-		    			if (field.getType() == LocalDate.class){
-		    				param = LocalDate.parse(ob.toString());
-		    			}
-		    			else{
-		    				param = field.getType().cast(ob);
-		    			}
-						method.invoke(t, param);						
+		    			if (ob != null){
+		    				if (field.getType() == LocalDate.class){
+			    				param = LocalDate.parse(ob.toString());
+			    			}
+			    			else{
+			    				param = field.getType().cast(ob);
+			    			}
+		    			}   			
+		    			method.invoke(t, param);						
 					} catch (IllegalAccessException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

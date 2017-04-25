@@ -577,6 +577,10 @@ public class SqliteUtil {
 		public LogicalOperator getOp() {
 			return op;
 		}
+		
+		public void setOp(LogicalOperator op){
+			this.op = op;
+		}
 
 		public FilterCondition() {
 			this(null);

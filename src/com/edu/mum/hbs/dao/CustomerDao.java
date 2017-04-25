@@ -40,7 +40,7 @@ public class CustomerDao extends DaoAbstract<Customer, String> {
 	public static void main(String[] args){
 		Customer customer = new Customer();
     	customer.setPassport_id("B852007");
-    	customer.setFullName("Nguyen Minh Sang");
+    	customer.setFullname("Nguyen Minh Sang");
     	customer.setPhoneNo("01216270039");
     	customer.setAddress("1000 N 4th St, IA, 52557");
     	CustomerDao customerDao = new CustomerDao();

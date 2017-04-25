@@ -49,16 +49,6 @@ public class CustomerAndRoomDao extends DaoAbstract<CustomerAndRoom,String> {
 		return customerAndRooms;
 	}
 	
-	public List<CustomerAndRoom> getCustomerAndRoomFromToDate(String fromDate, String toDate){
-		
-		FilterCondition condition = new SqliteUtil.FilterCondition();
-		condition.addCondition(CustomerAndRoom.CHECK_IN_DATE, SqliteUtil.GREATER_EQUALS, fromDate);
-		condition.addCondition(CustomerAndRoom.CHECK_OUT_DATE, SqliteUtil.LESS_EQUALS, toDate);
-		List<CustomerAndRoom> customerAndRooms = getAll(condition);
-
-		return customerAndRooms;
-	}
-	
 	public List<CustomerAndRoom> getCustomerAndRoom(String passportOrId, String status){
 		FilterCondition condition = new SqliteUtil.FilterCondition(SqliteUtil.LogicalOperator.AND);
 		condition.addCondition(CustomerAndRoom.PASSPORT_OR_ID, SqliteUtil.EQUALS, passportOrId);

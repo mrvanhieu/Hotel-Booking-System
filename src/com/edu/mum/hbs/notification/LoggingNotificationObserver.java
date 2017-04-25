@@ -21,7 +21,7 @@ public class LoggingNotificationObserver implements NotificationObserver {
                 "There is a customer " +
                 "that have the booking over " + Constants.MAX_ROOM_PRICE +
                 " Customer Information as below: \n" +
-                "\nCustomer Name: " + customer.getFullName() +
+                "\nCustomer Name: " + customer.getFullname() +
                 "\nPassport/ID: " + customer.getPassport_id() +
                 "\nAddress: " + customer.getAddress() +
                 "\nBooking Information: \n" + roomInfo;
