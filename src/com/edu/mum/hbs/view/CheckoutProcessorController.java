@@ -32,18 +32,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class CheckoutFormController extends ControllerBase {
+public abstract class CheckoutProcessorController extends ControllerBase {
 	@FXML
 	private TextField searchText;
 	@FXML
 	private TextField fullName;
 	@FXML
-	private TextField passport;
+    TextField passport;
 	@FXML
 	private TextField phoneNo;
 
 	@FXML
-	private TableView<RoomDate> checkedTable;
+	TableView<RoomDate> checkedTable;
 	@FXML
 	private TableColumn<RoomDate, String> roomNumberColumn;
 	@FXML
@@ -60,6 +60,25 @@ public class CheckoutFormController extends ControllerBase {
 	IRestAdapter adapter = RestAdapterProxy.getRestProxy();
 
 	private List<RoomDate> checkedRooms = new ArrayList<RoomDate>();
+
+
+    @FXML
+    public final void checkOut() {
+        if (checkoutValidation()) {
+            RoomDate roomDate = checkedTable.getSelectionModel().getSelectedItem();
+            RoomDate clonedRoomDate = (RoomDate) roomDate.doClone();
+            List<RoomService> roomServices = adapter.getAllRoomServicesByRoomNumber(clonedRoomDate.getRoom_number());
+            InvoiceRecord invoiceRecord = processInvoice(clonedRoomDate, roomServices);
+            processRoomService(clonedRoomDate);
+            checkedRooms.remove(roomDate);
+            reloadTableView(checkedTable, checkedRooms);
+            showInvoiceData(invoiceRecord, roomServices);
+        }
+    }
+
+    public abstract boolean checkoutValidation();
+    public abstract InvoiceRecord processInvoice(RoomDate roomdate, List<RoomService> roomServices);
+    public abstract void processRoomService(RoomDate roomdate);
 
 	@FXML
 	public void searchCustomer() {
@@ -110,67 +129,15 @@ public class CheckoutFormController extends ControllerBase {
 		reloadTableView(checkedTable, roomDates);
 	}
 
-	private boolean checkNonEmptyCustomer() {
+	boolean checkNonEmptyCustomer() {
 		if (fullName.getText().isEmpty() || passport.getText().isEmpty()) {
 			return false;
 		}
 		return true;
 	}
 
-	@FXML
-	public void checkOut() {
 
-		if (!checkNonEmptyCustomer()) {
-			showAlert(AlertType.INFORMATION, "Enter Values", null, "You have to fill all form data to continue.");
-			return;
-		}
-		RoomDate roomDate = checkedTable.getSelectionModel().getSelectedItem();
-		if (roomDate == null) {
-			showAlert(AlertType.INFORMATION, "Enter Values", null, "Please select one row to continue.");
-			return;
-		}
-		Optional<ButtonType> result = showAlert(AlertType.CONFIRMATION, "Check Out Confirmation", "Are you sure?", "");
-		if (result.get() == ButtonType.OK) {
-			RoomDate clonedRoomDate = (RoomDate) roomDate.doClone();
-
-			InvoiceRecordBuilder invoiceRecordBuilder = new InvoiceRecordBuilder();
-			invoiceRecordBuilder.buildPassportOrId(passport.getText());
-			invoiceRecordBuilder.buildRoomNumber(clonedRoomDate.getRoom_number());
-			LocalDate checkInDate = clonedRoomDate.getCheckInDate();
-			LocalDate checkOutDate = clonedRoomDate.getCheckOutDate();
-			int days = Period.between(checkInDate, checkOutDate).getDays();
-			double roomAmount = clonedRoomDate.getPrice() * days;
-
-			List<RoomService> roomServices = adapter.getAllRoomServicesByRoomNumber(clonedRoomDate.getRoom_number());
-			double serviceAmount = 0.0;
-			String roomClass = clonedRoomDate.getRoom_class();
-			StrategyContext strategyContext;
-			if (roomClass.equalsIgnoreCase("VIP")) {
-				strategyContext = new StrategyContext(new VIPStrategy());
-			} else {
-				strategyContext = new StrategyContext(new StandardStrategy());
-			}
-			serviceAmount = strategyContext.getRoomServiceAmount(roomServices);
-			invoiceRecordBuilder.buildCheckInDate(checkInDate);
-			invoiceRecordBuilder.buildCheckOutDate(checkOutDate);
-			invoiceRecordBuilder.buildRoomAmount(roomAmount);
-			invoiceRecordBuilder.buildServiceAmount(serviceAmount);
-			invoiceRecordBuilder.buildTotalAmount(roomAmount + serviceAmount);
-			InvoiceRecord invoiceRecord = invoiceRecordBuilder.getInvoiceRecord();
-
-			adapter.deleteRoomServiceByString(clonedRoomDate.getRoom_number());
-			adapter.addInvoice(invoiceRecord);
-			adapter.deleteCustomerAndRooms(passport.getText(), clonedRoomDate.getRoom_number());
-			checkedRooms.remove(roomDate);
-			reloadTableView(checkedTable, checkedRooms);
-			showInvoiceData(invoiceRecord, roomServices);
-		} else {
-			// ... user chose CANCEL or closed the dialog
-
-		}
-	}
-
-	public void showInvoiceData(InvoiceRecord invoiceRecord, List<RoomService> roomServices) {
+    public void showInvoiceData(InvoiceRecord invoiceRecord, List<RoomService> roomServices) {
 		try {
 			Stage stage = new Stage();
 			FXMLLoader loader = new FXMLLoader();
