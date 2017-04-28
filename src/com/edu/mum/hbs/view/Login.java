@@ -25,7 +25,7 @@ public class Login extends ControllerBase {
     @FXML
     private Text alertMessage;
 	IRestAdapter adapter = RestAdapterProxy.getRestProxy();
-    
+
     @FXML
     public void doLogin() throws Exception {
         String uname = username.getText();

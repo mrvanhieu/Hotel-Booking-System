@@ -21,7 +21,7 @@ public class LoginDao extends DaoAbstract<User,String> {
         condition.addCondition("username", SqliteUtil.EQUALS, username);
         condition.addCondition("password", SqliteUtil.EQUALS, password);
         List<User> users = getAll(condition);
-
+        session = null;
         // initialize session
         if(users.size() > 0) {
             int user_id = (int)(users.get(0).getUser_id());
